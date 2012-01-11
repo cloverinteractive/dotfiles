@@ -1,0 +1,21 @@
+export PATH=./bin:$HOME/bin<%= ":/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin" if @has_macports %>:$PATH
+
+function get_branch() {
+  git branch 2> /dev/null | grep '^*' | cut -f2- -d' '
+}
+
+function get_stash() {
+  local git_exists=`git stash list 2> /dev/null | wc -l | sed 's/ *//g'`
+
+  if [[ "$git_exists" != "" && $git_exists > 0 ]]; then
+    echo "[$git_exists] "
+  fi
+}
+
+PROMPT_COMMAND=$PROMPT_COMMAND${PROMPT_COMMAND:+;}'PS1="\[\e[01m\]\t\[\e[0m\] \[\e[1;32m\]`get_branch`\[\e[0m\]\[\e[1;35m\]`get_stash`\[\e[0m\]\[\e[33m\]\w \[\e[0m\]\[\e[1m\]\$\[\e[0m\] "'
+
+<% if @has_macports %>
+  if [ -f /opt/local/etc/bash_completion ]; then
+    . /opt/local/etc/bash_completion
+  fi
+<% end %>
