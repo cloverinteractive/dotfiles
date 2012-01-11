@@ -1,0 +1,12 @@
+--type-add=ruby=.haml
+--type-set=sass=.sass,.scss
+--type-set=markdown=.md,.markdown
+--type-set=textile=.textile
+--type-set=ebuild=.ebuild
+
+--type-set=coffee=.coffee
+--type-set=stylus=.stylus,.styl
+--type-set=eco=.eco
+--type-set=mustache=.mustache
+--type-set=jade=.jade
+--type-set=json=.json

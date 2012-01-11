@@ -40,6 +40,11 @@ namespace :install do
     FileUtils.cp 'git/gitignore', File.join( $prefix, '.gitignore' )
   end
 
+  desc "Copy ack config"
+  task :ack do
+    FileUtils.cp 'ackrc', File.join( $prefix, '.ackrc' )
+  end
+
   def parse_config opts={}
     erb_file  = File.join File.dirname( __FILE__ ), opts[:erb_file]
     save_to   = File.join $prefix, opts[:final_name]
@@ -73,4 +78,4 @@ namespace :install do
   end
 end
 
-task :install => [ "install:fix_dependencies", "install:bash", "install:vim", "install:git" ]
+task :install => [ "install:fix_dependencies", "install:bash", "install:vim", "install:git", "install:ack" ]
