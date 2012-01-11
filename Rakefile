@@ -27,10 +27,8 @@ namespace :install do
   task :vim do
     system 'git submodule update --init'
 
-    FileUtils.cp_r 'vim', File.join( $prefix, '.vim' )
-
     %w/vimrc gvimrc/.each do |file|
-      FileUtils.ln_sf File.join( $prefix, 'vim', file ), File.join( $prefix, ".#{ file }" )
+      FileUtils.ln_sf File.join( File.dirname( __FILE__ ), 'vim', file ), File.join( $prefix, ".#{ file }" )
     end
   end
 
@@ -42,7 +40,7 @@ namespace :install do
 
   desc "Copy ack config"
   task :ack do
-    FileUtils.cp 'ackrc', File.join( $prefix, '.ackrc' )
+    FileUtils.cp 'ack/ackrc', File.join( $prefix, '.ackrc' )
   end
 
   def parse_config opts={}
