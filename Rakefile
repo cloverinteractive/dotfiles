@@ -25,6 +25,13 @@ namespace :install do
 
   desc "Install vim config"
   task :vim do
+    system 'git submodules update --init'
+
+    FileUtils.cp_r 'vim', File.join( $prefix, '.vim' ), :force
+
+    %w/vimrc gvimrc/.each do |file|
+      FileUtils.ln_sf File.join( $prefix, 'vim', file ), File.join( $prefix, ".#{ file }" )
+    end
   end
 
   desc "Install git config"
