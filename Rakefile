@@ -1,14 +1,16 @@
 require 'rake'
 require 'erb'
+require 'fileutils'
 
 DEPENDENCIES = {
-  :osx    => %w/p5-app-ack git-core coreutils/,
-  :ubuntu => %w/ack-grep git-core/
+  :osx    => %w/p5-app-ack git-core coreutils vim macvim ruby rb-rubygems/,
+  :ubuntu => %w/ack-grep git-core vim gvim/
 }
 
-$is_darwin     = `uname`.strip.include? "Darwin"
-$has_macports  = system( 'which port &> /dev/null' )
-$has_apt       = system( 'which apt-get &> /dev/null' )
+$is_darwin      = `uname`.strip.include? "Darwin"
+$has_macports   = system( 'which port &> /dev/null' )
+$has_apt        = system( 'which apt-get &> /dev/null' )
+$prefix         = ENV['PREFIX'] || ENV['HOME']
 
 namespace :install do
   desc "Fixes dependency issues"
@@ -27,16 +29,17 @@ namespace :install do
 
   desc "Install git config"
   task :git do
+    parse_config :erb_file => 'git/gitconfig.erb', :final_name => '.gitconfig'
+    FileUtils.cp 'git/gitignore', File.join( $prefix, '.gitignore' )
   end
 
   def parse_config opts={}
-    erb_file  = File.join( File.dirname( __FILE__ ), opts[:erb_file] )
-    save_to   = File.join( ( ENV['PREFIX'] || ENV['HOME'] ), opts[:final_name] )
+    erb_file  = File.join File.dirname( __FILE__ ), opts[:erb_file]
+    save_to   = File.join $prefix, opts[:final_name]
 
     erb_env = Proc.new do
       @has_macports = $has_macports
       @has_apt_get  = $has_apt
-
       binding
     end.call
 

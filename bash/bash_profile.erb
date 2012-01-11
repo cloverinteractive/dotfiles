@@ -1,21 +1,34 @@
 export PATH=./bin:$HOME/bin<%= ":/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin" if @has_macports %>:$PATH
 
-function get_branch() {
-  git branch 2> /dev/null | grep '^*' | cut -f2- -d' '
-}
+current_git_branch() {
+  git_exists=`git branch 2>/dev/null | sed -ne'/^\* /s///p'`
 
-function get_stash() {
-  local git_exists=`git stash list 2> /dev/null | wc -l | sed 's/ *//g'`
-
-  if [[ "$git_exists" != "" && $git_exists > 0 ]]; then
-    echo "[$git_exists] "
+  if [[ "$git_exists" != "" ]]; then
+    if [[ "$git_exists" == "(no branch)" ]]; then
+      git_exists="\e[31m\]$git_exists\e[0m\]"
+    fi
+    echo "$git_exists "
   fi
+  unset git_exists
 }
 
-PROMPT_COMMAND=$PROMPT_COMMAND${PROMPT_COMMAND:+;}'PS1="\[\e[01m\]\t\[\e[0m\] \[\e[1;32m\]`get_branch`\[\e[0m\]\[\e[1;35m\]`get_stash`\[\e[0m\]\[\e[33m\]\w \[\e[0m\]\[\e[1m\]\$\[\e[0m\] "'
+current_git_stash() {
+  git_stash=`git stash list 2>/dev/null | /usr/bin/wc -l | sed 's/ *//g'`
+
+  if [[ "$git_stash" != "" && $git_stash > 0 ]]; then
+    echo "[$git_stash] "
+  fi
+  unset git_stash
+}
+
+PROMPT_COMMAND='PS1="\t \[\e[32m\]$(current_git_branch)\[\e[0m\]\[\e[35m\]$(current_git_stash)\[\e[0m\]\[\e[33m\]\w\[\e[0m\] \[\e[1m\]\$\[\e[0m\] "'
 
 <% if @has_macports %>
   if [ -f /opt/local/etc/bash_completion ]; then
     . /opt/local/etc/bash_completion
   fi
+
+alias mysql=mysql5
+alias mysqldump=mysqldump5
 <% end %>
+alias ls='ls --color=auto'

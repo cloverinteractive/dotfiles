@@ -1,0 +1,22 @@
+[core]
+  excludesfile = <%= File.join ENV['HOME'], '.gitignore' %>
+[color]
+    ui = auto
+[alias]
+    co = checkout
+    st = status
+    br = branch
+    ci = commit
+    m = checkout master
+    sign = commit --amend -sC HEAD
+    amend = commit --amend -C HEAD
+    l = log --graph --date=short --pretty='format:%C(green)%ad %C(yellow)%h%Creset %C(cyan)%aN%Creset %s%C(magenta bold)%d%Creset'
+    ll = log --decorate=short --name-status -M
+    p = format-patch master
+    trash-clean = !git ls-files --others --exclude-standard -z | xargs -0 trash-put
+    branch-delete = !sh -c 'git cherry master $1 | grep -v "^-" > /dev/null && $( git br -d "$1" || exit 0 )  || git br -D "$1"' -
+    brd = !git branch-delete
+    cleanup = !git clean -n | sed -n -e 's/Would remove \\(.*\\)/\\1/p' | tr '\n' '\\0' | xargs -0 trash-put
+    bb = bisect bad
+    bg = bisect good
+    bs = bisect skip

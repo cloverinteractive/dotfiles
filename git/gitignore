@@ -1,0 +1,4 @@
+.bundle
+*.patch
+.DS_Store
+*.swp
