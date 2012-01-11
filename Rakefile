@@ -1,26 +1,20 @@
 require 'rake'
 require 'erb'
 require 'fileutils'
+require 'term/ansicolor'
 
-DEPENDENCIES = {
-  :osx    => %w/p5-app-ack git-core coreutils vim macvim ruby rb-rubygems/,
-  :ubuntu => %w/ack-grep git-core vim gvim/
-}
+include Term::ANSIColor
 
 $is_darwin      = `uname`.strip.include? "Darwin"
 $has_macports   = system( 'which port &> /dev/null' )
 $has_apt        = system( 'which apt-get &> /dev/null' )
 $prefix         = ENV['PREFIX'] || ENV['HOME']
+$dotfiles_path  = File.dirname( __FILE__ )
 
 namespace :install do
-  desc "Fixes dependency issues"
-  task :fix_dependencies do
-    fix_dependencies
-  end
-
   desc "Install bash config"
   task :bash do
-    parse_config :erb_file => 'bash/bash_profile.erb', :final_name => '.bash_profile'
+    parse_config :erb_file => 'bash/bash_profile.erb', :final_name => 'bash_profile'
   end
 
   desc "Install vim config"
@@ -28,24 +22,50 @@ namespace :install do
     system 'git submodule update --init'
 
     %w/vimrc gvimrc/.each do |file|
-      FileUtils.ln_sf File.join( File.dirname( __FILE__ ), 'vim', file ), File.join( $prefix, ".#{ file }" )
+      copy_to_build 'vim', file
     end
   end
 
   desc "Install git config"
   task :git do
-    parse_config :erb_file => 'git/gitconfig.erb', :final_name => '.gitconfig'
-    FileUtils.cp 'git/gitignore', File.join( $prefix, '.gitignore' )
+    parse_config :erb_file => 'git/gitconfig.erb', :final_name => 'gitconfig'
+    copy_to_build 'git', 'gitignore'
   end
 
   desc "Copy ack config"
   task :ack do
-    FileUtils.cp 'ack/ackrc', File.join( $prefix, '.ackrc' )
+    copy_to_build 'ack', 'ackrc'
+  end
+
+  desc "Create symlinks"
+  task :backup_and_link do
+    Dir[File.join('build', '*').to_s].each do |file|
+      backup_and_link file
+    end
+    puts green( bold "All done, your older files have now been renamed .orig files" )
+  end
+
+  def backup_and_link file
+    file_name = File.basename file
+    dst_name  = File.join( $prefix, ".#{ file_name }" )
+
+    unless  File.exists?( "#{ dst_name }.orig" )
+      FileUtils.mv( dst_name, "#{ dst_name }.orig" ) if File.exists?( dst_name )
+    else
+      puts red( bold "There are older backups that need sorting, I can't continue, please check your .orig files" )
+      exit! 1
+    end
+
+    FileUtils.ln_sf File.join( $dotfiles_path, file ), dst_name
+  end
+
+  def copy_to_build dir, file_name
+    FileUtils.cp File.join( dir, file_name ), File.join( 'build', file_name )
   end
 
   def parse_config opts={}
-    erb_file  = File.join File.dirname( __FILE__ ), opts[:erb_file]
-    save_to   = File.join $prefix, opts[:final_name]
+    erb_file  = File.join $dotfiles_path, opts[:erb_file]
+    save_to   = File.join $dotfiles_path, 'build', opts[:final_name]
 
     erb_env = Proc.new do
       @has_macports = $has_macports
@@ -54,26 +74,28 @@ namespace :install do
     end.call
 
     erb = ERB.new File.read( erb_file )
-
-    File.open( save_to, 'w' ) do |file|
-      file.print erb.result( erb_env )
-    end
-  end
-
-  def fix_dependencies
-    DEPENDENCIES[:osx].each do |dependency|
-      system "sudo port install #{ dependency }"
-    end if $is_darwin and $has_macports
-
-    DEPENDENCIES[:ubuntu].each do |dependency|
-      system "sudo apt-get install #{ dependency }"
-    end unless $is_darwin and ! $has_apt
-
-    if ! $has_apt and ! $has_macports
-      puts "These dotfiles can't be installed in your system"
-      exit! 1
-    end
+    File.open( save_to, 'w' ) { |file| file.print erb.result( erb_env ) }
   end
 end
 
-task :install => [ "install:fix_dependencies", "install:bash", "install:vim", "install:git", "install:ack" ]
+namespace :uninstall do
+  desc "Removes symlinks and restores .orig files"
+  task :restore do
+    Dir[File.join('build', '*').to_s].each do |file|
+      restore_from_backup file
+    end
+
+    puts green( bold "All done, thanks for trying it." )
+  end
+
+  def restore_from_backup file
+    file_name = File.basename file
+    dst_name  = File.join( $prefix, ".#{ file_name }" )
+
+    FileUtils.safe_unlink dst_name
+    FileUtils.mv "#{ dst_name }.orig", dst_name
+  end
+end
+
+task :install   => [ "install:bash", "install:vim", "install:git", "install:ack", "install:backup_and_link" ]
+task :uninstall => "uninstall:restore"
