@@ -42,6 +42,8 @@ namespace :install do
     Dir[File.join('build', '*').to_s].each do |file|
       backup_and_link file
     end
+
+    backup_and_link 'vim' # vim needs this to find it's config
     puts green( bold "All done, your older files have now been renamed .orig files" )
   end
 
@@ -85,6 +87,7 @@ namespace :uninstall do
       restore_from_backup file
     end
 
+    restore_from_backup 'vim' # Undo the vim symlink (this is not under build)
     puts green( bold "All done, thanks for trying it." )
   end
 
