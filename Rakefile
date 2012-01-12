@@ -93,7 +93,7 @@ namespace :uninstall do
     dst_name  = File.join( $prefix, ".#{ file_name }" )
 
     FileUtils.safe_unlink dst_name
-    FileUtils.mv "#{ dst_name }.orig", dst_name if File.exists "#{ dst_name }.orig"
+    FileUtils.mv "#{ dst_name }.orig", dst_name if File.exists? "#{ dst_name }.orig"
   end
 end
 
