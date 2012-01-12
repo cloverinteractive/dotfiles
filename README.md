@@ -14,9 +14,9 @@ Your original dotfiles will be renamed to `name.orig` so no worries.
 ## uninstall
 
 * `cd ~/.dotfiles`
-* `cd rake uninstall`
+* `rake uninstall`
 
-You can optionally `rm -fr ~/.dotifiles` if you wish, your `name.orig` files will be restored by this action.
+Afterwards you can optionally `rm -fr ~/.dotifiles` if you wish, your `name.orig` files will be restored by having run `rake uninstall`.
 
 ## Prerequisites
 
