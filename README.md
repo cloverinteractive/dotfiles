@@ -7,6 +7,7 @@ or send a pull request.
 
 * `git clone git@github.com:cloverinteractive/dotfiles.git ~/.dotfiles`
 * `cd ~/.dotfiles`
+* `bundle install`
 * `rake install`
 
 Your original dotfiles will be renamed to `name.orig` so no worries.
