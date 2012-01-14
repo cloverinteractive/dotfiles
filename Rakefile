@@ -17,7 +17,12 @@ $dotfiles_path  = File.dirname( __FILE__ )
 namespace :install do
   desc "Install bash config"
   task :bash do
-    parse_config :erb_file => 'bash/bash_profile.erb', :final_name => 'bash_profile'
+    parse_config 'bash/bash_profile.erb'
+  end
+
+  desc "Install gem config"
+  task :gem do
+    parse_config 'gem/gemrc.erb'
   end
 
   desc "Install vim config"
@@ -31,7 +36,7 @@ namespace :install do
 
   desc "Install git config"
   task :git do
-    parse_config :erb_file => 'git/gitconfig.erb', :final_name => 'gitconfig'
+    parse_config 'git/gitconfig.erb'
     copy_to_build 'git', 'gitignore'
   end
 
@@ -68,9 +73,10 @@ namespace :install do
     FileUtils.cp File.join( dir, file_name ), File.join( 'build', file_name )
   end
 
-  def parse_config opts={}
-    erb_file  = File.join $dotfiles_path, opts[:erb_file]
-    save_to   = File.join $dotfiles_path, 'build', opts[:final_name]
+  def parse_config file
+    erb_file    = File.join $dotfiles_path, file
+    final_name  = File.basename( file ).split('.').first
+    save_to     = File.join $dotfiles_path, 'build', final_name
 
     erb_env = Proc.new do
       @has_macports = $has_macports
@@ -103,5 +109,5 @@ namespace :uninstall do
   end
 end
 
-task :install   => [ "install:bash", "install:vim", "install:git", "install:ack", "install:backup_and_link" ]
+task :install   => [ "install:bash", "install:vim", "install:git", "install:ack", "install:gem", "install:backup_and_link" ]
 task :uninstall => "uninstall:restore"
