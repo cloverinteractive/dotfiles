@@ -105,3 +105,4 @@ end
 
 task :install   => [ "install:bash", "install:vim", "install:git", "install:ack", "install:backup_and_link" ]
 task :uninstall => "uninstall:restore"
+task :default   => :install
