@@ -1,8 +1,6 @@
 --- 
-gem: --remote --gen-rdoc --run-tests
+gem: --no-ri --no-rdoc
 <% if ENV['GEM_HOME'] %>
 gemhome: <%= ENV['GEM_HOME'] %>
 <% end %>
 gempath: []
-
-rdoc: --inline-source --line-numbers
