@@ -32,6 +32,11 @@ gem install erb
 gem install term-ansicolor
 ```
 
+## Your Bash config isn't enough for me
+
+It is likely you have defined functions or aliases not contained in this config and you are worried to upgrade and lose them, you can add those little extras
+to a file named `.bash_extras` under your `$HOME` dir and they will be automatically loaded.
+
 ## Commands that will make this enjoyable
 
 ### OSX + macports

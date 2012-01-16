@@ -38,3 +38,9 @@ alias grep='grep --color=auto'
 export EDITOR=vim
 export VISUAL=gvim
 export GIT_EDITOR=gvim
+
+# Create this file if you need to add extra features to this config
+
+if [ -f $HOME/.bash_extras ]; then
+  . $HOME/.bash_extras
+fi
