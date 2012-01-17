@@ -36,5 +36,10 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
 export EDITOR=vim
+<% if @is_darwin %>
+export VISUAL=mvim
+export GIT_EDITOR=mvim
+<% else %>
 export VISUAL=gvim
 export GIT_EDITOR=gvim
+<% end %>
