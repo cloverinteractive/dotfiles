@@ -1,3 +1,8 @@
+# Create this file to load extras before
+if [ -f <%= @prefix %>/.bash_profile.before ]; then
+  . <%= @prefix %>/.bash_profile.before
+fi
+
 export PATH=./bin:$HOME/bin<%= ":/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin" if @has_macports %>:$PATH
 
 current_git_branch() {
@@ -21,7 +26,7 @@ current_git_stash() {
   unset git_stash
 }
 
-PROMPT_COMMAND='PS1="\t \[\e[32m\]$(current_git_branch)\[\e[0m\]\[\e[35m\]$(current_git_stash)\[\e[0m\]\[\e[33m\]\w\[\e[0m\] \[\e[1m\]\$\[\e[0m\] "'
+PROMPT_COMMAND='PS1="\[\e[1;31m\]\u\[\e[0m\] \t \[\e[32m\]$(current_git_branch)\[\e[0m\]\[\e[35m\]$(current_git_stash)\[\e[0m\]\[\e[33m\]\w\[\e[0m\] \[\e[1m\]\$\[\e[0m\] "'
 
 <% if @has_macports %>
 if [ -f /opt/local/etc/bash_completion ]; then
@@ -38,3 +43,10 @@ alias grep='grep --color=auto'
 export EDITOR=vim
 export VISUAL=gvim
 export GIT_EDITOR=gvim
+
+# Create this file toload extras after
+if [ -f <%= @prefix %>/.bash_profile.after ]; then
+  . <%= @prefix %>/.bash_profile.after
+fi
+
+# vim: set filetype=sh
