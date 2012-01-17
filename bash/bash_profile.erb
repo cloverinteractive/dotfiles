@@ -1,3 +1,8 @@
+# Create this file to load extras before
+if [ -f <%= @prefix %>/.bash_profile.before ]; then
+  . <%= @prefix %>/.bash_profile.before
+fi
+
 export PATH=./bin:$HOME/bin<%= ":/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin" if @has_macports %>:$PATH
 
 current_git_branch() {
@@ -39,8 +44,9 @@ export EDITOR=vim
 export VISUAL=gvim
 export GIT_EDITOR=gvim
 
-# Create this file if you need to add extra features to this config
-
-if [ -f $HOME/.bash_extras ]; then
-  . $HOME/.bash_extras
+# Create this file toload extras after
+if [ -f <%= @prefix %>/.bash_profile.after ]; then
+  . <%= @prefix %>/.bash_profile.after
 fi
+
+# vim: set filetype=sh
