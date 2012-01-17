@@ -79,8 +79,11 @@ namespace :install do
     save_to     = File.join $dotfiles_path, 'build', final_name
 
     erb_env = Proc.new do
+      @is_darwin    = $is_darwin
       @has_macports = $has_macports
       @has_apt_get  = $has_apt
+      @prefix       = $prefix
+
       binding
     end.call
 
