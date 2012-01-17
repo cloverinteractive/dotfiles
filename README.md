@@ -3,16 +3,16 @@
 This is a collection of dotfiles that should make your day to day work easier, if you see any errors or wish to contribute feel free to fork, open an issue
 or send a pull request.
 
-## install
+## Install
 
 * `git clone git@github.com:cloverinteractive/dotfiles.git ~/.dotfiles`
 * `cd ~/.dotfiles`
 * `bundle install`
-* `rake install`
+* `rake`
 
 Your original dotfiles will be renamed to `name.orig` so no worries.
 
-## uninstall
+## Uninstall
 
 * `cd ~/.dotfiles`
 * `rake uninstall`
@@ -21,21 +21,24 @@ Afterwards you can optionally `rm -fr ~/.dotifiles` if you wish, your `name.orig
 
 ## Prerequisites
 
-* ruby of course
-* rake
-* erb
-* term/ansicolor
+* [ruby](http://www.ruby-lang.org) of course
+* [bundler](http://gembundler.com/)
 
-```bash
-gem install rake
-gem install erb
-gem install term-ansicolor
-```
+`gem install bundler`
 
 ## Your Bash config isn't enough for me
 
-It is likely you have defined functions or aliases not contained in this config and you are worried to upgrade and lose them, you can add those little extras
-to a file named `.bash_extras` under your `$HOME` dir and they will be automatically loaded.
+It is likely you have defined functions or aliases not contained in this config and you are worried to upgrade and lose them, in order to kep them and load them
+you only need to create a file named `.bash_profile.before` which will be loaded before our `.bash_profile` and a file named `.bash_profile.after` which will
+be loaded after.
+
+## Upgrade single bits
+
+If you already have dotfiles installed (all symlinks have been created) you can upgrade small bits like this:
+
+* `cd  ~/.dotfiles`
+* `git pull`
+* `rake install:bash # bash being the bit you wish to upgrade` 
 
 ## Commands that will make this enjoyable
 
