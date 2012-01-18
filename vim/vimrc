@@ -1,3 +1,7 @@
+if filereadable(expand("~/.vimrc.before"))
+  source ~/.vimrc.before
+endif
+
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
