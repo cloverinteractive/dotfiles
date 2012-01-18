@@ -9,8 +9,8 @@ require 'term/ansicolor'
 include Term::ANSIColor
 
 $is_darwin      = `uname`.strip.include? "Darwin"
-$has_macports   = system( 'which port' )
-$has_apt        = system( 'which apt-get' )
+$has_macports   =  `which port`.any?
+$has_apt        =  `which apt-get`.any?
 $prefix         = ENV['PREFIX'] || ENV['HOME']
 $dotfiles_path  = File.dirname( __FILE__ )
 
