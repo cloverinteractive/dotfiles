@@ -43,10 +43,10 @@ alias grep='grep --color=auto'
 export EDITOR=vim
 <% if @is_darwin %>
 export VISUAL=mvim
-export GIT_EDITOR=mvim
+export GIT_EDITOR='mvim -f'
 <% else %>
 export VISUAL=gvim
-export GIT_EDITOR=gvim
+export GIT_EDITOR='gvim -f'
 <% end %>
 
 # Create this file toload extras after
