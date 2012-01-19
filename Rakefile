@@ -9,6 +9,7 @@ require 'term/ansicolor'
 include Term::ANSIColor
 
 $is_darwin      = `uname`.strip.include? "Darwin"
+$is_linux       = `uname`.strip.include? "Linux"
 $has_macports   =  `which port`.any?
 $has_apt        =  `which apt-get`.any?
 $prefix         = ENV['PREFIX'] || ENV['HOME']
@@ -80,6 +81,7 @@ namespace :install do
 
     erb_env = Proc.new do
       @is_darwin    = $is_darwin
+      @is_linux     = $is_linux
       @has_macports = $has_macports
       @has_apt_get  = $has_apt
       @prefix       = $prefix
