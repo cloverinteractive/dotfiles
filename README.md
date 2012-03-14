@@ -52,8 +52,17 @@ If you already have dotfiles installed (all symlinks have been created) you can 
 * ruby
 * rb-rubygems
 * bash-completion
+* tmux
 
 You can install each of this with a simple `port install <package>`.
+
+## tmux bindings
+
+For convenience we have changed the following to the `tmux` config:
+
+* To be consistent with `screen` (yeah I'm an old `screen` user) instead of binding the `tmux` prefix to `C-b` we prefix to `C-a`.
+* We binded `|` to `split-window -v`, it makes it more obvious you meant vertical split.
+* We binded `-` to `split-window -v`, it makes it more obvious you meant horizontal split.
 
 ## issues
 
