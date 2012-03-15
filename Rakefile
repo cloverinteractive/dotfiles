@@ -45,6 +45,11 @@ namespace :install do
     copy_to_build 'ack', 'ackrc'
   end
 
+  desc "Copy tmux config"
+  task :tmux do
+    copy_to_build 'tmux', 'tmux.conf'
+  end
+
   desc "Create symlinks"
   task :backup_and_link do
     Dir[File.join('build', '*').to_s].each do |file|
@@ -112,6 +117,6 @@ namespace :uninstall do
   end
 end
 
-task :install   => [ "install:bash", "install:vim", "install:git", "install:ack", "install:gem", "install:backup_and_link" ]
+task :install   => [ "install:bash", "install:vim", "install:git", "install:ack", "install:gem", "install:backup_and_link", "install:tmux" ]
 task :uninstall => "uninstall:restore"
 task :default   => :install
