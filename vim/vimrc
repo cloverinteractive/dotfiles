@@ -14,7 +14,7 @@ if has("autocmd")
   filetype plugin indent on
 endif
 
-:colorscheme ir_black
+:colorscheme koehler
 
 if has('mouse')
   set mouse=a
