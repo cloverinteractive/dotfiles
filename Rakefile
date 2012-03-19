@@ -34,6 +34,11 @@ namespace :install do
     end
   end
 
+  desc "Install pry config"
+  task :pry do
+    copy_to_build 'pry', 'pryrc'
+  end
+
   desc "Install git config"
   task :git do
     parse_config 'git/gitconfig.erb'
@@ -117,6 +122,6 @@ namespace :uninstall do
   end
 end
 
-task :install   => [ "install:bash", "install:vim", "install:git", "install:ack", "install:gem", "install:backup_and_link", "install:tmux" ]
+task :install   => [ "install:bash", "install:vim", "install:git", "install:ack", "install:gem", "install:backup_and_link", "install:tmux", "install:pry" ]
 task :uninstall => "uninstall:restore"
 task :default   => :install

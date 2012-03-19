@@ -56,6 +56,10 @@ If you already have dotfiles installed (all symlinks have been created) you can 
 
 You can install each of this with a simple `port install <package>`.
 
+## Pry
+
+If you install the pry gem the dotfiles config will give it access to the Rails stack so when in a rails project just run `pry` instead of `rails c`.
+
 ## tmux bindings
 
 For convenience we have changed the following to the `tmux` config:
