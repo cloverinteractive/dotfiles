@@ -50,6 +50,9 @@ endfunction
 
 autocmd BufWritePre *.rb,*.coffee,*.yml,*.haml,*.erb,*.php,*.java,*.py,*.js :call <SID>StripTrailingWhitespaces() " Run this method on save
 
+set list
+set listchars=tab:➙.,trail:·,extends:❱,precedes:❰,nbsp:░
+
 if filereadable(expand("~/.vimrc.after"))
   source ~/.vimrc.after
 endif
