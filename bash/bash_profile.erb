@@ -37,8 +37,21 @@ alias mysql=mysql5
 alias mysqldump=mysqldump5
 alias gvim=mvim
 <% end %>
+
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
+
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
 
 export EDITOR=vim
 <% if @is_darwin %>
@@ -47,6 +60,18 @@ export GIT_EDITOR='mvim -f'
 <% else %>
 export VISUAL=gvim
 export GIT_EDITOR='gvim -f'
+<% end %>
+
+<% if @is_linux %>
+
+#Ubuntu alias for notify-send
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Bash completition for ubuntu (from default .bashrc in ubuntu)
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
+
 <% end %>
 
 # Create this file toload extras after
