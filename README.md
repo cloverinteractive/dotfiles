@@ -38,7 +38,7 @@ If you already have dotfiles installed (all symlinks have been created) you can 
 
 * `cd  ~/.dotfiles`
 * `git pull`
-* `rake install:bash # bash being the bit you wish to upgrade` 
+* `rake bash # bash being the bit you wish to upgrade` 
 
 ## Commands that will make this enjoyable
 
