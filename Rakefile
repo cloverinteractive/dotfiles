@@ -33,7 +33,7 @@ task :vim do
     copy_to_build 'vim', file
   end
 
-  backup_and_link 'vim'
+  backup_and_link 'vim', false
 end
 
 desc "Install pry config"
@@ -67,7 +67,7 @@ task :uninstall do
   puts green( bold "All done, thanks for trying it." )
 end
 
-def backup_and_link file
+def backup_and_link file, use_build_path=true
   file_name = File.basename file
   dst_name  = File.join( $prefix, ".#{ file_name }" )
 
@@ -78,7 +78,8 @@ def backup_and_link file
     exit! 1
   end
 
-  FileUtils.ln_sf File.join( $dotfiles_path, 'build', file_name ), dst_name
+  build = use_build_path ? 'build' : ''
+  FileUtils.ln_sf File.join( $dotfiles_path, build, file_name ), dst_name
 end
 
 def copy_to_build dir, file_name
