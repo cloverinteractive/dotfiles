@@ -78,7 +78,7 @@ def backup_and_link file
     exit! 1
   end
 
-  FileUtils.ln_sf File.join( $dotfiles_path, file ), dst_name
+  FileUtils.ln_sf File.join( $dotfiles_path, 'build', file_name ), dst_name
 end
 
 def copy_to_build dir, file_name
