@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>.dotfiles by cloverinteractive</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>.dotfiles</h1>
+        <p></p>
+        <p class="view"><a href="https://github.com/cloverinteractive/dotfiles">View the Project on GitHub <small>cloverinteractive/dotfiles</small></a></p>
+        <ul>
+          <li><a href="https://github.com/cloverinteractive/dotfiles/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/cloverinteractive/dotfiles/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/cloverinteractive/dotfiles">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>dotfiles</h1>
+
+<p>This is a collection of dotfiles that should make your day to day work easier, if you see any errors or wish to contribute feel free to fork, open an issue
+or send a pull request.</p>
+
+<h2>Install</h2>
+
+<ul>
+<li><code>git clone git@github.com:cloverinteractive/dotfiles.git ~/.dotfiles</code></li>
+<li><code>cd ~/.dotfiles</code></li>
+<li><code>bundle install</code></li>
+<li><code>rake</code></li>
+</ul><p>Your original dotfiles will be renamed to <code>name.orig</code> so no worries.</p>
+
+<h2>Uninstall</h2>
+
+<ul>
+<li><code>cd ~/.dotfiles</code></li>
+<li><code>rake uninstall</code></li>
+</ul><p>Afterwards you can optionally <code>rm -fr ~/.dotifiles</code> if you wish, your <code>name.orig</code> files will be restored by having run <code>rake uninstall</code>.</p>
+
+<h2>Prerequisites</h2>
+
+<ul>
+<li>
+<a href="http://www.ruby-lang.org">ruby</a> of course</li>
+<li><a href="http://gembundler.com/">bundler</a></li>
+</ul><p><code>gem install bundler</code></p>
+
+<h2>Your Bash config isn't enough for me</h2>
+
+<p>It is likely you have defined functions or aliases not contained in this config and you are worried to upgrade and lose them, in order to kep them and load them
+you only need to create a file named <code>.bash_profile.before</code> which will be loaded before our <code>.bash_profile</code> and a file named <code>.bash_profile.after</code> which will
+be loaded after.</p>
+
+<h2>Upgrade single bits</h2>
+
+<p>If you already have dotfiles installed (all symlinks have been created) you can upgrade small bits like this:</p>
+
+<ul>
+<li><code>cd  ~/.dotfiles</code></li>
+<li><code>git pull</code></li>
+<li>
+<code>rake bash # bash being the bit you wish to upgrade</code> </li>
+</ul><h2>Commands that will make this enjoyable</h2>
+
+<h3>OSX + macports</h3>
+
+<ul>
+<li>p5-app-ack</li>
+<li>git-core</li>
+<li>coreutils</li>
+<li>vim</li>
+<li>macvim</li>
+<li>ruby</li>
+<li>rb-rubygems</li>
+<li>bash-completion</li>
+<li>tmux</li>
+</ul><p>You can install each of this with a simple <code>port install &lt;package&gt;</code>.</p>
+
+<h2>Pry</h2>
+
+<p>If you install the pry gem the dotfiles config will give it access to the Rails stack so when in a rails project just run <code>pry</code> instead of <code>rails c</code>.</p>
+
+<h2>tmux bindings</h2>
+
+<p>For convenience we have changed the following to the <code>tmux</code> config:</p>
+
+<ul>
+<li>To be consistent with <code>screen</code> (yeah I'm an old <code>screen</code> user) instead of binding the <code>tmux</code> prefix to <code>C-b</code> we prefix to <code>C-a</code>.</li>
+<li>We binded <code>|</code> to <code>split-window -v</code>, it makes it more obvious you meant vertical split.</li>
+<li>We binded <code>-</code> to <code>split-window -h</code>, it makes it more obvious you meant horizontal split.</li>
+</ul><h2>issues</h2>
+
+<p>These dotfiles are still in the works and are not perfect, feel free to advise, fork and send your pull requests.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/cloverinteractive">cloverinteractive</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
