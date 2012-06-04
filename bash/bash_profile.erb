@@ -5,7 +5,7 @@ fi
 
 export PATH=./bin:$HOME/bin<%= ":/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin" if @has_macports %>:$PATH
 
-current_git_branch() {
+function current_git_branch() {
   git_exists=`git branch 2>/dev/null | sed -ne'/^\* /s///p'`
 
   if [[ "$git_exists" != "" ]]; then
@@ -17,7 +17,7 @@ current_git_branch() {
   unset git_exists
 }
 
-current_git_stash() {
+function current_git_stash() {
   git_stash=`git stash list 2>/dev/null | /usr/bin/wc -l | sed 's/ *//g'`
 
   if [[ "$git_stash" != "" && $git_stash > 0 ]]; then
@@ -26,7 +26,15 @@ current_git_stash() {
   unset git_stash
 }
 
-PROMPT_COMMAND='PS1="\[\e[1;31m\]\u\[\e[0m\] \t \[\e[32m\]$(current_git_branch)\[\e[0m\]\[\e[35m\]$(current_git_stash)\[\e[0m\]\[\e[33m\]\w\[\e[0m\] \[\e[1m\]\$\[\e[0m\] "'
+function last_return_status() {
+  if [[ $? == 0 ]]; then
+    echo "\[\e[0;32m\]☺\[\e[0m\]"
+  else
+    echo "\[\e[1;31m\]☹\[\e[0m\]"
+  fi
+}
+
+PROMPT_COMMAND='PS1="$(last_return_status) \[\e[1;31m\]\u\[\e[0m\] \t \[\e[32m\]$(current_git_branch)\[\e[0m\]\[\e[35m\]$(current_git_stash)\[\e[0m\]\[\e[33m\]\w\[\e[0m\] \[\e[1m\]\$\[\e[0m\] "'
 
 <% if @has_macports %>
 if [ -f /opt/local/etc/bash_completion ]; then
