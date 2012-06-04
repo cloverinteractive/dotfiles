@@ -34,3 +34,6 @@
 [submodule "vim/bundle/hammer"]
 	path = vim/bundle/hammer
 	url = https://github.com/matthias-guenther/hammer.vim.git
+[submodule "vim/bundle/colors-solarized"]
+	path = vim/bundle/colors-solarized
+	url = git://github.com/altercation/vim-colors-solarized.git

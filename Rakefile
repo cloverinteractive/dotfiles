@@ -4,6 +4,8 @@ require 'bundler/setup'
 require 'rake'
 require 'erb'
 require 'fileutils'
+require 'active_support'
+require 'active_support/core_ext/object'
 require 'term/ansicolor'
 
 include Term::ANSIColor
@@ -11,8 +13,9 @@ include Term::ANSIColor
 $is_darwin      = RUBY_PLATFORM.include? 'darwin'
 $is_linux       = RUBY_PLATFORM.include? 'linux'
 
-$has_macports   = `which port`.chomp.present?
-$has_apt        = `which apt-get`.chomp.present?
+$has_macports   = `which port`.present?
+$has_apt        = `which apt-get`.present?
+
 $prefix         = ENV['PREFIX'] || ENV['HOME']
 $dotfiles_path  = File.dirname( __FILE__ )
 
