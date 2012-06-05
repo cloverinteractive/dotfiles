@@ -37,3 +37,9 @@
 [submodule "vim/bundle/colors-solarized"]
 	path = vim/bundle/colors-solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule "vim/bundle/slime"]
+	path = vim/bundle/slime
+	url = https://github.com/jpalardy/vim-slime.git
+[submodule "vim/bundle/statline"]
+	path = vim/bundle/statline
+	url = https://github.com/millermedeiros/vim-statline.git
