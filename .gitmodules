@@ -40,3 +40,9 @@
 [submodule "vim/bundle/statline"]
 	path = vim/bundle/statline
 	url = https://github.com/millermedeiros/vim-statline.git
+[submodule "vim/bundle/surround"]
+	path = vim/bundle/surround
+	url = git://github.com/tpope/vim-surround.git
+[submodule "vim/bundle/repeat"]
+	path = vim/bundle/repeat
+	url = git://github.com/tpope/vim-repeat.git
