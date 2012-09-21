@@ -46,7 +46,12 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-alias ls='ls --color=auto'
+
+<% if @is_darwin %>
+  alias ls='ls -FGH'
+<% else %>
+  alias ls='ls --color=auto'
+<% end %>
 alias grep='grep --color=auto'
 
 alias ll='ls -alF'
