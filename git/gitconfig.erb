@@ -20,6 +20,7 @@
     bb = bisect bad
     bg = bisect good
     bs = bisect skip
+    clean-remote = !git branch -r --merged master | grep -v master | sed -e 's/\\// :/g' | xargs -n2 git push
 [push]
     default = tracking
 [mergetool]
