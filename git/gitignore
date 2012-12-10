@@ -2,3 +2,4 @@
 *.patch
 .DS_Store
 *.swp
+tags
