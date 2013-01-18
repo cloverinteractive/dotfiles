@@ -70,10 +70,6 @@
 	path = vim/bundle/vim-jst
 	url = git://github.com/briancollins/vim-jst.git
   ignore=dirty
-[submodule "bundle/showmarks"]
-	path = bundle/showmarks
-	url = https://github.com/vim-scripts/ShowMarks
-  ignore=dirty
 [submodule "vim/bundle/showmarks"]
 	path = vim/bundle/showmarks
 	url = https://github.com/vim-scripts/ShowMarks
