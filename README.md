@@ -7,9 +7,11 @@ or send a pull request.
 
 * [ruby](http://www.ruby-lang.org) of course
 * [bundler](http://gembundler.com/)
-* If you are user of OS X, you need `coreutils +with_default_names`
-
 `gem install bundler`
+
+* If you are user of OS X, you need 
+`coreutils +with_default_names`
+
 
 ## Install
 
