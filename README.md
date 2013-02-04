@@ -10,7 +10,7 @@ or send a pull request.
 `gem install bundler`
 
 * If you are user of OS X, you need 
-`coreutils +with_default_names`
+`coreutils`
 
 
 ## Install
