@@ -8,7 +8,6 @@ or send a pull request.
 * [ruby](http://www.ruby-lang.org) of course
 * [bundler](http://gembundler.com/)
 `gem install bundler`
-
 * `coreutils`
 
 
