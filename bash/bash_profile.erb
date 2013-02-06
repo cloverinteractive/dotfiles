@@ -47,7 +47,9 @@ alias gvim=mvim
 <% end %>
 
 <% if @is_darwin %>
-eval `dircolors -b $HOME/.dircolors`
+  eval `dircolors -b $HOME/.dircolors`
+  export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+
 <% else %>
 if [ -x /usr/bin/dircolors ]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"

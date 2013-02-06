@@ -9,8 +9,7 @@ or send a pull request.
 * [bundler](http://gembundler.com/)
 `gem install bundler`
 
-* If you are user of OS X, you need 
-`coreutils`
+* `coreutils`
 
 
 ## Install
