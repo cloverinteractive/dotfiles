@@ -2,7 +2,9 @@ if filereadable(expand("~/.vimrc.before"))
   source ~/.vimrc.before
 endif
 
-call pathogen#infect()
+if filereadable(expand("~/.vundlerc"))
+  source ~/.vundlerc
+endif
 
 set hidden
 set number
