@@ -55,5 +55,4 @@ if filereadable(expand("~/.vimrc.after"))
   source ~/.vimrc.after
 endif
 
-let g:slime_target = "tmux"
 " vim: filetype=vim
