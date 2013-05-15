@@ -8,7 +8,6 @@ endif
 
 set hidden
 set number
-set ts=2 sts=2 sw=2 expandtab
 syntax on
 
 if has("autocmd")
@@ -35,6 +34,26 @@ set noequalalways
 
 " Always show status line
 set laststatus=2
+
+" Change working directory to current
+cmap cwd lcd %:p:h
+cmap cd. lcd %:p:h
+	
+" Save a file when you forgot to sudo
+cmap w!! %!sudo tee > /dev/null %
+
+" Add commandline completion
+set wildmenu
+
+" Make cmdline tab completion similar to bash
+set wildmode=list:longest 
+
+set complete=.,b,u,t
+"
+"stuff to ignore when tab completing
+set wildignore=*.o,*.obj,*~ 
+
+runtime macros/matchit.vim
 
 " Handle trailing whitespace, shamelessly taken from http://vimcasts.org/episodes/tidying-whitespace/
 function! <SID>StripTrailingWhitespaces()
