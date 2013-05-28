@@ -86,6 +86,12 @@ fi
 
 <% end %>
 
+export HISTCONTROL=erasedups
+export HISTSIZE=10000
+export HISTTIMEFORMAT="%D %T "
+export HISTIGNORE="&:ls:exit"
+shopt -s histappend
+
 # Create this file toload extras after
 if [ -f <%= @prefix %>/.bash_profile.after ]; then
   . <%= @prefix %>/.bash_profile.after
