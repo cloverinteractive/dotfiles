@@ -33,7 +33,7 @@ desc "Install vim config"
 task :vim do
   system 'git submodule update --init'
 
-  %w/vimrc gvimrc/.each do |file|
+  %w/vimrc gvimrc vundlerc/.each do |file|
     copy_to_build 'vim', file
   end
 

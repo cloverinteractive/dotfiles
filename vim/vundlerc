@@ -1,0 +1,87 @@
+set nocompatible               " be iMproved
+filetype off                   " required!
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+
+" Default bundles
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-rails.git'
+Bundle 'tpope/vim-haml.git'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-bundler'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-sleuth'
+
+Bundle 'pangloss/vim-javascript.git'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'briancollins/vim-jst'
+Bundle 'vim-scripts/UltiSnips'
+Bundle 'mattn/zencoding-vim'
+Bundle 'The-NERD-Commenter'
+Bundle 'godlygeek/tabular'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'kien/ctrlp.vim'
+Bundle 'Indent-Guides'
+Bundle 'ShowMarks7'
+
+" Replace with true powerline
+Bundle 'Lokaltog/vim-powerline'
+
+" ColorSchemes
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'larssmit/vim-getafe'
+Bundle 'wgibbs/vim-irblack'
+
+" Defaults below
+" Statline {
+	let g:statline_fugitive = 1
+	let g:statline_filename_relative = 1
+" }
+
+" indent guides{
+	let g:indent_guides_enable_on_vim_startup = 0
+	let g:indent_guides_guide_size = 1
+" }
+
+" fugitive {
+	"http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
+	"hacks from above (the url, not jesus) to delete fugitive buffers when we
+	"leave them - otherwise the buffer list gets poluted
+	"
+	"add a mapping on .. to view parent tree
+	autocmd BufReadPost fugitive://* set bufhidden=delete
+	autocmd BufReadPost fugitive://*
+		\ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+		\ nnoremap <buffer> .. :edit %:h<CR> |
+		\ endif
+"}
+"
+"UltiSnip{
+	" Conflicts with diagraphs, switching <c-k> to something else
+	" use :redraw instead of <c-l>
+	if !exists("g:UltiSnipsJumpBackwardTrigger")
+		let g:UltiSnipsJumpBackwardTrigger = "<c-l>"
+	endif
+"}
+
+"showmarks{
+	" Prevents showmarks showing up for other buffer types
+	let g:showmarks_ignore_type = "hqprm"
+"}
+
+"surround{
+	" via: http://whynotwiki.com/Vim
+	" Ruby
+	" Use v or # to get a variable interpolation (inside of a string)}
+	" ysiw# Wrap the token under the cursor in #{}
+	" v...s# Wrap the selection in #{}
+	let g:surround_113 = "#{\r}" " v
+	let g:surround_35 = "#{\r}" " #
+"}
+
+if filereadable(expand("~/.vundlerc.local"))
+  source ~/.vundlerc.local
+endif
