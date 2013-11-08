@@ -25,3 +25,7 @@
     default = tracking
 [mergetool]
     keepBackup = false
+[mergetool "fugitive"]
+    cmd = vim -gf -c \"Gdiff\" \"$MERGED\"
+[merge]
+    tool = fugitive
