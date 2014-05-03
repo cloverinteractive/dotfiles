@@ -53,5 +53,6 @@ if filereadable(expand("~/.vimrc.after"))
   source ~/.vimrc.after
 endif
 
-let g:slime_target = "tmux"
+let g:closetag_html_style=1
+autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako
 " vim: filetype=vim
