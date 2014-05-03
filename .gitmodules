@@ -88,3 +88,6 @@
 [submodule "vim/bundle/closetag.vim"]
 	path = vim/bundle/closetag.vim
 	url = https://github.com/docunext/closetag.vim.git
+[submodule "vim/bundle/tagbar"]
+	path = vim/bundle/tagbar
+	url = https://github.com/majutsushi/tagbar.git
