@@ -83,6 +83,28 @@ endfunction
 
 autocmd BufWritePre *.rb,*.coffee,*.yml,*.haml,*.erb,*.php,*.java,*.py,*.js :call <SID>StripTrailingWhitespaces() " Run this method on save
 
+" Sets ultisnips from the aalvarado/ultisnips-snippets folder
+if !exists("g:UltiSnipsSnippetsDir")
+	let g:UltiSnipsSnippetDirectories=["bundle/ultisnips-snippets"]
+	let g:UltiSnipsEditSplit="horizontal"
+endif
+
+" Conflicts with diagraphs, switching <c-k> to <c-l>
+" use :redraw instead of <c-l> on insert mode
+if !exists("g:UltiSnipsJumpBackwardTrigger")
+	let g:UltiSnipsJumpBackwardTrigger = "<c-l>"
+endif
+
+" Surround
+" Use v or # to get a variable interpolation (inside of a string)}
+" ysiw# Wrap the token under the cursor in #{}
+" v...s# Wrap the selection in #{}
+let g:surround_113 = "#{\r}" " v
+let g:surround_35 = "#{\r}" " #
+
+" Matchit is included in vim, it only needs to be activated
+runtime macros/matchit.vim
+
 if filereadable(expand("~/.vimrc.after"))
   source ~/.vimrc.after
 endif
