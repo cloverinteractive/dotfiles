@@ -1,8 +1,14 @@
+" needs to be first line
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+
 if filereadable(expand("~/.vimrc.before"))
   source ~/.vimrc.before
 endif
-
-call pathogen#infect()
 
 set hidden
 set number
@@ -26,7 +32,6 @@ set smartcase
 " No wrapping please
 set nowrap
 
-set nocompatible
 
 " Don't resize split views automatically
 set noequalalways
