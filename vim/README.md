@@ -50,6 +50,12 @@ let g:solarized_visibility="high"
 
 Visit the project's [README](https://github.com/altercation/vim-colors-solarized/blob/master/README.mkd) for more.
 
+
+### vim-handlebars
+
+Syntax highlighting for Handlebars, [README](https://github.com/nono/vim-handlebars/blob/master/README.md).
+
+
 ## Tweaks
 
 ## Tips
