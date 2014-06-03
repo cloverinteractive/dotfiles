@@ -40,11 +40,6 @@ task :vim do
   backup_and_link 'vim', false
 end
 
-desc "Install pry config"
-task :pry do
-  copy_to_build 'pry', 'pryrc'
-end
-
 desc "Install git config"
 task :git do
   parse_config 'git/gitconfig.erb'
@@ -122,5 +117,5 @@ def restore_from_backup file
   FileUtils.mv "#{ dst_name }.orig", dst_name if File.exists? "#{ dst_name }.orig"
 end
 
-task :install   => [ "bash", "vim", "git", "ack", "gem", "tmux", "pry" ]
+task :install   => [ "bash", "vim", "git", "ack", "gem", "tmux" ]
 task :default   => :install
