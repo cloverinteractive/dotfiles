@@ -34,6 +34,8 @@ Plugin 'aalvarado/ultisnips-snippets.git'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'larssmit/vim-getafe'
 
+call vundle#end()
+
 :colorscheme koehler
 
 if filereadable(expand("~/.vimrc.before"))
