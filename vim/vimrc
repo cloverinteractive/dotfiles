@@ -34,6 +34,7 @@ Plugin 'aalvarado/ultisnips-snippets.git'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'larssmit/vim-getafe'
 
+:colorscheme koehler
 
 if filereadable(expand("~/.vimrc.before"))
   source ~/.vimrc.before
@@ -48,8 +49,6 @@ if has("autocmd")
   filetype plugin indent on
 endif
 
-:colorscheme koehler
-
 if has('mouse')
   set mouse=a
 endif
@@ -60,7 +59,6 @@ set smartcase
 
 " No wrapping please
 set nowrap
-
 
 " Don't resize split views automatically
 set noequalalways
@@ -85,14 +83,14 @@ autocmd BufWritePre *.rb,*.coffee,*.yml,*.haml,*.erb,*.php,*.java,*.py,*.js :cal
 
 " Sets ultisnips from the aalvarado/ultisnips-snippets folder
 if !exists("g:UltiSnipsSnippetsDir")
-	let g:UltiSnipsSnippetDirectories=["bundle/ultisnips-snippets"]
-	let g:UltiSnipsEditSplit="horizontal"
+  let g:UltiSnipsSnippetDirectories=["bundle/ultisnips-snippets"]
+  let g:UltiSnipsEditSplit="horizontal"
 endif
 
 " Conflicts with diagraphs, switching <c-k> to <c-l>
 " use :redraw instead of <c-l> on insert mode
 if !exists("g:UltiSnipsJumpBackwardTrigger")
-	let g:UltiSnipsJumpBackwardTrigger = "<c-l>"
+  let g:UltiSnipsJumpBackwardTrigger = "<c-l>"
 endif
 
 " Surround
