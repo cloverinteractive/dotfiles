@@ -49,6 +49,8 @@ endfunction
 
 autocmd BufWritePre *.rb,*.coffee,*.yml,*.haml,*.erb,*.php,*.java,*.py,*.js :call <SID>StripTrailingWhitespaces() " Run this method on save
 
+runtime macros/matchit.vim
+
 if filereadable(expand("~/.vimrc.after"))
   source ~/.vimrc.after
 endif
