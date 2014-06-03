@@ -35,6 +35,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'larssmit/vim-getafe'
 
 call vundle#end()
+filetype plugin indent on
 
 :colorscheme koehler
 
@@ -46,10 +47,6 @@ set hidden
 set number
 set ts=2 sts=2 sw=2 expandtab
 syntax on
-
-if has("autocmd")
-  filetype plugin indent on
-endif
 
 if has('mouse')
   set mouse=a
@@ -108,5 +105,5 @@ if filereadable(expand("~/.vimrc.after"))
 endif
 
 let g:closetag_html_style=1
-autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako
+autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako silent!
 " vim: filetype=vim
