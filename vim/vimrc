@@ -29,10 +29,18 @@ Plugin 'vim-scripts/LargeFile'
 Plugin 'mattn/emmet-vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'aalvarado/ultisnips-snippets.git'
+Plugin 'docunext/closetag.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'nono/vim-handlebars'
+Plugin 'briancollins/vim-jst'
+Plugin 'jinfield/vim-nginx'
+Plugin 'mattn/emmet-vim'
+Plugin 'sjbach/lusty'
 
 " Themes
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'larssmit/vim-getafe'
+Plugin 'wesgibbs/vim-irblack'
 
 call vundle#end()
 filetype plugin indent on
@@ -64,6 +72,9 @@ set noequalalways
 
 " Always show status line
 set laststatus=2
+
+" Remap leader to space
+let mapleader = ' '
 
 " Handle trailing whitespace, shamelessly taken from http://vimcasts.org/episodes/tidying-whitespace/
 function! <SID>StripTrailingWhitespaces()
