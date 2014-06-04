@@ -56,5 +56,5 @@ if filereadable(expand("~/.vimrc.after"))
 endif
 
 let g:closetag_html_style=1
-autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako
+autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako silent!
 " vim: filetype=vim
