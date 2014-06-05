@@ -34,6 +34,7 @@ Plugin 'briancollins/vim-jst'
 Plugin 'jinfield/vim-nginx'
 Plugin 'sjbach/lusty'
 Plugin 'ervandew/supertab.git'
+Plugin 'scrooloose/nerdcommenter'
 
 " Themes
 Plugin 'altercation/vim-colors-solarized'
