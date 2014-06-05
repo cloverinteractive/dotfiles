@@ -119,7 +119,7 @@ set backspace=indent,eol,start
 " Nice tweaks below --v
 
 " Remap leader to space
-let mapleader = "\<Space>"
+let mapleader = " "
 
 " Remove highlights after searching
 nmap <silent> <leader>/ :nohlsearch<CR>
