@@ -38,6 +38,7 @@ task :vim do
   end
 
   backup_and_link 'vim', false
+  system "vim +PluginInstall +qall"
 end
 
 desc "Install git config"
