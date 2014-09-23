@@ -153,7 +153,7 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 
-autocmd BufWritePre *.rb,*.coffee,*.yml,*.haml,*.erb,*.php,*.java,*.py,*.js :call <SID>StripTrailingWhitespaces() " Run this method on save
+autocmd BufWritePre *.rb,*.coffee,*.yml,*.haml,*.erb,*.php,*.java,*.py,*.js,*.html,*.eco :call <SID>StripTrailingWhitespaces() " Run this method on save
 
 " Sets ultisnips from the aalvarado/ultisnips-snippets folder
 if !exists("g:UltiSnipsSnippetsDir")
@@ -188,5 +188,6 @@ if filereadable(expand("~/.vimrc.after"))
 endif
 
 let g:closetag_html_style=1
-autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako silent!
+autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako,eco silent!
+autocmd BufRead,BufNewFile *.eco set filetype=html
 " vim: filetype=vim
