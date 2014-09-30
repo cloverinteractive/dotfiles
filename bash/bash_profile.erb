@@ -91,6 +91,7 @@ export HISTSIZE=10000
 export HISTTIMEFORMAT="%D %T "
 export HISTIGNORE="&:ls:exit"
 shopt -s histappend
+export LESS="-R -iMSx2 -FX"
 
 # Create this file toload extras after
 if [ -f <%= @prefix %>/.bash_profile.after ]; then
