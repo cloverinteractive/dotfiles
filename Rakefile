@@ -57,6 +57,11 @@ task :tmux do
   copy_to_build 'tmux', 'tmux.conf'
 end
 
+desc "Install psql config"
+task :psql do
+  copy_to_build 'psql', 'psqlrc'
+end
+
 desc "Removes symlinks and restores .orig files"
 task :uninstall do
   Dir[File.join('build', '*').to_s].each do |file|
@@ -118,5 +123,5 @@ def restore_from_backup file
   FileUtils.mv "#{ dst_name }.orig", dst_name if File.exists? "#{ dst_name }.orig"
 end
 
-task :install   => [ "bash", "vim", "git", "ack", "gem", "tmux" ]
+task :install   => [ "bash", "vim", "git", "ack", "gem", "tmux", 'psql' ]
 task :default   => :install
