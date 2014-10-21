@@ -22,6 +22,7 @@ $dotfiles_path  = File.dirname( __FILE__ )
 desc "Install bash config"
 task :bash do
   parse_config 'bash/bash_profile.erb'
+  copy_to_build 'bash', 'inputrc'
 end
 
 desc "Install gem config"
