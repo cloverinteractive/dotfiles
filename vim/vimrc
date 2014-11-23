@@ -35,6 +35,7 @@ Plugin 'jinfield/vim-nginx'
 Plugin 'sjbach/lusty'
 Plugin 'ervandew/supertab.git'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'AndrewRadev/vim-eco'
 
 " Themes
 Plugin 'altercation/vim-colors-solarized'
@@ -189,5 +190,4 @@ endif
 
 let g:closetag_html_style=1
 autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako,eco silent!
-autocmd BufRead,BufNewFile *.eco set filetype=html
 " vim: filetype=vim
