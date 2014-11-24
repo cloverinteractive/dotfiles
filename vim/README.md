@@ -93,6 +93,10 @@ Supertab allows you to use <Tab> for all your insert completion needs
 ### NerdCommenter
 A plugin that allows for easy commenting of code for many filetypes.
 
+### Vim-eco
+
+Add support for eco files syntax highlight
+
 ## Tweaks
 * Leader is mapped to space
 * Removed bom
