@@ -97,6 +97,9 @@ A plugin that allows for easy commenting of code for many filetypes.
 
 Add support for eco files syntax highlight
 
+### Vim-toml
+Support for toml file syntax
+
 ## Tweaks
 * Leader is mapped to space
 * Removed bom
