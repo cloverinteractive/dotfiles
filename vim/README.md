@@ -97,6 +97,10 @@ A plugin that allows for easy commenting of code for many filetypes.
 
 Add support for eco files syntax highlight
 
+### Vim-jsx
+
+Syntax highlighting for JSX, [README](https://github.com/mxw/vim-jsx)
+
 ## Tweaks
 * Leader is mapped to space
 * Removed bom

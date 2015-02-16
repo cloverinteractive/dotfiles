@@ -36,6 +36,7 @@ Plugin 'sjbach/lusty'
 Plugin 'ervandew/supertab.git'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'AndrewRadev/vim-eco'
+Plugin 'mxw/vim-jsx'
 
 " Themes
 Plugin 'altercation/vim-colors-solarized'
