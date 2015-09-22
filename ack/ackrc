@@ -1,6 +1,9 @@
---type-add=ruby=.haml
---type-set=sass=.sass,.scss
---type-set=markdown=.md,.markdown
+--type-add=ruby=.haml,.rake,.rsel,.builder
+--type-add=html=.html.erb,.html.haml,.hbs
+--type-add=js=.js.erb
+
+--type-set=css=.sass,.scss,.less
+--type-set=markdown=.md,.markdown,.mdown
 --type-set=textile=.textile
 --type-set=ebuild=.ebuild
 
@@ -10,3 +13,15 @@
 --type-set=mustache=.mustache
 --type-set=jade=.jade
 --type-set=json=.json
+
+--type-set=cucumber=.feature
+--ignore-dir=vendor
+--ignore-dir=log
+--ignore-dir=tmp
+--ignore-dir=doc
+--ignore-dir=coverage
+--sort-files
+--color
+--follow
+--group
+--context=3
