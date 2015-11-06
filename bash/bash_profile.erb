@@ -44,6 +44,10 @@ fi
 alias mysql=mysql5
 alias mysqldump=mysqldump5
 alias gvim=mvim
+
+# What services are listening for connections
+alias listening="lsof -Pan -iTCP -sTCP:listen"
+
 <% end %>
 
 <% if @is_darwin %>
@@ -98,4 +102,4 @@ if [ -f <%= @prefix %>/.bash_profile.after ]; then
   . <%= @prefix %>/.bash_profile.after
 fi
 
-# vim: set filetype=sh
+# vim: set filetype=sh :
