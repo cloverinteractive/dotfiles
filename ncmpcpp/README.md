@@ -28,7 +28,7 @@ the visualizer `audio_output`.
 
 #### Choppy sound?
 
-You may wonder why this section is under the [visualizer][#visualizer] section, the reason is if you
+You may wonder why this section is under the [visualizer](#visualizer) section, the reason is if you
 configure your visualizer `audio_output` in mpd, ncmpcpp will try to sync with mpd to get the visualizer
 data.
 
