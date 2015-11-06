@@ -5,3 +5,6 @@
 \set PROMPT1 '(%n@%M:%>) [%/] > '
 \set PROMPT2 ''
 \encoding unicode
+\setenv PAGER less
+\setenv LESS -IS
+\pset linestyle unicode
