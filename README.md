@@ -63,7 +63,7 @@ a list of packages you should be looking to install.
 * mpd
 * mpc
 
-You can install each of this with a simple `port install <package>`.
+You can install each of this with a simple `brew install <package>`.
 
 ## Pry
 
