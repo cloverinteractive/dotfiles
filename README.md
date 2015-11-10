@@ -3,6 +3,14 @@
 This is a collection of dotfiles that should make your day to day work easier, if you see any errors or wish to contribute feel free to fork, open an issue
 or send a pull request.
 
+## Prerequisites
+
+* [ruby](http://www.ruby-lang.org) of course
+* [bundler](http://gembundler.com/)
+`gem install bundler`
+* `coreutils`
+
+
 ## Install
 
 * `git clone https://github.com/cloverinteractive/dotfiles.git ~/.dotfiles`
@@ -18,13 +26,6 @@ Your original dotfiles will be renamed to `name.orig` so no worries.
 * `rake uninstall`
 
 Afterwards you can optionally `rm -fr ~/.dotifiles` if you wish, your `name.orig` files will be restored by having run `rake uninstall`.
-
-## Prerequisites
-
-* [ruby](http://www.ruby-lang.org) of course
-* [bundler](http://gembundler.com/)
-
-`gem install bundler`
 
 ## Your Bash config isn't enough for me
 
