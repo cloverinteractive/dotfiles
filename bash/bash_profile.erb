@@ -36,6 +36,10 @@ function last_return_status() {
 
 PROMPT_COMMAND='PS1="$(last_return_status) \[\e[1;31m\]\u\[\e[0m\] \t \[\e[32m\]$(current_git_branch)\[\e[0m\]\[\e[35m\]$(current_git_stash)\[\e[0m\]\[\e[33m\]\w\[\e[0m\] \[\e[1m\]\$\[\e[0m\] "'
 
+
+# What services are listening for connections
+alias listening="lsof -Pan -iTCP -sTCP:listen"
+
 <% if @has_macports %>
 if [ -f /opt/local/etc/bash_completion ]; then
   . /opt/local/etc/bash_completion
@@ -44,6 +48,8 @@ fi
 alias mysql=mysql5
 alias mysqldump=mysqldump5
 alias gvim=mvim
+
+
 <% end %>
 
 <% if @is_darwin %>
@@ -98,4 +104,4 @@ if [ -f <%= @prefix %>/.bash_profile.after ]; then
   . <%= @prefix %>/.bash_profile.after
 fi
 
-# vim: set filetype=sh
+# vim: set filetype=sh :

@@ -36,7 +36,7 @@ task :vim do
     copy_to_build 'vim', file
   end
 
-  backup_and_link 'vim', false
+  backup_and_link 'vim', use_build_path: false
   system "vim +PluginInstall +qall"
 end
 
@@ -61,6 +61,11 @@ task :psql do
   copy_to_build 'psql', 'psqlrc'
 end
 
+desc "Install ncmpcpp"
+task :ncmpcpp do
+  copy_to_build 'ncmpcpp', 'config', custom_destination: '.ncmpcpp', visible: true, use_build_path: true
+end
+
 desc "Removes symlinks and restores .orig files"
 task :uninstall do
   Dir[File.join('build', '*').to_s].each do |file|
@@ -71,9 +76,22 @@ task :uninstall do
   puts green( bold "All done, thanks for trying it." )
 end
 
-def backup_and_link file, use_build_path=true
+def backup_and_link file, options={ use_build_path: true }
   file_name = File.basename file
-  dst_name  = File.join( $prefix, ".#{ file_name }" )
+  build     = options[:use_build_path] ? 'build' : ''
+
+  # Add conditional hidden files
+  # A destination file being hidden or shown, doesn't mean the source file follows this pattern
+  dst_file_name = options[:visible] ? file_name : ".#{ file_name }"
+
+  # Add custom destination support for subfolder config files
+  # Some config files go in subfolder like .config as opposed to simple the prefix we've shown
+  dirname       = [ $prefix, options[:custom_destination] ].compact.join '/'
+  dst_name      = File.join dirname, dst_file_name
+
+  # Create custom directory if it doesn't exist
+  # This prevents link failures when the folder that holds the config doesn't exist
+  FileUtils.mkdir_p dirname if options[:custom_destination]
 
   unless  File.exists?( "#{ dst_name }.orig" )
     FileUtils.mv( dst_name, "#{ dst_name }.orig" ) if File.exists?( dst_name )
@@ -82,15 +100,14 @@ def backup_and_link file, use_build_path=true
     exit! 1
   end
 
-  build = use_build_path ? 'build' : ''
   FileUtils.ln_sf File.join( $dotfiles_path, build, file_name ), dst_name
 end
 
-def copy_to_build dir, file_name
+def copy_to_build dir, file_name, options={ use_build_path: true }
   dst_file = File.join 'build', file_name
   FileUtils.cp File.join( dir, file_name ), dst_file
 
-  backup_and_link dst_file
+  backup_and_link dst_file, options
 end
 
 def parse_config file
@@ -122,5 +139,4 @@ def restore_from_backup file
   FileUtils.mv "#{ dst_name }.orig", dst_name if File.exists? "#{ dst_name }.orig"
 end
 
-task :install   => [ "bash", "vim", "git", "ack", "gem", "tmux", 'psql' ]
-task :default   => :install
+task :install   => [ "bash", "vim", "git", "ack", "gem", "tmux", 'psql', "ncmpcpp" ]
