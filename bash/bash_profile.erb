@@ -3,7 +3,7 @@ if [ -f <%= @prefix %>/.bash_profile.before ]; then
   . <%= @prefix %>/.bash_profile.before
 fi
 
-export PATH=./bin:$HOME/bin<%= ":/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin" if @has_macports %>:$PATH
+export PATH=./bin:$HOME/bin:$PATH
 
 function current_git_branch() {
   git_exists=`git branch 2>/dev/null | sed -ne'/^\* /s///p'`
@@ -39,18 +39,6 @@ PROMPT_COMMAND='PS1="$(last_return_status) \[\e[1;31m\]\u\[\e[0m\] \t \[\e[32m\]
 
 # What services are listening for connections
 alias listening="lsof -Pan -iTCP -sTCP:listen"
-
-<% if @has_macports %>
-if [ -f /opt/local/etc/bash_completion ]; then
-  . /opt/local/etc/bash_completion
-fi
-
-alias mysql=mysql5
-alias mysqldump=mysqldump5
-alias gvim=mvim
-
-
-<% end %>
 
 <% if @is_darwin %>
 eval `dircolors -b $HOME/.dircolors`

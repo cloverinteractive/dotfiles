@@ -26,6 +26,10 @@ Afterwards you can optionally `rm -fr ~/.dotifiles` if you wish, your `name.orig
 
 `gem install bundler`
 
+### Getting ruby
+
+We recommend getting ruby via [rbenv](https://github.com/sstephenson/rbenv) and [ruby-build](https://github.com/sstephenson/ruby-build).
+
 ## Your Bash config isn't enough for me
 
 It is likely you have defined functions or aliases not contained in this config and you are worried to upgrade and lose them, in order to kep them and load them
@@ -42,17 +46,22 @@ If you already have dotfiles installed (all symlinks have been created) you can 
 
 ## Commands that will make this enjoyable
 
-### OSX + macports
+### OSX with [Homebrew](https://github.com/Homebrew/homebrew)
 
-* p5-app-ack
-* git-core
+If you're on a mac we highly recommend using [Homebrew](https://github.com/Homebrew/homebrew), it's constantly getting updates and it's pretty clean and easy to manage, here's
+a list of packages you should be looking to install.
+
+* git
+* git-flow
 * coreutils
 * vim
 * macvim
-* ruby
-* rb-rubygems
+* proctools
 * bash-completion
 * tmux
+* ncmpcpp
+* mpd
+* mpc
 
 You can install each of this with a simple `port install <package>`.
 
