@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Where we're at right now
+START_WD=$(pwd)
+
+# All the colors we're using for notifications
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -35,7 +39,6 @@ function install_rbenv() {
     info "fetching ruby-build..."
 
     cd ~/.rbenv && git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-    cd $HOME
 
     if [[ $? == 0 ]]; then
       success "ruby-build installed"
@@ -61,11 +64,34 @@ function fetch_dotfiles() {
   fi
 }
 
+function install() {
+  info "Installing dotfiles..."
+
+  cd ~/.dotfiles
+
+  # Install the ruby bundler
+  gem install bundler && rbenv rehash
+
+  # Install ruby dependecies and run Rake tasks
+  bundle install
+  rake install
+
+  if [[ $? == 0 ]]; then
+    # Reload our new env and move back to HOME
+    source ~/.bash_profile
+
+    # Let's move back to where we ran the installer from
+    cd $START_WD 
+
+    success "dotfiles generated"
+  fi
+}
+
 # Check for a path to rbenv
 if test !$(which rbenv); then
   if test $(which git); then
     install_rbenv
-
     fetch_dotfiles
+    install
   fi
 fi
