@@ -115,7 +115,7 @@ if [[ $(uname) == "Darwin" ]]; then
 fi
 
 if test !$(which git); then install_git; fi
-if test !$(which rbenv); then install_rbevn; fi
+if test !$(which rbenv); then install_rbenv; fi
 
 # Fetch dotfiles from github and install
 fetch_dotfiles
