@@ -3,6 +3,9 @@
 # Where we're at right now
 START_WD=$(pwd -P)
 
+# What dotfiles branch we want to install
+BRANCH_NAME=$1
+
 # All the colors we're using for notifications
 SWITCH="\033["
 RED="${SWITCH}0;31m"
@@ -32,11 +35,11 @@ info () {
 install_rbenv () {
   info "Installing rbenv for you..."
 
+  RBENV_PATH="\$HOME/.rbenv/bin:\$PATH"
+
   # Fetching rbenv from git
   git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
-  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile.before
-
-  source ~/.bash_profile.before
+  PATH=$(eval expr $RBENV_PATH)
 
   if [ $(which rbenv) ]; then
     success "rbenv installed"
@@ -46,6 +49,10 @@ install_rbenv () {
 
     if [[ $? == 0 ]]; then
       success "ruby-build installed"
+
+      # Add rbenv to our path
+      echo "export PATH=\"$RBENV_PATH\"" >> ~/.bash_profile.before
+      echo 'eval "$(rbenv init -)"' >> ~/.bash_profile.before
     fi
   fi
 }
@@ -53,7 +60,10 @@ install_rbenv () {
 fetch_dotfiles () {
   info "Fetching dotfiles..."
 
-  git clone https://github.com/cloverinteractive/dotfiles.git ~/.dotfiles
+  # Figure out the branch we're working on
+  if ! [ $BRANCH_NAME ]; then BRANCH_NAME=master; fi
+
+  git clone -b $BRANCH_NAME https://github.com/cloverinteractive/dotfiles.git ~/.dotfiles
   cd ~/.dotfiles
 
   # Setup submodules to get Vundle working
@@ -81,11 +91,12 @@ install () {
   rake install
 
   if [[ $? == 0 ]]; then
-    # Reload our new env and move back to HOME
-    source ~/.bash_profile
-
     # Let's move back to where we ran the installer from
     cd $START_WD
+
+    # Add new bash config into possibly existing .profile or .bashrc
+    if [ -f "$HOME/.bashrc" ];  then echo ". ~/.bash_profile" >> ~/.bashrc; fi
+    if [ -f "$HOME/.profile" ]; then echo ". ~/.bash_profile" >> ~/.profile; fi
 
     success "dotfiles generated"
   fi
@@ -93,33 +104,26 @@ install () {
 
 install_homebrew () {
   info "Installing Homebrew..."
+
+  HOMEBREW_PATH="/usr/local/bin:/usr/local/sbin:\$PATH"
+
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  PATH=$(eval expr $HOMEBREW_PATH)
 
   # If installed Homebrew successfully
   if [[ $? == 0 ]]; then
     success "Homebrew installed"
 
     ## Load homebrew
-    echo 'export PATH="/usr/local/bin:/usr/local/sbin:$PATH"' >> ~/.bash_profile.before
-    source ~/.bash_profile.before
+    echo "export PATH=\"$HOMEBREW_PATH\"" >> ~/.bash_profile.before
   fi
 }
 
 install_debian () {
-  sudo apt-get install build-essential curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
+  sudo apt-get install build-essential curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev libreadline-dev
 
   if [[ $? == 0 ]]; then
-    success "DEBSs installed!"
-  else
-    error "Could not install required packages."
-  fi
-}
-
-install_redhat () {
-  sudo yum groupinstall 'Development Tools' && sudo yum install curl git m4 ruby texinfo bzip2-devel curl-devel expat-devel ncurses-devel zlib-devel
-
-  if [[ $? == 0 ]]; then
-    success "RPMs installed!"
+    success "DEBs installed!"
   else
     error "Could not install required packages."
   fi
@@ -130,8 +134,6 @@ satisfy_linux_deps () {
 
   if  [[ $(uname -a | grep -i '\(ubuntu\|debian\)') || $(which apt-get) ]]; then
     install_debian
-  elif [[ $(uname -a | grep -i '\(fedora\|hat\)') || $(wich yum) ]]; then
-    install_redhat
   else
     error "Dependencies not met: Could not find a suitable package manager or packages"
   fi
@@ -151,13 +153,11 @@ install_linuxbrew () {
     echo 'export PATH="$HOME/.linuxbrew/bin:$PATH"' >> ~/.bash_profile.before
     echo 'export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"' >> ~/.bash_profile.before
     echo 'export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"' >> ~/.bash_profile.before
-
-    source ~/.bash_profile.before
   fi
 }
 
 
-# Install correct brew if not present
+# Install correct brew if not in PATH
 if ! [ $(which brew) ]; then
   if [[ $(uname) == "Darwin" ]]; then
     install_homebrew
@@ -166,9 +166,10 @@ if ! [ $(which brew) ]; then
   fi
 fi
 
-#if ! [ $(which git) ] ; then install_git; fi
 if ! [ $(which rbenv) ]; then install_rbenv; fi
+if ! [ -d "$HOME/.dotfiles" ]; then fetch_dotfiles; fi
 
-# Fetch dotfiles from github and install
-#fetch_dotfiles
-#install
+install
+
+success "Thanks for installing, please report any issues to https://github.com/cloverinteractive/dotfiles/issues"
+info "Run source ~/.bash_profile to load your environment"
