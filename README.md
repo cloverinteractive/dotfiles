@@ -30,12 +30,6 @@ Afterwards you can optionally `rm -fr ~/.dotifiles` if you wish, your `name.orig
 
 We recommend getting ruby via [rbenv](https://github.com/sstephenson/rbenv) and [ruby-build](https://github.com/sstephenson/ruby-build).
 
-## Your Bash config isn't enough for me
-
-It is likely you have defined functions or aliases not contained in this config and you are worried to upgrade and lose them, in order to kep them and load them
-you only need to create a file named `.bash_profile.before` which will be loaded before our `.bash_profile` and a file named `.bash_profile.after` which will
-be loaded after.
-
 ## Upgrade single bits
 
 If you already have dotfiles installed (all symlinks have been created) you can upgrade small bits like this:
@@ -64,18 +58,6 @@ a list of packages you should be looking to install.
 * mpc
 
 You can install each of this with a simple `brew install <package>`.
-
-## Pry
-
-If you install the pry gem the dotfiles config will give it access to the Rails stack so when in a rails project just run `pry` instead of `rails c`.
-
-## tmux bindings
-
-For convenience we have changed the following to the `tmux` config:
-
-* To be consistent with `screen` (yeah I'm an old `screen` user) instead of binding the `tmux` prefix to `C-b` we prefix to `C-a`.
-* We binded `|` to `split-window -v`, it makes it more obvious you meant vertical split.
-* We binded `-` to `split-window -h`, it makes it more obvious you meant horizontal split.
 
 ## issues
 
