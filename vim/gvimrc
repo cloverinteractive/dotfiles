@@ -1,8 +1,5 @@
 :colorscheme ir_black
 
-set list
-set listchars=tab:➙.,trail:·,extends:❱,precedes:❰,nbsp:░
-
 if filereadable(expand("~/.gvimrc.before"))
   source ~/.gvimrc.before
 endif
