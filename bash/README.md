@@ -22,7 +22,7 @@ hombrew's path. If you need to change `$PATH` it is recommended that you do so a
 
 Our bash config includes a `listening` alias that shows what is listening and in what port here's how it looks:
 
-![listening](listnening.png)
+![listening](listening.png)
 
 
 ## Command Prompt
