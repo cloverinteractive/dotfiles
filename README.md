@@ -22,11 +22,12 @@ Check our [developers](#developers) section of this README to learn how to run t
 If you want to resolve dependencies on your own, you can install by doing a simple github checkout.
 
 ```bash
-# We like to keep dotfiles somewhere in $HOME but you can clone anywhere you have right permissions to
+# We like to keep dotfiles somewhere in $HOME but you can clone anywhere you have permission to
 git clone https://github.com/cloverinteractive/dotfiles.git ~/.dotfiles
+
 cd ~/.dotfiles
 bundle install
-rake`
+rake
 ```
 
 Your original dotfiles will be renamed to `name.orig` so you can always restore them.
@@ -43,7 +44,7 @@ Afterwards you can optionally `rm -fr ~/.dotifiles` if you wish, your `name.orig
 
 ## Prerequisites
 
-* [ruby](http://www.ruby-lang.org) of course
+* [ruby](http://www.ruby-lang.org)
 * [bundler](http://gembundler.com/)
 
 `gem install bundler`
@@ -51,7 +52,7 @@ Afterwards you can optionally `rm -fr ~/.dotifiles` if you wish, your `name.orig
 ### Getting ruby
 
 We recommend getting ruby via [rbenv](https://github.com/sstephenson/rbenv) and [ruby-build](https://github.com/sstephenson/ruby-build). This is the way our remote installer
-installs ruby, however you can either use your package manager or compile manually if that's what you prefer.
+installs ruby, however this is not mandatory; you can install ruby in anyway you want.
 
 ## Upgrade single bits
 
@@ -62,6 +63,8 @@ cd  ~/.dotfiles
 git pull
 rake bash # bash being the bit you wish to upgrade
 ```
+
+If you don't know what bits are available in dotfiles; simply run `rake -T` for a full list of tasks.
 
 ## Commands that will make this enjoyable
 
@@ -80,9 +83,9 @@ To get most of these dotfiles we recommend installing these packages
 
 ## Homebrew
 
-Homebrew makes managing and installing packages in both Linux and OSX pretty simple. However it's not required for linux since most distributions have a pretty robust package manager
-hoewever it will allow you to install packages directly into `$HOME` without special permissions and in many cases unavailable or newer packages that your OS package manager does not
-include.
+Homebrew makes managing and installing packages in both Linux and OSX pretty simple. This is not required for Linux since most distributions have a pretty robust package manager;
+hoewever homebrew allows you to install packages directly into `$HOME` without special permissions, and in many cases unavailable or newer packages that your OS package manager does
+not include.
 
 You can install each of this with a simple `brew install <package>`.
 
@@ -103,7 +106,6 @@ a list of packages you should be looking to install.
 If you're using linux and would like to install packages to your `$HOME` then [Linuxbrew](https://github.com/Homebrew/linuxbrew) is a simple way to get this done, like homebrew it gets
 frequent updates and it's pretty clean and easy to maintain, not to mention it has formulas for many of the same packages homebrew does, should a package not be present it's only a matter
 of falling back to the OS package manger.
-
 
 ## Developers
 
@@ -136,7 +138,6 @@ source ~/.bash_profile
 ```
 
 When you're done you can shutdown vagrant by running `vagrant halt`.
-
 
 ## issues
 
