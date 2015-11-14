@@ -11,7 +11,7 @@ the most.
 ### Online installer
 
 We provide a simple online installer, if you're running Ubuntu, Debian or OSX, it will automatically try to resolve dependencies, install rbenv, install
-homebrew or linuxbrew depending on the OS you're running; if you're OS is not supported you can still resolve dependencies and generate the files manually.
+homebrew or linuxbrew depending on the OS you're running; if your OS is not supported you can still resolve dependencies and generate the files manually.
 
 `curl https://raw.githubusercontent.com/cloverinteractive/dotfiles/master/install | sh`
 
