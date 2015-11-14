@@ -22,7 +22,8 @@ Check our [developers](#developers) section of this README to learn how to run t
 If you want to resolve dependencies on your own, you can install by doing a simple github checkout.
 
 ```bash
-git clone https://github.com/cloverinteractive/dotfiles.git ~/.dotfiles # We like to keep dotfiles somewhere in $HOME but you can clone anywhere you have right permissions to
+# We like to keep dotfiles somewhere in $HOME but you can clone anywhere you have right permissions to
+git clone https://github.com/cloverinteractive/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 bundle install
 rake`
@@ -116,8 +117,11 @@ OSX if you already have homebrew installed or download the installers provided f
 git clone https://github.com/cloverinteractive/dotfiles.git
 cd dotfiles
 
-vagrant up  # This will run vagrant in the background and setup a test box or boot it if you already have one.
-vagrant ssh # This will connect you to your new virtual machine via ssh
+# This will run vagrant in the background and setup a test box or boot it if you already have one
+vagrant up
+
+# This will connect you to your new virtual machine via ssh
+vagrant ssh
 ```
 
 Once in vagrant, your project folder will be synced into your VM's `/vagrant` folder, that means you do not need to exit ssh to make changes or disconnect if you do change something in your OS;
