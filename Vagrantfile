@@ -18,6 +18,13 @@ Vagrant.configure(2) do |config|
 
   config.vm.define "osx" do |osx|
     osx.vm.box = "AndrewDryga/vagrant-box-osx"
+
+    #
+    # There are no Virtual Box Guest Additions for OSX the only way to test share this folder at the moment is
+    # via NFS, for this to work you'll need a host-only connection wit DHCP from guest to host and to uncomment
+    # this line, if box is already running you can run vagrant reload osx
+    #
+    # osx.vm.synced_folder ".", "/vagrant", id: "core", nfs: true, mount_options: ['nolock,vers=3,udp,noatime']
   end
 
   # Disable automatic box update checking. If you disable this, then
