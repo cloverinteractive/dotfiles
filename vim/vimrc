@@ -1,4 +1,4 @@
-scripteconding utf-8
+scriptencoding utf-8
 
 " needs to be first line
 set nocompatible
