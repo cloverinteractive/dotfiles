@@ -53,6 +53,7 @@ install_rbenv () {
       # Add rbenv to our path
       echo "export PATH=\"$RBENV_PATH\"" >> ~/.bash_profile.before
       echo 'eval "$(rbenv init -)"' >> ~/.bash_profile.before
+      source ~/.bash_profile.before
     fi
   fi
 }
