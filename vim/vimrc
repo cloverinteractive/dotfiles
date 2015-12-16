@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 " needs to be first line
 set nocompatible
 filetype off
@@ -115,6 +117,14 @@ set autoindent
 
 " Backspace over indent,eol,start
 set backspace=indent,eol,start
+
+" Use symbols to represent white space
+set list
+set listchars=tab:➙.,trail:·,extends:❱,precedes:❰,nbsp:░
+
+" Set enconding and file encoding to utf-8
+set encoding=utf-8
+set fileencoding=utf-8
 
 " Nice tweaks below --v
 

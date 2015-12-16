@@ -13,9 +13,6 @@ include Term::ANSIColor
 $is_darwin      = RUBY_PLATFORM.include? 'darwin'
 $is_linux       = RUBY_PLATFORM.include? 'linux'
 
-$has_macports   = `which port`.present?
-$has_apt        = `which apt-get`.present?
-
 $prefix         = ENV['PREFIX'] || ENV['HOME']
 $dotfiles_path  = File.dirname( __FILE__ )
 
@@ -118,8 +115,6 @@ def parse_config file
   erb_env = Proc.new do
     @is_darwin    = $is_darwin
     @is_linux     = $is_linux
-    @has_macports = $has_macports
-    @has_apt_get  = $has_apt
     @prefix       = $prefix
 
     binding
@@ -139,4 +134,5 @@ def restore_from_backup file
   FileUtils.mv "#{ dst_name }.orig", dst_name if File.exists? "#{ dst_name }.orig"
 end
 
+task :default   => :install
 task :install   => [ "bash", "vim", "git", "ack", "gem", "tmux", 'psql', "ncmpcpp" ]
