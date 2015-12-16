@@ -44,6 +44,8 @@ Afterwards you can optionally `rm -fr ~/.dotifiles` if you wish, your `name.orig
 
 ## Prerequisites
 
+Only if you don't run the `install` script provided
+
 * [ruby](http://www.ruby-lang.org)
 * [bundler](http://gembundler.com/)
 
