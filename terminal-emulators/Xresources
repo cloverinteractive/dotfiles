@@ -1,0 +1,113 @@
+#define S_base03        #002b36
+#define S_base02        #073642
+#define S_base01        #586e75
+#define S_base00        #657b83
+#define S_base0         #839496
+#define S_base1         #93a1a1
+#define S_base2         #eee8d5
+#define S_base3         #fdf6e3
+
+*background:            S_base03
+*foreground:            S_base0
+*fadeColor:             S_base03
+*cursorColor:           S_base1
+*pointerColorBackground:S_base01
+*pointerColorForeground:S_base1
+
+#define S_yellow        #b58900
+#define S_orange        #cb4b16
+#define S_red           #dc322f
+#define S_magenta       #d33682
+#define S_violet        #6c71c4
+#define S_blue          #268bd2
+#define S_cyan          #2aa198
+#define S_green         #859900
+
+!! black dark/light
+*color0:                S_base02
+*color8:                S_base03
+
+!! red dark/light
+*color1:                S_red
+*color9:                S_orange
+
+!! green dark/light
+*color2:                S_green
+*color10:               S_base01
+
+!! yellow dark/light
+*color3:                S_yellow
+*color11:               S_base00
+
+!! blue dark/light
+*color4:                S_blue
+*color12:               S_base0
+
+!! magenta dark/light
+*color5:                S_magenta
+*color13:               S_violet
+
+!! cyan dark/light
+*color6:                S_cyan
+*color14:               S_base1
+
+!! white dark/light
+*color7:                S_base2
+*color15:               S_base3
+
+!! xterm specific entrie
+xterm*faceName: Input Mono Bold:size=10:antialias=false
+xterm*font: 7x13
+xterm*internalBorder: 10
+
+!-------------------------------------------------------------------------------
+! Xft settings
+!-------------------------------------------------------------------------------
+
+Xft.dpi:                    96
+Xft.antialias:              false
+Xft.rgba:                   rgb
+Xft.hinting:                true
+Xft.hintstyle:              hintslight
+
+!! urxvt specific entries
+URxvt.depth:                32
+URxvt.geometry:             90x30
+URxvt.transparent:          false
+URxvt.fading:               0
+URxvt.loginShell:           true
+URxvt.saveLines:            50
+URxvt.internalBorder:       10
+URxvt.lineSpace:            0
+
+! Fonts
+URxvt.allow_bold:           false
+
+URxvt.font:     xft:Input Mono:pixelsize=14
+URxvt*boldFont: xft:Input Mono Bold:pixelsize=14
+
+! Fix font space
+URxvt*letterSpace: -1
+
+! Scrollbar
+URxvt.scrollStyle:          rxvt
+URxvt.scrollBar:            false
+
+! Cursor
+URxvt.cursorBlink:          true
+URxvt.cursorColor:          #657b83
+URxvt.cursorUnderline:      false
+
+! Pointer
+URxvt.pointerBlank:         true
+
+!-----------------------------------
+! Perl plugins
+!-----------------------------------
+
+! matcher
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+
+URxvt.matcher.rend.0: Uline bold fg5
