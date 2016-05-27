@@ -159,19 +159,24 @@ install_linuxbrew () {
 
 install_desktop_environment() {
     info "Installing i3"
-    sudo apt-get -qq install -y i3 i3-wm i3lock i3status i3blocks
+    sudo apt-get -qq install -y i3 i3-wm i3lock i3status i3blocks \
+      && success "i3, i3lock, i3status and i3blocks installed"
 
     info "Installing rofi, compton, feh and thunar"
-    sudo apt-get -qq install -y feh i3blocks rofi compton thunar
+    sudo apt-get -qq install -y feh rofi compton thunar \
+      && success "rofi, compton, feh and thunar installed"
 
     info "Installing X and X dependencies"
-    sudo apt-get -qq install -y xinit x11-xserver-utils xkeycaps
+    sudo apt-get -qq install -y xinit x11-xserver-utils xkeycaps xserver-xorg \
+      && success "X server installed"
 
-    info "Installing i3-gap compilation dependencies"
-    sudo apt-get -qq install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev
+    info "Installing i3-gaps compilation dependencies"
+    sudo apt-get -qq install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
+      && success "i3-gaps dependencies installed"
 
-    info "Intalling terminal emulators"
-    sudo apt-get -qq install -y rxvt-unicode-256color xterm
+    info "Installing terminal emulators"
+    sudo apt-get -qq install -y rxvt-unicode-256color xterm \
+      && success "urxvt and xterm installed"
 }
 
 # Install correct brew if not in PATH
@@ -186,6 +191,18 @@ fi
 
 if ! [ $(which rbenv) ]; then install_rbenv; fi
 if ! [ -d "$HOME/.dotfiles" ]; then fetch_dotfiles; fi
+
+# Compile i3-gaps after submodules have been updated
+if [[ $(uname) == "Linux" ]]; then
+  info "Installing i3-gaps"
+
+  cd $HOME/.dotfiles/i3-gaps
+
+  make
+  sudo make install && success "i3-gaps installed"
+
+  cd $HOME; # return to home folder
+fi
 
 install
 
