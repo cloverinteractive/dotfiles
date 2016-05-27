@@ -8,3 +8,6 @@
 [submodule "fonts/san-francisco"]
 	path = fonts/san-francisco
 	url = https://github.com/supermarin/YosemiteSanFranciscoFont.git
+[submodule "fonts/Font-Awesome"]
+	path = fonts/Font-Awesome
+	url = https://github.com/FortAwesome/Font-Awesome.git
