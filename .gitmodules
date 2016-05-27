@@ -5,3 +5,6 @@
 	path = i3-gaps
 	url = https://github.com/Airblader/i3.git
 	branch = gaps
+[submodule "fonts/san-francisco"]
+	path = fonts/san-francisco
+	url = https://github.com/supermarin/YosemiteSanFranciscoFont.git
