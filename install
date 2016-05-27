@@ -179,13 +179,21 @@ install_desktop_environment() {
       && success "urxvt and xterm installed"
 }
 
+compile_i3_gaps() {
+  info "Installing i3-gaps"
+  cd $HOME/.dotfiles/i3-gaps
+
+  make
+  sudo make install \
+    && success "i3-gaps installed"
+}
+
 # Install correct brew if not in PATH
 if ! [ $(which brew) ]; then
   if [[ $(uname) == "Darwin" ]]; then
     install_homebrew
   else
     install_linuxbrew
-    install_desktop_environment
   fi
 fi
 
@@ -194,14 +202,8 @@ if ! [ -d "$HOME/.dotfiles" ]; then fetch_dotfiles; fi
 
 # Compile i3-gaps after submodules have been updated
 if [[ $(uname) == "Linux" ]]; then
-  info "Installing i3-gaps"
-
-  cd $HOME/.dotfiles/i3-gaps
-
-  make
-  sudo make install && success "i3-gaps installed"
-
-  cd $HOME; # return to home folder
+  install_desktop_environment
+  compile_i3_gaps
 fi
 
 install
