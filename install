@@ -121,7 +121,7 @@ install_homebrew () {
 }
 
 install_debian () {
-  sudo apt-get install build-essential curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev libreadline-dev
+  sudo apt-get -qq install -y build-essential curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev libreadline-dev libssl-dev
 
   if [[ $? == 0 ]]; then
     success "DEBs installed!"
@@ -159,20 +159,19 @@ install_linuxbrew () {
 
 install_desktop_environment() {
     info "Installing i3"
-    sudo apt-get install -y i3 i3-wm i3lock i3status i3blocks
+    sudo apt-get -qq install -y i3 i3-wm i3lock i3status i3blocks
 
     info "Installing rofi, compton, feh and thunar"
-    sudo apt-get install -y feh i3blocks rofi compton thunar
+    sudo apt-get -qq install -y feh i3blocks rofi compton thunar
 
     info "Installing X and X dependencies"
-    sudo apt-get install -y xinit x11-xserver-utils xkeycaps
-
+    sudo apt-get -qq install -y xinit x11-xserver-utils xkeycaps
 
     info "Installing i3-gap compilation dependencies"
-    sudo apt-get install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev
+    sudo apt-get -qq install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev
 
-    info "Intall terminal emulators"
-    sudo apt-get install -y rxvt-unicode-256color xterm
+    info "Intalling terminal emulators"
+    sudo apt-get -qq install -y rxvt-unicode-256color xterm
 }
 
 # Install correct brew if not in PATH
