@@ -213,14 +213,14 @@ if [[ $(uname) == "Linux" ]]; then
   ## Copy Desktop related files
   cp    $DOTFILES_PATH/xinitrc                        $HOME/.xinitrc
   cp    $DOTFILES_PATH/terminal-emulators/Xresources  $HOME/.Xresources
-  cp -R $DOTFILES_PATH/i3                             $HOME/.i3
+  cp -r $DOTFILES_PATH/i3                             $HOME/.i3
   cp    $DOTFILES_PATH/compton/compton.conf           $HOME/.compton.conf
   cp    $DOTFILES_PATH/Wallpaper/Wallpaper.jpg        $HOME/.i3
 
   info "Setup fonts for desktop environment"
   cd $DOTFILES_PATH/fonts/san-francisco && git checkout 0f188fb # Move to the version of System San Francisco with otf files
 
-  mkdir $HOME/.fonts
+  if ! [ -d "$HOME/.fonts" ]; then mkdir $HOME/.fonts; fi
 
   cp $DOTFILES_PATH/fonts/Font-Awesome/fonts/*.otf  $HOME/.fonts
   cp $DOTFILES_PATH/fonts/san-francisco/*.otf       $HOME/.fonts
