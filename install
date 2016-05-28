@@ -201,9 +201,15 @@ if ! [ $(which rbenv) ]; then install_rbenv; fi
 if ! [ -d "$HOME/.dotfiles" ]; then fetch_dotfiles; fi
 
 # Compile i3-gaps after submodules have been updated
+# This whole block is linux specific
 if [[ $(uname) == "Linux" ]]; then
   install_desktop_environment
   compile_i3_gaps
+
+  ## Copy Desktop related files
+  cp $HOME/.dotfiles/xinitrc $HOME/.xinitrc
+  cp $HOME/.dotfiles/terminal-emulators/Xresources $HOME/.Xresources
+  cp -R $HOME/.dotfiles/i3 $HOME/.i3
 fi
 
 install
