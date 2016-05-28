@@ -218,6 +218,7 @@ if [[ $(uname) == "Linux" ]]; then
   cp    $DOTFILES_PATH/Wallpaper/Wallpaper.jpg        $HOME/.i3
 
   info "Setup fonts for desktop environment"
+  cd $DOTFILES_PATH/fonts/san-francisco && git checkout 0f188fb # Move to the version of System San Francisco with otf files
 
   mkdir $HOME/.fonts
 
