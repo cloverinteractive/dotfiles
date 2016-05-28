@@ -239,7 +239,7 @@ for_window [window_type="menu"]   floating enablebindsym $mod+shift+x exec i3loc
 for_window [class="Pidgin"] floating enable
 
 # Startup
-exec_always --no-startup-id feh --bg-fill /usr/share/backgrounds/Primavera_by_Vivian_Morales.jpg
+exec_always --no-startup-id feh --bg-fill ~/.i3/Wallpaper.jpg
 exec exec i3-sensible-terminal
 exec --no-startup-id compton -b
 exec pidgin
@@ -255,7 +255,7 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
+bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 80 -padding 50 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
 
 # Window gaps
 gaps inner 10

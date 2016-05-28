@@ -206,10 +206,23 @@ if [[ $(uname) == "Linux" ]]; then
   install_desktop_environment
   compile_i3_gaps
 
+  info "Copying configuration files"
+
+  DOTFILES_PATH=$HOME/.dotfiles
+
   ## Copy Desktop related files
-  cp $HOME/.dotfiles/xinitrc $HOME/.xinitrc
-  cp $HOME/.dotfiles/terminal-emulators/Xresources $HOME/.Xresources
-  cp -R $HOME/.dotfiles/i3 $HOME/.i3
+  cp    $DOTFILES_PATH/xinitrc                        $HOME/.xinitrc
+  cp    $DOTFILES_PATH/terminal-emulators/Xresources  $HOME/.Xresources
+  cp -R $DOTFILES_PATH/i3                             $HOME/.i3
+  cp    $DOTFILES_PATH/compton/compton.conf           $HOME/.compton.conf
+  cp    $DOTFILES_PATH/Wallpaper/Wallpaper.jpg        $HOME/.i3
+
+  info "Setup fonts for desktop environment"
+
+  mkdir $HOME/.fonts
+
+  cp $DOTFILES_PATH/fonts/Font-Awesome/fonts/*.otf  $HOME/.fonts
+  cp $DOTFILES_PATH/fonts/san-francisco/*.otf       $HOME/.fonts
 fi
 
 install
