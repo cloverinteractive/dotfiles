@@ -14,10 +14,12 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.define "linux" do |linux|
     linux.vm.box = "ubuntu/xenial64"
+    linux.vm.synced_folder ".", "/vagrant"
   end
 
   config.vm.define "osx" do |osx|
     osx.vm.box = "AndrewDryga/vagrant-box-osx"
+    osx.vm.synced_folder ".", "/vagrant"
 
     #
     # There are no Virtual Box Guest Additions for OSX the only way to test share this folder at the moment is
