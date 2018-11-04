@@ -1,204 +1,121 @@
-scriptencoding utf-8
-
-" needs to be first line
 set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+set rtp+=~/.vim
 
-Plugin 'gmarik/Vundle.vim'
+call plug#begin('~/.vim/plugged')
+  Plug 'aalvarado/my_snippets'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'andymass/vim-matchup'
+  Plug 'bling/vim-airline'
+  Plug 'dracula/vim', { 'as': 'dracula' }
+  Plug 'ervandew/supertab'
+  Plug 'junegunn/vim-easy-align'
+  Plug 'ludovicchabant/vim-gutentags'
+  Plug 'mileszs/ack.vim'
+  Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'sheerun/vim-polyglot'
+  Plug 'SirVer/ultisnips'
+  Plug 'sjbach/lusty'
+  Plug 'tpope/vim-abolish'
+  Plug 'tpope/vim-eunuch'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-surround'
+  Plug 'vim-syntastic/syntastic'
+call plug#end()
 
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'scrooloose/syntastic'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'SirVer/ultisnips'
-Plugin 'godlygeek/tabular'
-Plugin 'majutsushi/tagbar'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'Lokaltog/vim-powerline'
-Plugin 'vim-scripts/nginx.vim'
-Plugin 'vim-scripts/AutoTag'
-Plugin 'vim-scripts/LargeFile'
-Plugin 'mattn/emmet-vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'aalvarado/ultisnips-snippets.git'
-Plugin 'docunext/closetag.vim'
-Plugin 'nono/vim-handlebars'
-Plugin 'briancollins/vim-jst'
-Plugin 'jinfield/vim-nginx'
-Plugin 'sjbach/lusty'
-Plugin 'ervandew/supertab.git'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'AndrewRadev/vim-eco'
-Plugin 'mxw/vim-jsx'
-
-" Themes
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'larssmit/vim-getafe'
-Plugin 'wesgibbs/vim-irblack'
-
-call vundle#end()
-filetype plugin indent on
-
-" Because we care for your eyes
-set background=dark
-
-:colorscheme koehler
-
-if filereadable(expand("~/.vimrc.before"))
-  source ~/.vimrc.before
+if has('win32') || has('win64')
+  set shell=cmd.exe
+  set shellxquote=
 endif
 
-set hidden
-set number
-set ts=2 sts=2 sw=2 expandtab
-syntax on
-" Because it never works well
-setglobal nobomb
-
-" Lots of history
-set history=1000
-
-" Don't include hidden buffers in autocomplete
-set complete=.,b,u,t
-
-" Make cmdline tab completion similar to bash
-set wildmode=list:longest
-
-" I'm pretty sure this works for everyone
-set term=screen-256color
-
-" Shorter messages
-set shortmess+=I
-
-if has('mouse')
+" General {
+  filetype plugin on
+  setglobal nobomb
+  set autoindent
+  set whichwrap=b,s,h,l,<,>,[,]
+  set backspace=indent,eol,start
+  set clipboard=unnamed
+  set encoding=utf-8
+  set expandtab
+  set fileformats=unix
+  set fileencoding=utf-8
+  set ignorecase
+  set hidden
+  set history=1000
+  set hlsearch
   set mouse=a
-endif
+  set noswapfile
+  set shiftwidth=2
+  set showcmd
+  set softtabstop=2
+  set smartcase
+  set tabstop=2
+  set wildmenu
+  set wildmode=list:longest
 
-" Lets use smartcase
-set smartcase
+  syntax on
+" }
 
-" No wrapping please
-set nowrap
+" Scroll {
+  set scrolloff=20
+" }
 
-" Don't resize split views automatically
-set noequalalways
+" Visual {
+  set incsearch
+  set hlsearch
+  set laststatus=2
 
-" Always show status line
-set laststatus=2
+  set guioptions=i
+  set number
+  set ruler
+  set shortmess=I
+  set wrap
+" }
 
-" Enable ctrl-n and ctrl-p to scroll thru matches
-set wildmenu
-"
-"stuff to ignore when tab completing
-set wildignore=*.o,*.obj,*~
+  set belloff=all
+  if has("autocmd") && has("gui")
+    au GUIEnter * set t_vb=
+  endif
 
-" Minimal lines above and below the cursor
-set scrolloff=5
-" Minimal number of lines to scroll when the cursor gets off the screen
-set scrolljump=5
+" Plugins {
+  let g:dracula_bold = 0
+  let g:dracula_italic = 0
 
-" No toolbars
-set guioptions=i
+  colorscheme dracula
 
-" Only render when necessary
-set lazyredraw
+  let g:matchup_matchparen_deferred = 1
 
-" Autoindent because lazy
-set autoindent
-
-" Backspace over indent,eol,start
-set backspace=indent,eol,start
-
-" Use symbols to represent white space
-set list
-set listchars=tab:➙.,trail:·,extends:❱,precedes:❰,nbsp:░
-
-" Set enconding and file encoding to utf-8
-set encoding=utf-8
-set fileencoding=utf-8
-
-" Nice tweaks below --v
-
-" Remap leader to space
-let mapleader = " "
-
-" Remove highlights after searching
-nmap <silent> <leader>/ :nohlsearch<CR>
-
-" Change working directory to the current one
-cmap cwd lcd %:p:h
-cmap cd. lcd %:p:h
-
-" Make lists easier to fill
-inoremap {<CR>  {<CR>}<Esc>O<tab>
-inoremap (<CR>  (<CR>)<Esc>O<tab>
-inoremap [<CR>  [<CR>]<Esc>O<tab>
-
-" When G is used don't stick to bottom
-nn G G10<c-e>
-
-" Autoescape motion
-imap jj <esc>
-
-" Shift enter, creates two lines and indents one above
-inoremap <s-cr> <cr><cr><up><tab>
-
-" Handle trailing whitespace, shamelessly taken from http://vimcasts.org/episodes/tidying-whitespace/
-function! <SID>StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-endfunction
-
-autocmd BufWritePre *.rb,*.coffee,*.yml,*.haml,*.erb,*.php,*.java,*.py,*.js,*.html,*.eco :call <SID>StripTrailingWhitespaces() " Run this method on save
-
-" Sets ultisnips from the aalvarado/ultisnips-snippets folder
-if !exists("g:UltiSnipsSnippetsDir")
-  " Sets right folder to read and write
-  let g:UltiSnipsSnippetsDir="~/.vim/bundle/ultisnips-snippets"
-  let g:UltiSnipsSnippetDirectories=["bundle/ultisnips-snippets"]
+  set rtp+=~/.vim/plugged
+  let g:UltiSnipsSnippetsDir = "~/.vim/plugged/my_snippets"
+  let g:UltiSnipsSnippetDirectories=["my_snippets"]
   let g:UltiSnipsEditSplit="horizontal"
-" Conflicts with diagraphs, switching <c-k> to <c-l>
-" use :redraw instead of <c-l> on insert mode
   let g:UltiSnipsJumpBackwardTrigger = "<c-l>"
-endif
 
-" Surround
-" Use v or # to get a variable interpolation (inside of a string)}
-" ysiw# Wrap the token under the cursor in #{}
-" v...s# Wrap the selection in #{}
-let g:surround_113 = "#{\r}" " v
-let g:surround_35 = "#{\r}" " #
+  if !has('gui_running')
+    hi Normal ctermbg=black
+  endif
 
-" Syntastic
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=2
+  let g:indent_guides_enable_on_vim_startup = 1
+  let g:indent_guides_guide_size = 1
 
-" Matchit is included in vim, it only needs to be activated
-runtime macros/matchit.vim
+  call airline#parts#define_accent('mode', 'none')
+  call airline#parts#define_accent('linenr', 'none')
+  call airline#parts#define_accent('maxlinenr', 'none')
+  let g:airline_powerline_fonts = 1
+  let g:airline#extensions#capslock#enabled = 1
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#show_splits = 0
+  let g:airline#extensions#tabline#show_buffers = 0
 
-" Tag bar is toggled with f8
-nmap <F8> :TagbarToggle<CR><C-W>l
+  let g:surround_35 = "#{\r}" " #
+  let g:LustyExplorerAlwaysShowDotFiles = 1
+" }
 
-if filereadable(expand("~/.vimrc.after"))
-  source ~/.vimrc.after
-endif
+" Customizations {
+  nmap <F9> :set ignorecase! ignorecase?
 
-let g:closetag_html_style=1
-autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako,eco silent!
-" vim: filetype=vim
+  nmap <silent> <leader>/ :nohlsearch<CR>
+
+  au BufRead,BufNewFile *.elm set shiftwidth=4 softtabstop=4
+" }
