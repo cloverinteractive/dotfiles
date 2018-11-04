@@ -1,3 +1,7 @@
+if filereadable(expand("~/.vimrc.before"))
+  source ~/.vimrc.before
+endif
+
 set nocompatible
 set rtp+=~/.vim
 
@@ -119,3 +123,7 @@ endif
 
   au BufRead,BufNewFile *.elm set shiftwidth=4 softtabstop=4
 " }
+"
+if filereadable(expand("~/.vimrc.after"))
+  source ~/.vimrc.after
+endif
