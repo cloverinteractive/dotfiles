@@ -179,6 +179,16 @@ install_desktop_environment() {
       && success "urxvt and xterm installed"
 }
 
+install_vimplug() {
+  info "Installing VimPlug"
+
+  curl -flo ~/.vim/autoload/plug.vim --create-dirs
+
+  if [[ $? == 0 ]]; then
+    success "VimPlug installed"
+  fi
+}
+
 compile_i3_gaps() {
   info "Installing i3-gaps"
   cd $HOME/.dotfiles/i3-gaps
@@ -225,6 +235,8 @@ if [[ $(uname) == "Linux" ]]; then
   cp $DOTFILES_PATH/fonts/Font-Awesome/fonts/*.otf  $HOME/.fonts
   cp $DOTFILES_PATH/fonts/san-francisco/*.otf       $HOME/.fonts
 fi
+
+install_vimplug
 
 install
 
