@@ -1,0 +1,18 @@
+{
+  "languageserver": {
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    },
+    "ocaml": {
+      "command": "ocaml-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["ocaml", "reason"]
+    },
+    "reason": {
+      "command": "reason-language-server.exe",
+      "filetypes": ["reason"]
+    }
+  }
+}

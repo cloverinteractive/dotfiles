@@ -121,25 +121,12 @@ OSX if you already have homebrew installed or download the installers provided f
 git clone https://github.com/cloverinteractive/dotfiles.git
 cd dotfiles
 
-# This will run vagrant in the background and setup a test box or boot it if you already have one
-vagrant up
+# Building docker image
+docker build . -t dotfiles
 
-# This will connect you to your new virtual machine via ssh
-vagrant ssh
+# Run dokcer container
+docker run --rm -it -t dotfiles
 ```
-
-Once in vagrant, your project folder will be synced into your VM's `/vagrant` folder, that means you do not need to exit ssh to make changes or disconnect if you do change something in your OS;
-You can run the installer from `/vagrant` and even pass it the name of the branch to install like this:
-
-```bash
-# Run installer from the /vagrant folder
-/vagrant/install features/my-cool-feature
-
-# Log out and log back in or load ~/.bash_profile
-source ~/.bash_profile
-```
-
-When you're done you can shutdown vagrant by running `vagrant halt`.
 
 ## issues
 

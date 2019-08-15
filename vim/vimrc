@@ -8,7 +8,7 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'kchmck/vim-coffee-script'
+Plugin 'elmcast/elm-vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-fugitive'
@@ -23,9 +23,11 @@ Plugin 'SirVer/ultisnips'
 Plugin 'godlygeek/tabular'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'Lokaltog/vim-powerline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'leafgarland/typescript-vim'
 Plugin 'vim-scripts/nginx.vim'
 Plugin 'vim-scripts/AutoTag'
+Plugin 'vim-scripts/haskell.vim'
 Plugin 'vim-scripts/LargeFile'
 Plugin 'mattn/emmet-vim'
 Plugin 'pangloss/vim-javascript'
@@ -44,7 +46,21 @@ Plugin 'mxw/vim-jsx'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'larssmit/vim-getafe'
 Plugin 'wesgibbs/vim-irblack'
+Plugin 'whatyouhide/vim-gotham'
+Plugin 'ayu-theme/ayu-vim'
+Plugin 'dracula/vim'
 
+" Vim babel
+Plugin 'jbgutierrez/vim-babel'
+Plugin 'mattn/webapi-vim'
+
+Plugin 'scrooloose/nerdtree'
+Plugin 'reasonml-editor/vim-reason-plus'
+Plugin 'neoclide/coc.nvim'
+Plugin 'andreypopp/vim-reason-runtime'
+Plugin 'jparise/vim-graphql'
+
+Plugin 'chriskempson/base16-vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -199,6 +215,16 @@ if filereadable(expand("~/.vimrc.after"))
   source ~/.vimrc.after
 endif
 
+
 let g:closetag_html_style=1
-autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako,eco silent!
+autocmd FileType jsx,html,xhtml,xml,htmldjango,jinjahtml,eruby,mako,eco silent!
+
+
+let g:NERDTreeDirArrowExpandable = '►'
+let g:NERDTreeDirArrowCollapsible = '▼'
+
+let g:LanguageClient_serverCommands = {
+      \ 'reason': ['~/bin/reason-language-server.exe']
+      \}
+
 " vim: filetype=vim
