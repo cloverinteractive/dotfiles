@@ -103,19 +103,22 @@ a list of packages you should be looking to install.
 * readline
 * openssl
 
-### Linux with [Linuxbrew] (https://github.com/Homebrew/linuxbrew)
+### Linux with [Linuxbrew](https://github.com/Linuxbrew/brew)
 
-If you're using linux and would like to install packages to your `$HOME` then [Linuxbrew](https://github.com/Homebrew/linuxbrew) is a simple way to get this done, like homebrew it gets
+If you're using linux and would like to install packages to your `$HOME` then [Linuxbrew](https://github.com/Linuxbrew/brew) is a simple way to get this done, like homebrew it gets
 frequent updates and it's pretty clean and easy to maintain, not to mention it has formulas for many of the same packages homebrew does, should a package not be present it's only a matter
 of falling back to the OS package manger.
 
+Make sure to add linuxbrew into your PATH like in `.bash_profile.after`:
+
+```sh
+PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
+```
+
 ## Developers
 
-We try to make development as simple as possible for [ourselves](https://github.com/cloverinteractive/dotfiles/graphs/contributors), therefore we've worked in a way of easily running our
-scripts in a virtual machine that we can use a sandbox our [installer](https://github.com/cloverinteractive/dotfiles/blob/master/install) can be ran from vagrant.
-
-To start playing with our setup you'll need [vagrant](https://www.vagrantup.com/) and [virtualbox](https://www.virtualbox.org/), you can use hombrew's `brew cask install vagrant virtualbox` in
-OSX if you already have homebrew installed or download the installers provided for your OS in both of the official sites.
+We try to make development as simple as possible for [ourselves](https://github.com/cloverinteractive/dotfiles/graphs/contributors), therefore we've worked in a way for easily running our
+scripts in a docker container that we use as a sandbox for our [installer](https://github.com/cloverinteractive/dotfiles/blob/master/install).
 
 ```bash
 git clone https://github.com/cloverinteractive/dotfiles.git
@@ -126,7 +129,12 @@ docker build . -t dotfiles
 
 # Run dokcer container
 docker run --rm -it -t dotfiles
+
+# Installing in container once inside
+current/install [remote-branch-name]
 ```
+
+The `current/` folder contains your current copy of the dotfiles, you can install from this copy but you will have to satisfy dependencies in your OS as the Rakefile won't do this for you.
 
 ## issues
 
