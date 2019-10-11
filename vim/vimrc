@@ -13,38 +13,38 @@ call plug#begin('~/.vim/plugged')
   Plug 'bling/vim-airline'
   Plug 'bronson/vim-visual-star-search'
   Plug 'dracula/vim', { 'as': 'dracula' }
-  Plug 'ervandew/supertab'
+  Plug 'jparise/vim-graphql'
+  Plug 'junegunn/fzf.vim'
   Plug 'junegunn/vim-easy-align'
   Plug 'kana/vim-textobj-user'
   Plug 'kchmck/vim-coffee-script'
-  Plug 'leafgarland/typescript-vim'
-  Plug 'ludovicchabant/vim-gutentags'
   Plug 'michaeljsmith/vim-indent-object'
-  Plug 'mileszs/ack.vim'
   Plug 'mxw/vim-jsx'
   Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'neovimhaskell/haskell-vim'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'pangloss/vim-javascript'
+  Plug 'powerman/vim-plugin-AnsiEsc'
+  Plug 'reasonml-editor/vim-reason-plus'
   Plug 'scrooloose/nerdcommenter'
   Plug 'SirVer/ultisnips'
-  Plug 'sjbach/lusty'
   Plug 'slim-template/vim-slim'
-  Plug 'tpope/vim-abolish'
   Plug 'tpope/vim-eunuch'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rails'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
   Plug 'vim-ruby/vim-ruby'
-  Plug 'vim-scripts/CmdlineComplete'
-  Plug 'vim-syntastic/syntastic'
-  Plug 'w0rp/ale'
   Plug 'whatyouhide/vim-textobj-erb'
 call plug#end()
 
 if has('win32') || has('win64')
+  set clipboard=unnamed
   set shell=cmd.exe
   set shellxquote=
+endif
+
+if has('unix')
+  set clipboard=unnamedplus
 endif
 
 " General {
@@ -53,7 +53,6 @@ endif
   set autoindent
   set whichwrap=b,s,h,l,<,>,[,]
   set backspace=indent,eol,start
-  set clipboard=unnamed
   set encoding=utf-8
   set expandtab
   set fileformats=unix
@@ -71,6 +70,8 @@ endif
   set tabstop=2
   set wildmenu
   set wildmode=list:longest
+  set synmaxcol=180
+  set nomodeline
 
   syntax on
 " }
@@ -97,12 +98,14 @@ endif
   endif
 
 " Plugins {
+  let g:matchup_matchparen_deferred = 1
+  let g:matchup_surround_enabled = 1
+
   let g:dracula_bold = 0
   let g:dracula_italic = 0
+  let g:dracula_colorterm = 1
 
   colorscheme dracula
-
-  let g:matchup_matchparen_deferred = 1
 
   set rtp+=~/.vim/plugged
   let g:UltiSnipsSnippetsDir = "~/.vim/plugged/my_snippets"
@@ -121,23 +124,96 @@ endif
   call airline#parts#define_accent('linenr', 'none')
   call airline#parts#define_accent('maxlinenr', 'none')
   let g:airline_powerline_fonts = 1
-  let g:airline#extensions#capslock#enabled = 1
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#show_splits = 0
   let g:airline#extensions#tabline#show_buffers = 0
 
   let g:surround_35 = "#{\r}" " #
-  let g:LustyExplorerAlwaysShowDotFiles = 1
+
+  " AnsiEsc
+  " disables <leader>,rwp
+    let g:no_cecutil_maps = 1
+
+  " Gitgutter <leader> h disable
+    let g:gitgutter_map_keys = 0
+" }
+
+" Coc.vim {
+  " Use tab for trigger completion with characters ahead and navigate.
+  " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
+
+  " Use K to show documentation in preview window
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+  " Remap for rename current word
+  nmap <leader>rn <Plug>(coc-rename)
+
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
+  endfunction
+
+
+  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+  " Coc only does snippet and additional edit on confirm.
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+  set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+  " Remap keys for gotos
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
 " }
 
 " Customizations {
+  let g:netrw_banner = 0
+  let g:netrw_liststyle = 3
+  let g:netrw_browse_split = 0
+  let g:netrw_altv = 1
+  let g:netrw_winsize = 25
+
   nmap <F9> :set ignorecase! ignorecase?
+  let mapleader = ','
+  nnoremap ; :
 
   nmap <silent> <leader>/ :nohlsearch<CR>
+  cmap cwd lcd %:p:h
+
+  inoremap <s-enter> <cr><cr><up><tab>
+  inoremap jj <esc>
+  cmap w!! %!sudo tee > /dev/null %
+
+  vnoremap <M-/> <Esc>/\%V
+  nnoremap <M-l> :BLines<CR>
+
+  vnoremap <c-p> "ry:<c-u>Rg <c-r>r<cr>
+  nnoremap <c-p> :Rg<space>
+  nmap <silent> <leader>fr :e %:h<CR>
+  nmap <silent> <leader>fb :Buffers<CR>
+  nmap <silent> <leader>ff :Files<CR>
+  nmap <silent> <leader>fg :GFiles<CR>
+  nmap <silent> <leader>fh :History<CR>
 
   au BufRead,BufNewFile *.elm set shiftwidth=4 softtabstop=4
+
+  :hi MatchWord ctermfg=NONE guifg=NONE cterm=underline gui=underline
 " }
-"
+
 if filereadable(expand("~/.vimrc.after"))
   source ~/.vimrc.after
 endif
