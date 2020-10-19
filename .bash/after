@@ -1,0 +1,45 @@
+# Setup FZF
+
+if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+  source /usr/share/doc/fzf/examples/key-bindings.bash
+fi
+
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden --follow --glob "!.git/*"'
+
+# Access fnm
+PATH=$HOME/.fnm:$PATH
+eval "`fnm env --multi`"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# Access python3
+PATH=$HOME/.pyenv/bin:$PATH
+export ANDROID_SDK_ROOT=~/Android/Sdk
+
+# Access Android SDK
+PATH=$ANDROID_SDK_ROOT/emulator:$PATH
+PATH=$ANDROID_SDK_ROOT/tools:$PATH
+PATH=$ANDROID_SDK_ROOT/platform-tools:$PATH
+
+# Access go binaries
+PATH=/usr/local/go/bin:$PATH
+
+export $PATH
+
+alias python=python3
+alias tmux="tmux -2"
+alias ls="exa --git-ignore --icons -h"
+alias xclip="xclip -se clipboard"
+
+wal-fill() {
+  wal -n -i "$@"
+  feh --bg-fill --zoom max "$(< "${HOME}/.cache/wal/wal")"
+}
+
+check-fiel() {
+  openssl x509 -inform DER -noout -in "$@" -dates
+}
+
+set -o vi
+
+# vim: set ft=sh :

@@ -1,0 +1,81 @@
+[theme]
+name = "slick"
+
+[theme.overrides]
+alternating_tint_bg = "#1e1e1e"
+idle_bg = "#68001d"
+
+[icons.overrides]
+xrandr = "  "
+
+[icons]
+name = "awesome"
+
+[[block]]
+block = "disk_space"
+path = "/"
+alias = "/"
+info_type = "available"
+unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{Mup}%"
+format_swap = "{SUp}%"
+
+[[block]]
+block = "cpu"
+interval = 1
+
+[[block]]
+block = "load"
+interval = 1
+format = "{1m}"
+
+[[block]]
+block = "battery"
+device = "BAT1"
+interval = 10
+format = "{percentage}% {time}"
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "bluetooth"
+mac = "00:1B:66:82:EF:52"
+label = " HD1"
+
+[[block]]
+block = "docker"
+interval = 2
+format = "{running}/{total}"
+
+[[block]]
+block = "net"
+device = "wlp3s0"
+ssid = true
+signal_strength = false
+ip = false
+speed_down = false
+speed_up = false
+graph_up = false
+interval = 5
+use_bits = false
+
+[[block]]
+block = "xrandr"
+icons = true
+resolution = false
+interval = 2
+
+[[block]]
+block = "time"
+interval = 60
+format = "%a %d/%m %R"
+
+# vim: set ft=dosini:

@@ -1,0 +1,52 @@
+colorscheme dracula
+
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
+
+hi Normal guibg=NONE ctermbg=NONE
+
+set conceallevel=0
+
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R'
+
+" [Commands] --expect expression for directly executing the command
+let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+
+set guifont=Fira\ Code\ 12
+set visualbell
+set autoread
+
+if has('autocmd')
+  aug ReloadVIMRC
+    au!
+    au BufWritePost .vimrc,.vimrc.* nested source %
+  aug END
+
+  aug AutoFormatReasonML
+    au!
+    au BufWritePost *.re,*.rei nested silent !bsrefmt --in-place %
+  aug END
+
+ aug AutoEslint
+   au!
+   au BufWritePost *.js,*.jsx,*.ts,*.tsx nested silent !npx eslint --quiet --fix --ext .js --ext .jsx --ext .ts --ext .tsx -o /dev/null %
+ aug END
+endif
+
+" Enable ariline fonts
+let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled=1
+
+"nnoremap <C-p> :Files<Cr>
+
+vnoremap <M-/> <Esc>/\%V
+nnoremap <M-l> :BLines<CR>
+
+vnoremap <c-p> "ry:<c-u>Rg <c-r>r<cr>
+nnoremap <c-p> :Rg<space>
+nmap <silent> <leader>fr :e %:h<CR>
+nmap <silent> <leader>fb :Buffers<CR>
+nmap <silent> <leader>ff :Files<CR>
+nmap <silent> <leader>fg :GFiles<CR>
+nmap <silent> <leader>fh :History<CR>

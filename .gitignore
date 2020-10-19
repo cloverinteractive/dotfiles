@@ -1,6 +1,2 @@
-build/*
-test/*
-vim/.netrwhist
-vim/bundle/*
-!vim/bundle/Vundle.vim
 *.log
+tags
