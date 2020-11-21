@@ -73,28 +73,14 @@ fetch_dotfiles () {
   fi
 }
 
-install () {
-  info "Installing dotfiles..."
-
-  cd ~/.dotfiles
-
-  if [[ $? == 0 ]]; then
-    # Let's move back to where we ran the installer from
-    cd $START_WD
-
-    # Add new bash config into possibly existing .profile or .bashrc
-    if [ -f "$HOME/.bashrc" ];  then echo ". ~/.bash_profile" >> ~/.bashrc; fi
-    if [ -f "$HOME/.profile" ]; then echo ". ~/.bash_profile" >> ~/.profile; fi
-
-    success "dotfiles generated"
-  fi
-}
-
-
 # install
 
 for file in "${FILES[@]}"; do
-  echo "NAME ${file}"
+  # Rename if original exists
+  [ -f "$HOME/$file" ] && mv "$HOME/$file" "$HOME/${file}.orig"
+
+  info "Linking $file"
+  stow "$file"
 done
 
 success "Thanks for installing, please report any issues to https://github.com/cloverinteractive/dotfiles/issues"
