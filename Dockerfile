@@ -19,40 +19,30 @@ RUN apt-get install -y ack-grep \
   bash \
   cargo \
   stow \
+  tmux \
   rustc
 
 USER test
 
 WORKDIR /home/test
 
-RUN cargo install --locked bat
-RUN cargo install exa
+#RUN cargo install --locked bat
+#RUN cargo install exa
 
 RUN curl -fsSL https://fnm.vercel.app/install | bash
 
 RUN mkdir /home/test/dotfiles
 
-COPY .ackrc dotfiles
-COPY .bash/ dotfiles/.bash
-COPY .bash_profile dotfiles
-COPY .compton.conf dotfiles
-COPY .config/ dotfiles/.config
-COPY .ctags dotfiles
-COPY .gemrc dotfiles
-COPY .gitconfig dotfiles
-COPY .gitignore dotfiles
-COPY .gitmodules dotfiles
-COPY .ncmpcpp/ dotfiles/.ncmpcpp
-COPY .psqlrc dotfiles
-COPY .tmux.conf dotfiles
-COPY .vim/ dotfiles/.vim
-COPY .vimrc dotfiles
-COPY .xinitrc dotfiles
-COPY .Xresources dotfiles
-
+COPY bash dotfiles/bash
+COPY git dotfiles/git
+COPY local dotfiles/local
+COPY postgres dotfiles/postgres
+COPY rubygems dotfiles/rubygems
+COPY tmux dotfiles/tmux
+COPY vim dotfiles/vim
+COPY X dotfiles/X
 COPY install dotfiles
 
-
-RUN ./dotfiles/install
+RUN cd dotfiles && ./install
 
 CMD ["bash"]

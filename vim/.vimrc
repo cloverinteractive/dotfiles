@@ -204,7 +204,7 @@ runtime macros/matchit.vim
 nmap <F8> :TagbarToggle<CR><C-W>l
 
 if filereadable(expand("~/.vim/after"))
-  source ~/.vimrc/after
+  source ~/.vim/after
 endif
 
 

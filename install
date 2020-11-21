@@ -17,23 +17,14 @@ set -e
 echo ''
 
 FILES=(
-  ".ackrc"
-  ".bash"
-  ".bash_profile"
-  ".compton.conf"
-  ".config"
-  ".ctags"
-  ".gemrc"
-  ".gitconfig"
-  ".gitignore"
-  ".gitmodules"
-  ".ncmpcpp"
-  ".psqlrc"
-  ".tmux.conf"
-  ".vim"
-  ".vimrc"
-  ".xinitrc"
-  ".Xresources"
+  "bash"
+  "git"
+  "local"
+  "postgres"
+  "rubygems"
+  "tmux"
+  "vim"
+  "X"
 )
 
 # Print red
