@@ -1,0 +1,33 @@
+# Access fnm if installed
+if [ -d $HOME/.fnm ]; then
+  TMP_PATH=$HOME/.fnm:$TMP_PATH
+fi
+
+# Access Python 3
+if [ -d $HOME/.pyenv ]; then
+  TMP_PATH=$HOME/.pyenv/bin:$TMP_PATH
+fi
+
+# Access Android SDK
+export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+
+TMP_PATH=$ANDROID_SDK_ROOT/emulator:$TMP_PATH
+TMP_PATH=$ANDROID_SDK_ROOT/tools:$TMP_PATH
+TMP_PATH=$ANDROID_SDK_ROOT/platform-tools:$TMP_PATH
+
+# Access go binaries
+if [ -d /usr/local/go/bin ]; then
+  TMP_PATH=/usr/local/go/bin:$TMP_PATH
+fi
+
+# Access rust binaries
+if [ -d $HOME/.cargo/bin ]; then
+  TMP_PATH=$HOME/.cargo/bin:$TMP_PATH
+fi
+
+# Access local and relative binaries
+TMP_PATH=./bin:$HOME/.local/bin:$HOME/bin:$TMP_PATH
+
+export PATH=$TMP_PATH:$PATH
+
+# vim: set ft=sh:

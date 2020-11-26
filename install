@@ -74,5 +74,8 @@ for file in "${FILES[@]}"; do
   stow "$file"
 done
 
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 success "Thanks for installing, please report any issues to https://github.com/cloverinteractive/dotfiles/issues"
 info "Run source ~/.bash_profile to load your environment"

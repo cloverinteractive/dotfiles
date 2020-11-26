@@ -20,14 +20,16 @@ RUN apt-get install -y ack-grep \
   cargo \
   stow \
   tmux \
+  python3 \
+  python3-pip \
   rustc
 
 USER test
 
 WORKDIR /home/test
 
-#RUN cargo install --locked bat
-#RUN cargo install exa
+RUN cargo install --locked bat
+RUN cargo install exa
 
 RUN curl -fsSL https://fnm.vercel.app/install | bash
 
