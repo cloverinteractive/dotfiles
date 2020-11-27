@@ -64,7 +64,12 @@ fetch_dotfiles () {
   fi
 }
 
-# install
+info "Fetching vim-plug"
+curl -fLo ./vim/.vim/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+info "Fetching fnm"
+curl -fsSL https://fnm.vercel.app/install | bash
 
 for file in "${FILES[@]}"; do
   # Rename if original exists
@@ -74,8 +79,14 @@ for file in "${FILES[@]}"; do
   stow "$file"
 done
 
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+source $HOME/.bash/paths
+eval "`fnm env`"
+
+info "Installing Node LTS and yarn"
+fnm install --lts && npm install -g yarn
+
+info "Installing vim plugins"
+vim +PlugInstall +qa
 
 success "Thanks for installing, please report any issues to https://github.com/cloverinteractive/dotfiles/issues"
 info "Run source ~/.bash_profile to load your environment"

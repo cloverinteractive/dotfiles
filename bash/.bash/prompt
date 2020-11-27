@@ -1,3 +1,6 @@
+STARSHIP_PATH=`which starship`
+POWERLINE_PATH=`which powerline-shell`
+
 # Print what our current git branch is
 function current_git_branch() {
   git_exists=`git branch 2>/dev/null | sed -ne'/^\* /s///p'`
@@ -35,11 +38,10 @@ function _update_ps1() {
 }
 
 # Favor starship or powerline or fallback to bash functions
-
-if [[ $(which starship) != '' ]]; then
+if [[ -x $STARSHIP_PATH ]]; then
   eval "$(starship init bash)"
 else
-  if [[ $(which powerline-shell) != '' && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
+  if [[ $POWERLINE_PATH != '' && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
   else
     PROMPT_COMMAND='PS1="$(last_return_status) \[\e[1;31m\]\u\[\e[0m\] \t \[\e[32m\]$(current_git_branch)\[\e[0m\]\[\e[35m\]$(current_git_stash)\[\e[0m\]\[\e[33m\]\w\[\e[0m\] \[\e[1m\]\$\[\e[0m\] "'

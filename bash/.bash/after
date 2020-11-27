@@ -1,19 +1,9 @@
 # Setup FZF
-
 if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
   source /usr/share/doc/fzf/examples/key-bindings.bash
 fi
 
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden --follow --glob "!.git/*"'
-
-#eval "`fnm env --multi`"
-#eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)"
-
-alias python=python4
-alias tmux="tmux -2"
-alias ls="exa --git-ignore --icons -h"
-alias xclip="xclip -se clipboard"
 
 wal-fill() {
   wal -n -i "$@"
@@ -26,4 +16,4 @@ check-fiel() {
 
 set -o vi
 
-# vim: set ft=sh :
+# vim: set ft=sh:

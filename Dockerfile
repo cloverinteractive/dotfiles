@@ -9,7 +9,9 @@ RUN mkdir /home/test
 RUN chown test:test -R /home/test
 
 RUN apt-get update
-RUN apt-get install -y ack-grep \
+RUN apt-get install -y \
+  ack-grep \
+  fzf \
   vim \
   curl \
   git \
@@ -35,16 +37,16 @@ RUN curl -fsSL https://fnm.vercel.app/install | bash
 
 RUN mkdir /home/test/dotfiles
 
-COPY bash dotfiles/bash
-COPY git dotfiles/git
-COPY local dotfiles/local
-COPY postgres dotfiles/postgres
-COPY rubygems dotfiles/rubygems
-COPY tmux dotfiles/tmux
-COPY vim dotfiles/vim
-COPY X dotfiles/X
-COPY install dotfiles
+COPY --chown=test:test bash dotfiles/bash
+COPY --chown=test:test git dotfiles/git
+COPY --chown=test:test local dotfiles/local
+COPY --chown=test:test postgres dotfiles/postgres
+COPY --chown=test:test rubygems dotfiles/rubygems
+COPY --chown=test:test tmux dotfiles/tmux
+COPY --chown=test:test vim dotfiles/vim
+COPY --chown=test:test X dotfiles/X
+COPY --chown=test:test install dotfiles
 
-RUN cd dotfiles && ./install
+# RUN cd dotfiles && ./install
 
 CMD ["bash"]

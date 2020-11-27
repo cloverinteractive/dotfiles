@@ -1,4 +1,4 @@
-colorscheme dracula
+:silent! colorscheme dracula
 
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
@@ -50,3 +50,5 @@ nmap <silent> <leader>fb :Buffers<CR>
 nmap <silent> <leader>ff :Files<CR>
 nmap <silent> <leader>fg :GFiles<CR>
 nmap <silent> <leader>fh :History<CR>
+
+" vim: set ft=vim:
