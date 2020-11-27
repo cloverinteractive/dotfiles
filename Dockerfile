@@ -10,6 +10,7 @@ RUN chown test:test -R /home/test
 
 RUN apt-get update
 RUN apt-get install -y \
+  bat \
   ack-grep \
   fzf \
   vim \
@@ -24,16 +25,18 @@ RUN apt-get install -y \
   tmux \
   python3 \
   python3-pip \
-  rustc
+  rustc \
+  nodejs
+
+# Add yarn source
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update
+RUN apt-get install -y yarn
 
 USER test
 
 WORKDIR /home/test
-
-RUN cargo install --locked bat
-RUN cargo install exa
-
-RUN curl -fsSL https://fnm.vercel.app/install | bash
 
 RUN mkdir /home/test/dotfiles
 
@@ -46,7 +49,5 @@ COPY --chown=test:test tmux dotfiles/tmux
 COPY --chown=test:test vim dotfiles/vim
 COPY --chown=test:test X dotfiles/X
 COPY --chown=test:test install dotfiles
-
-# RUN cd dotfiles && ./install
 
 CMD ["bash"]
