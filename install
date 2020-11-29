@@ -23,7 +23,6 @@ declare -A DEPENDENCIES=(
   ["curl"]="$(which curl)"
   ["git"]="$(which git)"
   ["node"]="$(which node)"
-  ["yarn"]="$(which yarn)"
 )
 
 FILES=(
@@ -55,14 +54,10 @@ info () {
 
 # Install suggestion
 suggestion () {
-  if [[ $1 == "yarn" ]]; then
-    CMD_NAME="npm install -g $1"
+  if [[ $KERNEL_NAME == "Linux" ]]; then
+    CMD_NAME="sudo apt-get"
   else
-    if [[ $KERNEL_NAME == "Linux" ]]; then
-      CMD_NAME="sudo apt-get"
-    else
-      CMD_NAME="brew"
-    fi
+    CMD_NAME="brew"
   fi
 
   info "$CMD_NAME install $1"

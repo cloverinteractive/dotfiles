@@ -2,10 +2,11 @@ scriptencoding utf-8
 
 " needs to be first line
 set nocompatible
-filetype off
-call plug#begin('~/.vim/plugged')
 
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --froze-lockfile'}
+filetype off
+
+call plug#begin('~/.vim/plugged')
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'elmcast/elm-vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -14,7 +15,6 @@ Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'scrooloose/syntastic'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'SirVer/ultisnips'
 Plug 'godlygeek/tabular'
@@ -62,12 +62,13 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'chriskempson/base16-vim'
 call plug#end()
+
 filetype plugin indent on
 
 " Because we care for your eyes
 set background=dark
-
 colorscheme koehler
+syntax on
 
 if filereadable(expand("~/.vim/before"))
   source ~/.vim/before
@@ -79,7 +80,6 @@ set ts=2 sts=2 sw=2 expandtab
 set showtabline=2
 set noshowmode
 
-syntax on
 " Because it never works well
 setglobal nobomb
 
@@ -116,12 +116,13 @@ set laststatus=2
 
 " Enable ctrl-n and ctrl-p to scroll thru matches
 set wildmenu
-"
+
 "stuff to ignore when tab completing
 set wildignore=*.o,*.obj,*~
 
 " Minimal lines above and below the cursor
 set scrolloff=5
+
 " Minimal number of lines to scroll when the cursor gets off the screen
 set scrolljump=5
 
@@ -144,8 +145,6 @@ set listchars=tab:➙.,trail:·,extends:❱,precedes:❰,nbsp:░
 " Set enconding and file encoding to utf-8
 set encoding=utf-8
 set fileencoding=utf-8
-
-" Nice tweaks below --v
 
 " Remap leader to space
 let mapleader = " "
@@ -193,10 +192,6 @@ autocmd BufWritePre *.rb,*.coffee,*.yml,*.haml,*.erb,*.php,*.java,*.py,*.js,*.ht
 let g:surround_113 = "#{\r}" " v
 let g:surround_35 = "#{\r}" " #
 
-" Syntastic
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=2
-
 " Matchit is included in vim, it only needs to be activated
 runtime macros/matchit.vim
 
@@ -210,7 +205,6 @@ endif
 
 let g:closetag_html_style=1
 autocmd FileType jsx,html,xhtml,xml,htmldjango,jinjahtml,eruby,mako,eco silent!
-
 
 let g:NERDTreeDirArrowExpandable = '►'
 let g:NERDTreeDirArrowCollapsible = '▼'
