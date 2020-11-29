@@ -25,8 +25,11 @@ RUN apt-get install -y \
   tmux \
   python3 \
   python3-pip \
-  rustc \
+  librust-openssl-dev \
   nodejs
+
+# Install latest starship
+RUN curl -fsSL https://starship.rs/install.sh | bash -s -- -y
 
 USER test
 

@@ -1,4 +1,5 @@
 [core]
+  excludesfile = ~/.gitignore
   pager = less -x2
 [color]
     ui = auto

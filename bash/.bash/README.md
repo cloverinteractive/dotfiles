@@ -22,7 +22,7 @@ hombrew's path. If you need to change `$PATH` it is recommended that you do so a
 
 Our bash config includes a `listening` alias that shows what is listening and in what port here's how it looks:
 
-![listening](.listening.png)
+![listening](listening.png)
 
 
 ## Command Prompt
@@ -33,4 +33,4 @@ not git `last_return_status` related that checks the last return code and pring 
 
 This is how all three functions looked combined in `$PROMPT_COMMAND`:
 
-![prompt](.prompt.png)
+![prompt](prompt.png)

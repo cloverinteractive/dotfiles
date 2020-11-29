@@ -210,9 +210,12 @@ bar {
         height 24
 
         position top
-        #i3bar_command i3bar -t
-        #status_command i3blocks -c ~/.i3/i3blocks.conf
-        status_command ~/bin/i3status-rs ~/.i3/status.toml
+        i3bar_command i3bar -t
+        status_command i3blocks -c ~/.i3/i3blocks.conf
+
+        # Enable i3status-rs if compiled
+        # status_command ~/bin/i3status-rs ~/.i3/status.toml
+
         strip_workspace_numbers yes
         workspace_buttons yes
 
@@ -320,9 +323,9 @@ exec_always --no-startup-id picom -bcfn --experimental-backends
 
 bindsym $mod+d exec rofi -show run -lines 3 -width 80 -padding 20px -separator-style none -font "Fira Code 18" -bw 0
 
-# Window gaps
-gaps inner 10
-gaps outer 0
+# Enable window gaps if running i3-gaps
+# gaps inner 10
+# gaps outer 0
 
 # fix graphics glitch
 new_window none
