@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
 
-# Where we're at right now
-START_WD=$(pwd -P)
+# Options
+#
+# -b, --branch
+#  Install from a specifiq branch
+#
+# -s, --skip-clone
+#  Skip cloning from github
 
-# What dotfiles branch we want to install
-BRANCH_NAME=$1
+# Platform name
+PLATFORM="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
 # All the colors we're using for notifications
 SWITCH="\033["
@@ -13,8 +18,6 @@ GREEN="${SWITCH}0;32m"
 YELLOW="${SWITCH}1;33m"
 NORMAL="${SWITCH}0m"
 
-# System's kernel name
-KERNEL_NAME=$(uname)
 
 set -e
 echo ''
@@ -54,13 +57,25 @@ info () {
 
 # Install suggestion
 suggestion () {
-  if [[ $KERNEL_NAME == "Linux" ]]; then
+  if [[ $PLATFORM == "linux" ]]; then
     CMD_NAME="sudo apt-get"
   else
     CMD_NAME="brew"
   fi
 
   info "$CMD_NAME install $1"
+}
+
+# Fetch dotfiles from github
+fetch_dotfiles () {
+  info "Fetching dotfiles..."
+  local BRANCH_NAME
+
+  # Figure out the branch we're working on
+  ! [[ "$1" ]] && BRANCH_NAME="master" || BRANCH_NAME="$1"
+
+  git clone -b $BRANCH_NAME https://github.com/cloverinteractive/dotfiles.git ~/.dotfiles
+  cd ~/.dotfiles
 }
 
 # Exit if installer dependecy not found
@@ -73,15 +88,27 @@ for dependency in "${!DEPENDENCIES[@]}"; do
   fi
 done
 
-fetch_dotfiles () {
-  info "Fetching dotfiles..."
+# If no arguments clone master
+if [ "$#" == "0" ]; then
+  fetch_dotfiles
+fi
 
-  # Figure out the branch we're working on
-  if ! [ $BRANCH_NAME ]; then BRANCH_NAME=master; fi
-
-  git clone -b $BRANCH_NAME https://github.com/cloverinteractive/dotfiles.git ~/.dotfiles
-  cd ~/.dotfiles
-}
+# Check arguments
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    -b | --branch)
+      fetch_dotfiles "$2"
+      shift 2
+      ;;
+    -s | --skip-clone)
+      shift 1
+      ;;
+    * )
+      error "Unknown option: $1"
+      exit 1
+      ;;
+  esac
+done
 
 info "Fetching vim-plug"
 curl -fLo ./vim/.vim/autoload/plug.vim --create-dirs \
@@ -89,7 +116,7 @@ curl -fLo ./vim/.vim/autoload/plug.vim --create-dirs \
 
 for file in "${FILES[@]}"; do
   # Rename if original exists
-  [ -f "$HOME/$file" ] && mv "$HOME/$file" "$HOME/${file}.orig"
+  # [ -f "$HOME/$file" ] && mv "$HOME/$file" "$HOME/${file}.orig"
 
   info "Linking $file"
   stow "$file"
