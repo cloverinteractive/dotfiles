@@ -17,15 +17,11 @@ RUN apt-get install -y \
   curl \
   git \
   lsof \
-  unzip \
-  build-essential \
   bash \
-  cargo \
   stow \
   tmux \
   python3 \
   python3-pip \
-  librust-openssl-dev \
   nodejs
 
 # Install latest starship
