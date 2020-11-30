@@ -42,5 +42,6 @@ COPY --chown=test:test tmux dotfiles/tmux
 COPY --chown=test:test vim dotfiles/vim
 COPY --chown=test:test X dotfiles/X
 COPY --chown=test:test install dotfiles
+COPY --chown=test:test backup dotfiles
 
 CMD ["bash"]

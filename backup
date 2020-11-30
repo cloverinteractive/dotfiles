@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+# Options
+#
+# -e, --extension
+# Set backup extension prefix (.old) is default
+#
+# -p, --path
+# Set pathname from which to create backups
+
+set -e
+
+path="$HOME"
+extension=".old"
+
+# Check if path exist (file or directory)
+check_path () {
+  local path_exists
+  path_exists=""
+
+  [ -f "$1" ] || [ -d "$1" ] && path_exists="1"
+
+  echo $path_exists
+}
+
+# Introspect the dotfiles directories and find files to rename
+backup () {
+  local original
+  
+  # Rename files using path and extension
+  for file in `ls -d $PWD/*/.* -1 | grep -v '\/.\{1,2\}$'`; do
+    original="${path}/$(basename -- $file)"
+    path_exists="$(check_path "$original")"
+
+    # Only rename if path exist and it's not a link
+    if [[ $path_exists != "" ]] && ! [[ -L "$original" ]]; then
+      mv "$original" "${original}${extension}"
+    fi
+  done
+}
+
+# Check arguments
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    -e | --extension)
+      extension="$2"
+      shift 2
+      ;;
+    -p | --path)
+      path="$2"
+      shift 2
+      ;;
+    * )
+      echo "Unknown option: $1"
+      exit 1
+      ;;
+  esac
+done
+
+backup
