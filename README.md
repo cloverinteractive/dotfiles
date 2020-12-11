@@ -3,6 +3,15 @@
 This is a collection of dotfiles that should make your day to day work easier, if you see any errors or wish to contribute feel free to fork, open an issue
 or send a pull request.
 
+## Dependencies
+
+We try to keep dependencies to a minimum and let you sort them out yourself, whether you prefer homebrew or your OS package manager the choice is yours
+to make, the only three dependecies are:
+
+1. `curl`
+1. `git`
+1. `node`
+
 ## Install
 
 We try to keep installing as  simple as possible by keeping the steps to a minimum and our dotfiles as backward compatible across the couple of OS we use
@@ -10,63 +19,41 @@ the most.
 
 ### Online installer
 
-We provide a simple online installer, if you're running Ubuntu, Debian or OSX, it will automatically try to resolve dependencies, install rbenv, install
-homebrew or linuxbrew depending on the OS you're running; if your OS is not supported you can still resolve dependencies and generate the files manually.
+You can run the installer using curl:
 
-`curl https://raw.githubusercontent.com/cloverinteractive/dotfiles/master/install | sh`
+`curl https://raw.githubusercontent.com/cloverinteractive/dotfiles/master/install | bash`
 
 Check our [developers](#developers) section of this README to learn how to run the installer in a virtual machine.
 
 ### Github checkout
 
-If you want to resolve dependencies on your own, you can install by doing a simple github checkout.
+You can fork or clone this repository manually and run the installer locally:
 
 ```bash
 # We like to keep dotfiles somewhere in $HOME but you can clone anywhere you have permission to
 git clone https://github.com/cloverinteractive/dotfiles.git ~/.dotfiles
 
 cd ~/.dotfiles
-bundle install
-rake
+./install -s
 ```
 
-Your original dotfiles will be renamed to `name.orig` so you can always restore them.
+### Advanced (not recommended)
+
+Since we're using stow to manage the dotfiles under the hood, you can skip the installer and just stow files directly like
+this:
+
+```bash
+cd .dotfiles
+stow bash
+```
+
+That will install/link all the bash related files, however keep in mind that you'll have to manually run any additional
+step that you may be skipping by doing this,  like installing vim plugins or checking that dependencies are met.
 
 ## Uninstall
 
-Our uninstall script is still a work in progress, to run it simply do run the uninstall task from your dotfiles folder.
-
-```bash
-rake uninstall
-```
-
-Afterwards you can optionally `rm -fr ~/.dotifiles` if you wish, your `name.orig` files will be restored by having run `rake uninstall`.
-
-## Prerequisites
-
-Only if you don't run the `install` script provided
-
-* [ruby](http://www.ruby-lang.org)
-* [bundler](http://gembundler.com/)
-
-`gem install bundler`
-
-### Getting ruby
-
-We recommend getting ruby via [rbenv](https://github.com/sstephenson/rbenv) and [ruby-build](https://github.com/sstephenson/ruby-build). This is the way our remote installer
-installs ruby, however this is not mandatory; you can install ruby in anyway you want.
-
-## Upgrade single bits
-
-If you already have dotfiles installed (all symlinks have been created) you can upgrade small bits like this:
-
-```bash
-cd  ~/.dotfiles
-git pull
-rake bash # bash being the bit you wish to upgrade
-```
-
-If you don't know what bits are available in dotfiles; simply run `rake -T` for a full list of tasks.
+To uninstall you can do `stow -D folderName` from your `.dotifles` directory and that will unlink all the files
+from that directory.
 
 ## Commands that will make this enjoyable
 
@@ -80,67 +67,42 @@ These dotfiles include configuration tweaks for:
 * tmux
 * postgresql
 * ack
+* i3wm
 
 To get most of these dotfiles we recommend installing these packages
 
-## Homebrew
-
-Homebrew makes managing and installing packages in both Linux and OSX pretty simple. This is not required for Linux since most distributions have a pretty robust package manager;
-hoewever homebrew allows you to install packages directly into `$HOME` without special permissions, and in many cases unavailable or newer packages that your OS package manager does
-not include.
-
-You can install each of this with a simple `brew install <package>`.
-
-### OSX with [Homebrew](https://github.com/Homebrew/homebrew)
-
-If you're on a mac we highly recommend using [Homebrew](https://github.com/Homebrew/homebrew), it's constantly getting updates and it's pretty clean and easy to manage, here's
-a list of packages you should be looking to install.
-
-* git
-* coreutils
-* vim
-* macvim
-* readline
-* openssl
-
-### Linux with [Linuxbrew] (https://github.com/Homebrew/linuxbrew)
-
-If you're using linux and would like to install packages to your `$HOME` then [Linuxbrew](https://github.com/Homebrew/linuxbrew) is a simple way to get this done, like homebrew it gets
-frequent updates and it's pretty clean and easy to maintain, not to mention it has formulas for many of the same packages homebrew does, should a package not be present it's only a matter
-of falling back to the OS package manger.
-
 ## Developers
 
-We try to make development as simple as possible for [ourselves](https://github.com/cloverinteractive/dotfiles/graphs/contributors), therefore we've worked in a way of easily running our
-scripts in a virtual machine that we can use a sandbox our [installer](https://github.com/cloverinteractive/dotfiles/blob/master/install) can be ran from vagrant.
+We try to make development as simple as possible for [ourselves](https://github.com/cloverinteractive/dotfiles/graphs/contributors), therefore we've added
+in a `Dockerfile` for running our scripts in a docker container.
 
-To start playing with our setup you'll need [vagrant](https://www.vagrantup.com/) and [virtualbox](https://www.virtualbox.org/), you can use hombrew's `brew cask install vagrant virtualbox` in
-OSX if you already have homebrew installed or download the installers provided for your OS in both of the official sites.
+If you wish to see how these dotfiles look/feel  without installing them in your system  or you wisht to contribute please consider installing docker and
+giving this a try:
 
 ```bash
-git clone https://github.com/cloverinteractive/dotfiles.git
+docker build . -t dotfiles # Will build a docker image this may take a couple of minutes
+docker run --rm  -it dotfiles bash # This will put you in the containers command prompt
+```
+
+Once in the container you have a few options based on what you're trying to do (you only need to one of the four):
+
+```bash
+# Install from the locally copied dotfiles folder
 cd dotfiles
+./install -s
 
-# This will run vagrant in the background and setup a test box or boot it if you already have one
-vagrant up
+# Fetch from git and install
+./dotfiles/install -b your-git-branch-name
 
-# This will connect you to your new virtual machine via ssh
-vagrant ssh
+# Use curl as you normally would (this is useful to test your installer tweaks over curl)
+curl https://raw.githubusercontent.com/cloverinteractive/dotfiles/your-branch-name/install  | bash -s -- -b your-branch-name
+
+# Run the installer over curl normally and install normally
+curl https://raw.githubusercontent.com/cloverinteractive/dotfiles/master/install | bash
 ```
 
-Once in vagrant, your project folder will be synced into your VM's `/vagrant` folder, that means you do not need to exit ssh to make changes or disconnect if you do change something in your OS;
-You can run the installer from `/vagrant` and even pass it the name of the branch to install like this:
+It is highly recommended that you look at the `install` and `backup` scripts included with the project for more information about the available flags/options at your disposal.
 
-```bash
-# Run installer from the /vagrant folder
-/vagrant/install features/my-cool-feature
-
-# Log out and log back in or load ~/.bash_profile
-source ~/.bash_profile
-```
-
-When you're done you can shutdown vagrant by running `vagrant halt`.
-
-## issues
+## Issues
 
 These dotfiles are still in the works and are not perfect, feel free to advise, fork and send your pull requests.

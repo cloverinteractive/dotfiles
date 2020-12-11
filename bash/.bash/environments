@@ -1,0 +1,13 @@
+FNM_PATH=`which fnm`
+PYENV_PATH=`which pyenv`
+
+if [[ -x $FNM_PATH ]]; then
+  eval "`fnm env`"
+fi
+
+if [[ -x $PYENV_PATH ]]; then
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+
+# vim: set ft=sh:

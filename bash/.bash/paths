@@ -1,0 +1,41 @@
+# Access rbenv if installed
+if [ -f $HOME/.rbenv ]; then
+  TMP_PATH=$HOME/.rbenv/bin:$TMP_PATH
+fi
+
+# Access fnm if installed
+if [ -f $HOME/.fnm ]; then
+  TMP_PATH=$HOME/.fnm:$TMP_PATH
+fi
+
+# Access pyenv if installed
+if [ -f $HOME/.pyenv ]; then
+  TMP_PATH=$HOME/.pyenv/bin:$TMP_PATH
+fi
+
+# Access Android SDK
+export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+
+if [ -f ANDROID_SDK_ROOT ]; then
+  TMP_PATH=$ANDROID_SDK_ROOT/emulator:$TMP_PATH
+  TMP_PATH=$ANDROID_SDK_ROOT/tools:$TMP_PATH
+  TMP_PATH=$ANDROID_SDK_ROOT/platform-tools:$TMP_PATH
+fi
+
+# Access go binaries if installed
+if [ -f /usr/local/go ]; then
+  TMP_PATH=/usr/local/go/bin:$TMP_PATH
+fi
+
+# Access rust binaries if any
+if [ -f $HOME/.cargo ]; then
+  TMP_PATH=$HOME/.cargo/env:$TMP_PATH
+  TMP_PATH=$HOME/.cargo/bin:$TMP_PATH
+fi
+
+# Access local and relative binaries
+TMP_PATH=./bin:$HOME/.local/bin:$HOME/bin:$TMP_PATH
+
+export PATH=$TMP_PATH:$PATH
+
+# vim: set ft=sh:
