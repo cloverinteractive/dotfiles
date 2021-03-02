@@ -139,6 +139,9 @@ bindsym $mod+Shift+minus move scratchpad
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show
 
+# Bind $mod+grave for terminal with title __scratch
+bindsym $mod+grave [title="__scratch"] scratchpad show
+
 workspace_auto_back_and_forth yes
 force_display_urgency_hint 0 ms
 focus_on_window_activation urgent
@@ -290,11 +293,16 @@ for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"]   floating enable
 for_window [title="Android Emulator -.*"] floating enable
 
+for_window [title="__scratch"] move scratchpad
+
 # for_window [class="Slack"] floating enable
 # for_window [class="Caprine"] floating enable
 # for_window [class="Discord"] floating enable
 
 # Startup
+
+# Dropdown scratchpad terminal on mod+`
+exec --no-startup-id urxvt -title '__scratch'
 
 # Auto numlock on startup
 exec --no-startup-id xdotool key --clearmodifiers Num_Lock
