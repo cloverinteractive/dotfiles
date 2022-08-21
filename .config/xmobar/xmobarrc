@@ -1,0 +1,70 @@
+Config { overrideRedirect = True
+       , lowerOnStart = True
+       , font             = "xft:NotoSansDisplay Nerd Font:size=12:style=Regular:antialias=true:hinting=true"
+       , additionalFonts  = [ "xft:NotoSansDisplay Nerd Font:style=Regular:size=24:antialias=true:hinting=true"
+                            , "xft:Noto Sans CJK JP:size=12:style=Regular:antialias=true:hinting=true"
+                            ]
+       , alpha            = 179
+       , bgColor          = "#282A36"
+       , fgColor          = "#caa9fa"
+       , position         = TopW L 100 24
+       , commands         = [ Run Com "echo" ["<fc=#4d4d4d>|</fc>"] "separator" 0
+                    , Run Com "echo" ["<action=xdotool key super+shift+d><fn=1>\xe777</fn></action>"] "launcher" 0
+                    , Run Wireless "wlp3s0"
+                        ["-t", "\xfaa8 <ssid>"
+                        ] 3600
+                    , Run Weather "CYVR"
+                        [ "-t", "Surrey <weather> <tempC>°C"
+                        , "-L", "0"
+                        , "-H", "25"
+                        , "--low",  "#caa9fa"
+                        , "--normal", "#caa9fa"
+                        , "--high", "#caa9fa"
+                        ] 36000
+                    , Run Weather "MMTJ"
+                        [ "-t", "Tijuana <tempC>°C"
+                        , "-L", "0"
+                        , "-H", "25"
+                        , "--low",  "#caa9fa"
+                        , "--normal", "#caa9fa"
+                        , "--high", "#caa9fa"
+                        ] 36000
+                    , Run Cpu
+                        [ "-t", "\xfb19 <total>%"
+                        , "-L", "3"
+                        , "-H", "50"
+                        , "--low",  "#caa9fa"
+                        , "--normal", "#caa9fa"
+                        , "--high", "#caa9fa"
+                        ] 10
+                    , Run Alsa "default" "Master"
+                        [ "--template", "<volumestatus>"
+                        , "--suffix", "True"
+                        , "--"
+                        , "-O", ""
+                        , "-o", ""
+                        , "-C", "#caa9fa"
+                        , "--highs", "\xf028 "
+                        , "--mediums", "\xfa7d "
+                        , "--lows" , "\xfa7e "
+                        ]
+                    , Run Memory
+                        [ "--template", "\xf2db <usedratio>%"
+                        ] 10
+                    , Run Battery
+                        [ "-t", "<acstatus>"
+                        , "--", "-O", "\xf492", "-o", "", "-i", "\xf492"
+                        , "--highs", "\xf241 -", ""
+                        , "--mediums", "\xf242 -", ""
+                        , "--lows", "\xf243 -", ""
+                        , "-a", "notify-send -u critical 'Battery running out!!'"
+                        , "-A", "10"
+                        ]
+                        600
+                    , Run Date "\xf5ef %a %b %d, %H:%M  " "date" 10
+                    , Run XMonadLog
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "  %launcher%  <fn=2>%XMonadLog%</fn>}{%cpu% %separator% %memory% %separator% %CYVR% %separator% %MMTJ% %separator% %wlp3s0wi% %separator% %alsa:default:Master% %separator% %battery% %separator% %date%   "
+       }
