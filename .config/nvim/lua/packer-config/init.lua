@@ -19,9 +19,18 @@ return require('packer').startup(function()
 
   -- LSP
   use 'neovim/nvim-lspconfig' -- Collection of configuration for LSP
+  use 'williamboman/mason.nvim' -- Lagunage Server Auto installation
   use 'hrsh7th/nvim-cmp' -- Auto completion plugin
   use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
+
+  -- Syntax highlights
   use 'nvim-treesitter/nvim-treesitter' -- Treesitter
+
+  -- Fuzzy search
+  use {
+    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    requires = {{'nvim-lua/plenary.nvim'}}
+  }
 
   -- Autoformatter/linter
   use {
