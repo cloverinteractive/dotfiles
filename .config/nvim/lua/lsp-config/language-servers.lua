@@ -37,6 +37,10 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 
+require('lspconfig')['dockerls'].setup {
+  on_attach = on_attach,
+  flags = lsp_flags,
+}
 require('lspconfig')['hls'].setup{
     on_attach = on_attach,
     flags = lsp_flags,

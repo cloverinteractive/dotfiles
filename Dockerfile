@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:rolling
 
 ENV SHELL bash
 ENV DEBIAN_FRONTEND noninteractive
@@ -25,7 +25,7 @@ RUN apt-get install -y \
   nodejs
 
 # Install latest starship
-RUN curl -fsSL https://starship.rs/install.sh | bash -s -- -y
+RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
 USER test
 
