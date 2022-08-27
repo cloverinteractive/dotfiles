@@ -2,6 +2,7 @@ FROM ubuntu:rolling
 
 ENV SHELL bash
 ENV DEBIAN_FRONTEND noninteractive
+ENV USER test
 
 RUN useradd test
 RUN usermod -aG sudo test
@@ -13,16 +14,17 @@ RUN apt-get install -y \
   bat \
   ack-grep \
   fzf \
-  vim \
   curl \
   git \
   lsof \
   bash \
   stow \
   tmux \
-  python3 \
-  python3-pip \
-  nodejs
+  xz-utils \
+  sudo
+
+# Add don't require password for test in sudoers 
+RUN echo "test ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Install latest starship
 RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
@@ -31,17 +33,15 @@ USER test
 
 WORKDIR /home/test
 
+# Add nixpkgs
+RUN curl -sSL https://nixos.org/nix/install | sh -s -- --no-daemon
+
+# load nixpgks paths
+RUN echo ". /home/test/.nix-profile/etc/profile.d/nix.sh" >> .bashrc
+
 RUN mkdir /home/test/dotfiles
 
-COPY --chown=test:test bash dotfiles/bash
-COPY --chown=test:test git dotfiles/git
-COPY --chown=test:test local dotfiles/local
-COPY --chown=test:test postgres dotfiles/postgres
-COPY --chown=test:test rubygems dotfiles/rubygems
-COPY --chown=test:test tmux dotfiles/tmux
-COPY --chown=test:test vim dotfiles/vim
-COPY --chown=test:test X dotfiles/X
-COPY --chown=test:test install dotfiles
-COPY --chown=test:test backup dotfiles
+ADD . /home/test/dotfiles/
+
 
 CMD ["bash"]

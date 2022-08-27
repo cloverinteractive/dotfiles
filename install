@@ -24,18 +24,6 @@ echo ''
 declare -A DEPENDENCIES=(
   ["curl"]="$(which curl)"
   ["git"]="$(which git)"
-  ["node"]="$(which node)"
-)
-
-FILES=(
-  "bash"
-  "git"
-  "local"
-  "postgres"
-  "rubygems"
-  "tmux"
-  "vim"
-  "X"
 )
 
 # Print red
@@ -109,17 +97,15 @@ while [ "$#" -gt 0 ]; do
   esac
 done
 
-info "Fetching vim-plug"
-curl -fLo ./vim/.vim/autoload/plug.vim --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+info "Linking dotfiles"
+mkdir ~/.config &> /dev/null
+stow -vS . -t ~/.config
 
-for file in "${FILES[@]}"; do
-  info "Linking $file"
-  stow "$file"
-done
+info "Fetching packer.nvim"
+git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 info "Installing vim plugins"
-vim +PlugInstall +qa
+nvim +PackerSync +qa
 
 success "Thanks for installing, please report any issues to https://github.com/cloverinteractive/dotfiles/issues"
 info "Run source ~/.bash_profile to load your environment"
