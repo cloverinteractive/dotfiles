@@ -1,4 +1,5 @@
 FNM_PATH=`which fnm`
+NIX_PROFILE=$HOME/.nix-profile/etc/profile.d/nix.sh
 PYENV_PATH=`which pyenv`
 
 if [[ -x $FNM_PATH ]]; then
@@ -8,6 +9,10 @@ fi
 if [[ -x $PYENV_PATH ]]; then
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
+fi
+
+if [[ -f $NIX_PROFILE ]]; then
+  source $NIX_PROFILE
 fi
 
 # vim: set ft=sh:

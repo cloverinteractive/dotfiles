@@ -99,13 +99,13 @@ done
 
 info "Linking dotfiles"
 mkdir ~/.config &> /dev/null
-stow -vS . -t ~/.config
+stow -v .
 
 info "Fetching packer.nvim"
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 info "Installing vim plugins"
-nvim +PackerSync +qa
+# nvim +PackerSync +qa
 
 success "Thanks for installing, please report any issues to https://github.com/cloverinteractive/dotfiles/issues"
 info "Run source ~/.bash_profile to load your environment"

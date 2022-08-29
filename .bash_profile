@@ -1,21 +1,21 @@
 # Create this file to load extras before
-if [ -f $HOME/.bash/before ]; then
-  . $HOME/.bash/before
+if [ -f $HOME/.config/bash/before ]; then
+  . $HOME/.config/bash/before
 fi
 
 # Update $PATH
-if [ -f $HOME/.bash/paths ]; then
-  . $HOME/.bash/paths
+if [ -f $HOME/.config/bash/paths ]; then
+  . $HOME/.config/bash/paths
 fi
 
 # Update PS1 and PROMPT_COMMAND
-if [ -f $HOME/.bash/prompt ]; then
-  . $HOME/.bash/prompt
+if [ -f $HOME/.config/bash/prompt ]; then
+  . $HOME/.config/bash/prompt
 fi
 
 # Load command aliases
-if [ -f $HOME/.bash/aliases ]; then
-  . $HOME/.bash/aliases
+if [ -f $HOME/.config/bash/aliases ]; then
+  . $HOME/.config/bash/aliases
 fi
 
 export PYTHONIOENCODING=UTF-8
@@ -47,13 +47,13 @@ if ! shopt -oq posix; then
 fi
 
 # Setup development environment
-if [ -f $HOME/.bash/environments ]; then
-  . $HOME/.bash/environments
+if [ -f $HOME/.config/bash/environments ]; then
+  . $HOME/.config/bash/environments
 fi
 
 # Create this file to load extras after
-if [ -f $HOME/.bash/after ]; then
-  . $HOME/.bash/after
+if [ -f $HOME/.config/bash/after ]; then
+  . $HOME/.config/bash/after
 fi
 
 # vim: set filetype=sh:

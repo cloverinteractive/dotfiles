@@ -36,12 +36,17 @@ WORKDIR /home/test
 # Add nixpkgs
 RUN curl -sSL https://nixos.org/nix/install | sh -s -- --no-daemon
 
-# load nixpgks paths
-RUN echo ". /home/test/.nix-profile/etc/profile.d/nix.sh" >> .bashrc
+RUN mkdir /home/test/.dotfiles
 
-RUN mkdir /home/test/dotfiles
-
-ADD . /home/test/dotfiles/
-
+COPY .ackrc /home/test/.dotfiles/.ackrc
+COPY .bash_profile /home/test/.dotfiles/.bash_profile
+COPY .bashrc /home/test/.dotfiles/.bashrc
+COPY .config /home/test/.dotfiles/.config
+COPY .gitconfig /home/test/.dotfiles/.gitconfig
+COPY .gitignore /home/test/.dotfiles/.gitignore
+COPY .psqlrc /home/test/.dotfiles/.psqlrc
+COPY .xinitrc /home/test/.dotfiles/.xinitrc
+COPY .Xresources /home/test/.dotfiles/.Xresources
+COPY install /home/test/.dotfiles/install
 
 CMD ["bash"]
