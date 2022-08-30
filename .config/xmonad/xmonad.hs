@@ -165,7 +165,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
   --
   -- spawn programs
   -- launch betterlockscreen
-  [ ((modm, xK_z), spawn "~/.i3/scripts/betterlockscreen -l dim")
+  [ ((modm, xK_z), spawn "~/.config/i3/scripts/betterlockscreen -l dim")
   -- launch rofi
   , ( (modm .|. shiftMask, xK_d)
     , spawn

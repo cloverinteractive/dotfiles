@@ -1,0 +1,18 @@
+
+# Set screen
+xrandr --output eDP-1-1 --primary --mode 3840x2160 --dpi 200.26 --brightness 0.75
+
+# Start compositor
+picom --experimental-backends --blur-method dual_kawase --blur-strength 7 -b &
+
+# Set keyboard layout
+setxkbmap -layout us,us -variant ,intl -option grp:alt_shift_toggle
+
+# Set the default X cursor to the usual pointer
+xsetroot -cursor_name left_ptr
+
+# enable touch pad
+xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Tapping Enabled" 1
+
+# Set a nice background
+# feh --bg-fill --zoom max ~/Pictures/Wallpapers/Synthwave.jpg

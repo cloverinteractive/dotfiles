@@ -46,7 +46,10 @@ COPY .gitconfig /home/test/.dotfiles/.gitconfig
 COPY .gitignore /home/test/.dotfiles/.gitignore
 COPY .psqlrc /home/test/.dotfiles/.psqlrc
 COPY .xinitrc /home/test/.dotfiles/.xinitrc
+COPY .xprofile /home/test/.dotfiles/.xprofile
 COPY .Xresources /home/test/.dotfiles/.Xresources
 COPY install /home/test/.dotfiles/install
+
+RUN cd /home/test/.dotfiles && ./install -s
 
 CMD ["bash"]

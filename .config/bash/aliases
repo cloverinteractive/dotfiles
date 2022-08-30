@@ -21,6 +21,7 @@ alias l='ls -CF'
 alias python=python3
 alias pip=pip3
 alias tmux="tmux -2"
+alias vim=nvim
 alias xclip="xclip -se clipboard"
 
 # What services are listening for connections
