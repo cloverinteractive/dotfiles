@@ -1,6 +1,6 @@
 STARSHIP_PATH=`which starship`
 
-if [ -x $STARSHIP_PATH ]; then
+if [[ -x $STARSHIP_PATH ]]; then
   eval "$(starship init bash)"
 fi
 
