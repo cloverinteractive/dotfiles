@@ -1,5 +1,6 @@
 DIRCOLORS_PATH=`which dircolors`
 EXA_PATH=`which exa`
+NVIM_PATH=`which nvim`
 
 # Create color aliases
 if [[ -x $DIRCOLORS_PATH ]]; then
@@ -21,8 +22,11 @@ alias l='ls -CF'
 alias python=python3
 alias pip=pip3
 alias tmux="tmux -2"
-alias vim=nvim
 alias xclip="xclip -se clipboard"
+
+if [[ -x NVIM_PATH ]]; then
+  alias vim=nvim
+fi
 
 # What services are listening for connections
 alias listening="lsof -Pan -iTCP -sTCP:listen"

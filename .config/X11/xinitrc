@@ -1,4 +1,7 @@
-xrdb -load ~/.Xresources
+## Note: This path is picked up by xinitrc but not startx if you need startx
+# copy or link this file to $HOME as .xinitrc
+
+xrdb -load "$XDG_CONFIG_HOME/X11/xresources" # perhaps this should be in Xsession?
 
 xset s off
 xset -dpms
