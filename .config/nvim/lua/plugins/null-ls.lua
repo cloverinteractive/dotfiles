@@ -1,9 +1,15 @@
-require("null-ls").setup({
-    sources = {
-        require("null-ls").builtins.formatting.black,
-        require("null-ls").builtins.formatting.prettier,
-        require("null-ls").builtins.formatting.stylua,
-        require("null-ls").builtins.diagnostics.eslint_d,
-        require("null-ls").builtins.diagnostics.flake8,
-    }
+local null_ls_ok, null_ls = pcall(require, "null-ls")
+
+if not null_ls_ok then
+	return
+end
+
+null_ls.setup({
+	sources = {
+		null_ls.builtins.formatting.black,
+		null_ls.builtins.formatting.prettier,
+		null_ls.builtins.formatting.stylua,
+		null_ls.builtins.diagnostics.eslint_d,
+		null_ls.builtins.diagnostics.flake8,
+	},
 })

@@ -1,4 +1,0 @@
-[Desktop Entry]
-Name=xmonad
-Type=XSession
-Exec=/home/enrique/.local/bin/xmonad

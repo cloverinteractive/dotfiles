@@ -12,6 +12,7 @@ RUN chown test:test -R /home/test
 RUN apt-get update
 RUN apt-get install -y \
   bat \
+  build-essential \
   jq \
   ack-grep \
   fzf \
@@ -21,10 +22,6 @@ RUN apt-get install -y \
   lsof \
   bash \
   stow \
-  tmux \
-  python3 \
-  python3-pip \
-  nodejs \
   xz-utils \
   sudo
 
@@ -56,6 +53,10 @@ COPY .profile /home/test/.dotfiles/.profile
 COPY .xprofile /home/test/.dotfiles/.xprofile
 COPY install /home/test/.dotfiles/install
 
+RUN sudo chown -R test:test /home/test/.dotfiles
 RUN cd /home/test/.dotfiles && ./install -s
+
+# Remove this nonsense coming from /etc/bash.bashrc
+RUN rm ~/.sudo_as_admin_successful
 
 CMD ["bash"]

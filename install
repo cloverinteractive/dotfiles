@@ -108,11 +108,18 @@ stow -v .
 if [[ -x $NVIM_PATH ]]; then
   info "Fetching packer.nvim"
   git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+  nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 fi
 
 if [[ -x $VIM_PATH ]]; then
   info "Fetching vim-plug"
   curl -fLo ~/.local/share/vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+  # This is commented out because it breaks XDG as vim-plug installs plugins 
+  # in ~/.vim/plugins instead of $XDG_CONFIG_HOM/vim/plugins
+
+  # vim +PlugInstall +qa
 fi
 
 success "Thanks for installing, please report any issues to https://github.com/cloverinteractive/dotfiles/issues"
