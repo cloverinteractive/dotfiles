@@ -15,15 +15,18 @@ RUN apt-get install -y \
   jq \
   ack-grep \
   fzf \
+  vim \
   curl \
   git \
   lsof \
   bash \
   stow \
   tmux \
+  python3 \
+  python3-pip \
+  nodejs \
   xz-utils \
-  sudo \
-  vim
+  sudo
 
 # Add don't require password for test in sudoers 
 RUN echo "test ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
@@ -49,6 +52,7 @@ COPY .bash_profile /home/test/.dotfiles/.bash_profile
 COPY .bashrc /home/test/.dotfiles/.bashrc
 COPY .config /home/test/.dotfiles/.config
 COPY .gitignore /home/test/.dotfiles/.gitignore
+COPY .profile /home/test/.dotfiles/.profile
 COPY .xprofile /home/test/.dotfiles/.xprofile
 COPY install /home/test/.dotfiles/install
 
