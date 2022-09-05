@@ -18,12 +18,16 @@ GREEN="${SWITCH}0;32m"
 YELLOW="${SWITCH}1;33m"
 NORMAL="${SWITCH}0m"
 
+VIM_PATH=`which vim`
+NVIM_PATH=`which nvim`
+
 set -e
 echo ''
 
 declare -A DEPENDENCIES=(
   ["curl"]="$(which curl)"
   ["git"]="$(which git)"
+  ["stow"]="$(which stow)"
 )
 
 # Print red
@@ -101,11 +105,15 @@ info "Linking dotfiles"
 mkdir ~/.config &> /dev/null
 stow -v .
 
-info "Fetching packer.nvim"
-git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+if [[ -x $NVIM_PATH ]]; then
+  info "Fetching packer.nvim"
+  git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+fi
 
-info "Installing vim plugins"
-# nvim +PackerSync +qa
+if [[ -x $VIM_PATH ]]; then
+  info "Fetching vim-plug"
+  curl -fLo ~/.local/share/vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
 
 success "Thanks for installing, please report any issues to https://github.com/cloverinteractive/dotfiles/issues"
 info "Run source ~/.bash_profile to load your environment"

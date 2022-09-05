@@ -5,7 +5,6 @@ NVIM_PATH=`which nvim`
 # Create color aliases
 if [[ -x $DIRCOLORS_PATH ]]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-  alias ls='ls --color=auto'
   alias grep='grep --color=auto'
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
@@ -13,6 +12,8 @@ fi
 
 if [[ -x $EXA_PATH ]]; then
   alias ls="exa --git-ignore --icons -h"
+else
+  alias ls='ls --color=auto'
 fi
 
 alias ll='ls -alFh'
@@ -24,8 +25,10 @@ alias pip=pip3
 alias tmux="tmux -2"
 alias xclip="xclip -se clipboard"
 
-if [[ -x NVIM_PATH ]]; then
+if [[ -x $NVIM_PATH ]]; then
   alias vim=nvim
+else
+  alias vim='vim -u ${XDG_CONFIG_HOME:-$HOME/.config}/vim/vimrc'
 fi
 
 # What services are listening for connections

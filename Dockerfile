@@ -22,7 +22,8 @@ RUN apt-get install -y \
   stow \
   tmux \
   xz-utils \
-  sudo
+  sudo \
+  vim
 
 # Add don't require password for test in sudoers 
 RUN echo "test ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
@@ -30,13 +31,14 @@ RUN echo "test ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 # Install latest starship
 RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
+# Install nvim 0.7.2
+RUN curl -L https://github.com/neovim/neovim/releases/download/v0.7.2/nvim-linux64.deb -o nvim.deb
+RUN dpkg -i nvim.deb
+RUN rm -fr nvim.deb
+
 USER test
 
 WORKDIR /home/test
-
-# Add nixpkgs
-RUN curl -sSL https://nixos.org/nix/install | sh -s -- --no-daemon
-RUN rm .sudo_as_admin_successful
 
 RUN mkdir /home/test/.dotfiles
 
