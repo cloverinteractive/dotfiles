@@ -1,6 +1,7 @@
 FNM_PATH=`which fnm`
 NIX_PROFILE=$HOME/.nix-profile/etc/profile.d/nix.sh
 PYENV_PATH=`which pyenv`
+QT5CT_PATH=`which qt5ct`
 
 if [[ -x $FNM_PATH ]]; then
   eval "`fnm env`"
@@ -13,6 +14,12 @@ fi
 
 if [[ -f $NIX_PROFILE ]]; then
   source $NIX_PROFILE
+fi
+
+if [[ -x QT5CT_PATH ]]; then
+  export QT_QPA_PLATFORMTHEME=qt5ct
+else
+  export QT_STYLE_OVERRIDE=gtk2
 fi
 
 export XDG_DATA_HOME="$HOME/.local/share"

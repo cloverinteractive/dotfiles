@@ -36,34 +36,27 @@ set nocompatible
 filetype off
 
 call plug#begin('~/.vim/plugged')
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'elmcast/elm-vim'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-markdown'
-Plug 'tpope/vim-rails'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/nginx.vim'
-Plug 'vim-scripts/haskell.vim'
 Plug 'vim-scripts/LargeFile'
 Plug 'mattn/emmet-vim'
-Plug 'jinfield/vim-nginx'
 Plug 'scrooloose/nerdcommenter'
-Plug 'mxw/vim-jsx'
 Plug 'lilydjwg/colorizer'
-Plug 'styled-components/vim-styled-components'
-Plug 'junegunn/fzf', { 'do': './install --bin' }
-Plug 'junegunn/fzf.vim'
+Plug 'sheerun/vim-polyglot'
 
 " Themes
 Plug 'dracula/vim'
+Plug 'altercation/vim-colors-solarized'
 
-Plug 'preservim/nerdtree'
-Plug 'jparise/vim-graphql'
-Plug 'reasonml-editor/vim-reason-plus'
+" IDE
 Plug 'airblade/vim-gitgutter'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+Plug 'preservim/nerdtree'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 

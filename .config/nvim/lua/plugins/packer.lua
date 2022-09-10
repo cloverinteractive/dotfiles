@@ -24,7 +24,7 @@ return packer.startup(function()
 
 	-- LSP
 	use("neovim/nvim-lspconfig") -- Collection of configuration for LSP
-	use("williamboman/mason.nvim") -- Lagunage Server Auto installation
+	use("williamboman/mason.nvim") -- Language Server Auto installation
 	use("hrsh7th/nvim-cmp") -- Auto completion plugin
 	use("hrsh7th/cmp-nvim-lsp") -- LSP source for nvim-cmp
 	use("saadparwaiz1/cmp_luasnip") -- Snippets source for nvim-cmp
