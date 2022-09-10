@@ -1,5 +1,6 @@
 FNM_PATH=`which fnm`
 NIX_PROFILE=$HOME/.nix-profile/etc/profile.d/nix.sh
+NVIM_PATH=`which nvim`
 PYENV_PATH=`which pyenv`
 QT5CT_PATH=`which qt5ct`
 
@@ -22,6 +23,29 @@ else
   export QT_STYLE_OVERRIDE=gtk2
 fi
 
+export PYTHONIOENCODING=UTF-8
+
+VIM=vim
+
+if [[ -x $NVIM_PATH ]]; then
+  VIM=nvim
+fi
+
+# Set editor
+export EDITOR=$VIM
+export VISUAL=$VIM
+export GIT_EDITOR="$VIM -f"
+
+# Set history
+export HISTCONTROL=erasedups
+export HISTSIZE=10000
+export HISTTIMEFORMAT="%D %T "
+export HISTIGNORE="&:ls:exit"
+
+# Set pager settings
+export LESS="-R -iMSx2 -FX"
+
+# XDG
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_STATE_HOME="$HOME/.local/state"

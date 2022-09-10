@@ -18,22 +18,7 @@ if [ -f $HOME/.config/bash/aliases ]; then
   . $HOME/.config/bash/aliases
 fi
 
-export PYTHONIOENCODING=UTF-8
-
-# Set editor
-export EDITOR=vim
-export VISUAL=vim
-export GIT_EDITOR='vim -f'
-
-# Set history
-export HISTCONTROL=erasedups
-export HISTSIZE=10000
-export HISTTIMEFORMAT="%D %T "
-export HISTIGNORE="&:ls:exit"
 shopt -s histappend
-
-# Set pager settings
-export LESS="-R -iMSx2 -FX"
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
