@@ -1,5 +1,8 @@
 # Vim Info:
 
+Note that if nvim is detected in your system `vim` will be aliased to `nvim`, you can unalias this, we
+have kept `vim` for people that have not fully moved to `nvim` or people that work in systems that don't
+have nvim installed and are not allowed to install it.
 
 ## The rules
 
@@ -61,5 +64,3 @@ A collection of language packs for vim, syntax highlighting in a single plugin.
 * jj in insert mode changes to normal mode
 * `<shift> + <enter>` Adds two lines and indents the one above
 * Indentguides enabled by default
-
-## Tips
