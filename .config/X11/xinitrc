@@ -1,0 +1,24 @@
+## Note: This path is picked up by xinitrc but not startx if you need startx
+# copy or link this file to $HOME as .xinitrc
+
+xrdb -load "$XDG_CONFIG_HOME/X11/xresources" # perhaps this should be in Xsession?
+
+xset s off
+xset -dpms
+xset s noblank
+
+xset r rate 200 20
+
+setxkbmap us
+setxkbmap -option ctrl:nocaps
+
+### Select a window manager
+
+### i3 execs
+# exec dbus-launch dwm
+# exec --no-startup-id xss-lock -- ~/.config/i3/lock.sh
+
+### xmonad
+exec xmonad
+
+# vim: set ft=sh :

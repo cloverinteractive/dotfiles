@@ -40,34 +40,42 @@ cd ~/.dotfiles
 ### Advanced (not recommended)
 
 Since we're using stow to manage the dotfiles under the hood, you can skip the installer and just stow files directly like
-this:
+this, however depending on your system configuration you will need to set the directory and target manually, we've tried
+to make things xdg compliant but cannot guarantee that will be the case if things are stowed manually:
 
 ```bash
 cd .dotfiles
-stow bash
+stow -d .config/bash -t .config
 ```
 
-That will install/link all the bash related files, however keep in mind that you'll have to manually run any additional
-step that you may be skipping by doing this,  like installing vim plugins or checking that dependencies are met.
+When doing this keep in mind that uninstalling can also get tricky and you'll need to remember how you linked your configs.
 
 ## Uninstall
 
-To uninstall you can do `stow -D folderName` from your `.dotifles` directory and that will unlink all the files
-from that directory.
+To uninstall you can do `stow -D` from your `.dotifles` directory and that will unlink all the files from that directory.
 
 ## Commands that will make this enjoyable
 
 These dotfiles include configuration tweaks for:
 
-* ncmpcpp
-* bash
-* rubygems
-* git
-* vim
-* tmux
-* postgresql
 * ack
-* i3wm
+* bash
+* cava
+* dunst
+* git
+* i3
+* kitty
+* mpd
+* ncmpcpp
+* nvim
+* pg (postgresql)
+* picom
+* ranger
+* tmux
+* vim
+* X11
+* xmobar
+* xmonad
 
 To get most of these dotfiles we recommend installing these packages
 
@@ -81,27 +89,13 @@ giving this a try:
 
 ```bash
 docker build . -t dotfiles # Will build a docker image this may take a couple of minutes
-docker run --rm  -it dotfiles bash # This will put you in the containers command prompt
+docker run --rm  -it dotfiles # This will put you in the containers command prompt
 ```
 
-Once in the container you have a few options based on what you're trying to do (you only need to one of the four):
-
-```bash
-# Install from the locally copied dotfiles folder
-cd dotfiles
-./install -s
-
-# Fetch from git and install
-./dotfiles/install -b your-git-branch-name
-
-# Use curl as you normally would (this is useful to test your installer tweaks over curl)
-curl https://raw.githubusercontent.com/cloverinteractive/dotfiles/your-branch-name/install  | bash -s -- -b your-branch-name
-
-# Run the installer over curl normally and install normally
-curl https://raw.githubusercontent.com/cloverinteractive/dotfiles/master/install | bash
-```
-
-It is highly recommended that you look at the `install` and `backup` scripts included with the project for more information about the available flags/options at your disposal.
+Once in the container you'll have your current branch dotfiles installed, if you are trying to test something in particular to test a config
+the test user has `sudo` and you can install anything you need, we try to keep the Dockerfile pretty light only installing the bare minimum
+and anything else we need that is not readily available in the distro's package manager, try not to add a bunch of dependencies to the `Dockerfile`
+to ensure fast build times.
 
 ## Issues
 

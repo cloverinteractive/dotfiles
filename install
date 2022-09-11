@@ -18,24 +18,16 @@ GREEN="${SWITCH}0;32m"
 YELLOW="${SWITCH}1;33m"
 NORMAL="${SWITCH}0m"
 
+VIM_PATH=`which vim`
+NVIM_PATH=`which nvim`
+
 set -e
 echo ''
 
 declare -A DEPENDENCIES=(
   ["curl"]="$(which curl)"
   ["git"]="$(which git)"
-  ["node"]="$(which node)"
-)
-
-FILES=(
-  "bash"
-  "git"
-  "local"
-  "postgres"
-  "rubygems"
-  "tmux"
-  "vim"
-  "X"
+  ["stow"]="$(which stow)"
 )
 
 # Print red
@@ -109,17 +101,26 @@ while [ "$#" -gt 0 ]; do
   esac
 done
 
-info "Fetching vim-plug"
-curl -fLo ./vim/.vim/autoload/plug.vim --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+info "Linking dotfiles"
+mkdir ~/.config &> /dev/null
+stow -v .
 
-for file in "${FILES[@]}"; do
-  info "Linking $file"
-  stow "$file"
-done
+if [[ -x $NVIM_PATH ]]; then
+  info "Fetching packer.nvim"
+  git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
-info "Installing vim plugins"
-vim +PlugInstall +qa
+  nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+fi
+
+if [[ -x $VIM_PATH ]]; then
+  info "Fetching vim-plug"
+  curl -fLo ~/.local/share/vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+  # This is commented out because it breaks XDG as vim-plug installs plugins 
+  # in ~/.vim/plugins instead of $XDG_CONFIG_HOM/vim/plugins
+
+  # vim +PlugInstall +qa
+fi
 
 success "Thanks for installing, please report any issues to https://github.com/cloverinteractive/dotfiles/issues"
 info "Run source ~/.bash_profile to load your environment"
