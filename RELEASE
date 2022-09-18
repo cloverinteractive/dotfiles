@@ -1,0 +1,5 @@
+tag: v4.1.0
+
+releaseNoteGenerator:
+  showCommitter: true
+  useReleasedNoteBlock: true
