@@ -1,0 +1,31 @@
+# Create this file to load extras before
+if [ -f $HOME/.config/posix-shell/before ]; then
+  . $HOME/.config/posix-shell/before
+fi
+
+# Update $PATH
+if [ -f $HOME/.config/posix-shell/paths ]; then
+  . $HOME/.config/posix-shell/paths
+fi
+
+# Update PS1 and PROMPT_COMMAND
+if [ -f $HOME/.config/posix-shell/prompt ]; then
+  . $HOME/.config/posix-shell/prompt
+fi
+
+# Load command aliases
+if [ -f $HOME/.config/posix-shell/aliases ]; then
+  . $HOME/.config/posix-shell/aliases
+fi
+
+# Setup development environment
+if [ -f $HOME/.config/posix-shell/environments ]; then
+  . $HOME/.config/posix-shell/environments
+fi
+
+# Create this file to load extras after
+if [ -f $HOME/.config/posix-shell/after ]; then
+  . $HOME/.config/posix-shell/after
+fi
+
+# vim: set filetype=sh:

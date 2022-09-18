@@ -1,6 +1,5 @@
 FROM ubuntu:rolling
 
-ENV SHELL bash
 ENV DEBIAN_FRONTEND noninteractive
 ENV USER test
 
@@ -23,10 +22,14 @@ RUN apt-get install -y \
   bash \
   stow \
   xz-utils \
-  sudo
+  sudo \
+  zsh
 
 # Add don't require password for test in sudoers 
 RUN echo "test ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Export ZDOTDIR for zsh
+RUN echo 'export ZDOTDIR=$HOME/.config/zsh' >> /etc/zsh/zshenv
 
 # Install latest starship
 RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
@@ -45,7 +48,6 @@ RUN mkdir /home/test/.dotfiles
 # Clone xdg-ninja
 RUN git clone https://github.com/b3nj5m1n/xdg-ninja.git
 
-COPY .bash_profile /home/test/.dotfiles/.bash_profile
 COPY .bashrc /home/test/.dotfiles/.bashrc
 COPY .config /home/test/.dotfiles/.config
 COPY .gitignore /home/test/.dotfiles/.gitignore
