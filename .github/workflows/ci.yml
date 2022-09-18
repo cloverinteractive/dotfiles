@@ -1,0 +1,26 @@
+name: CI
+on: push
+
+jobs:
+  installer-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential curl stow xz-utils
+          curl -sS https://starship.rs/install.sh | sh -s -- --yes
+
+      - name: Install
+        run: ./install -s
+
+      - name: Source
+        run: source ~/.bashrc
+
+      - name: Uninstall
+        run: stow -D .

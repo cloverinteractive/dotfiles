@@ -1,10 +1,15 @@
-# Bash
+# Posix shells base
 
-## Your Bash config isn't enough for me
+These files contain configurations that any POSIX shell can load, things like aliases, $PATH updates and environment variables, we try to keep things
+as organized as possible, for more information as to the order in which each file is loaded take a look ad `profile`, if you wish to contribute and
+don't feel like your contribution fit in any of the existing files feel free to add new files that best describe the settings you're trying to add.
 
-It is likely you have defined functions or aliases not contained in this config and you are worried to upgrade and lose them, in order to kep them and load them
-you only need to create a file named `.bash_profile.before` which will be loaded before our `.bash_profile` and a file named `.bash_profile.after` which will
-be loaded after.
+## Your Shell config isn't enough for me
+
+It is likely you have defined functions or aliases not contained in this path and you are worried to upgrade and lose them, in order to load them
+you only need to create a file named `before` with anything you'd like to prepend to your shell environment or add them to the file named `after`
+if you want to load them at the very end, if you'd like to contribute we'd appreciate if you segment your configs based on content, e.g. aliases go
+in `aliases` and path changes go in `paths` and so on
 
 ### $PATH
 
@@ -14,9 +19,8 @@ We always put `./bin` and `$HOME/bin` at the begining of `$PATH`.
 export PATH=./bin:$HOME/bin:$PATH
 ```
 
-The idea is that you can just put any script into any bin folder and the home folder and  bash will know to look there or `$HOME/bin` before trying your system `bin` or
-hombrew's path. If you need to change `$PATH` it is recommended that you do so at th `.bash_profile.before`, if that's not a possibility you can always move this line to
-`.bash_profile.after`.
+The idea is that you can just put any script into any bin folder and the home folder and the shell will know to look there or `$HOME/bin` before trying
+your system `bin` or other path. If you need to change `$PATH` it is recommended that you do so at in `.config/posix-shell/paths`.
 
 ## Checkout what's listening
 
@@ -27,10 +31,4 @@ Our bash config includes a `listening` alias that shows what is listening and in
 
 ## Command Prompt
 
-Our bash config includes a couple of git related functions `current_git_branch` and `current_git_stash` all these do is check the what the current `git` branch is if we're in a git
-project and color it green, `current_git_stash` check how many elements are in the `git` stash (if any) and put the count into brackets, and color it pink. There's another function
-not git `last_return_status` related that checks the last return code and pring a green smiley or a red frowny.
-
-This is how all three functions looked combined in `$PROMPT_COMMAND`:
-
-![prompt](prompt.png)
+Since v4.0.0 we'e started using [starship](https://starship.rs/), it is highly efficient and has the same features as powerline.

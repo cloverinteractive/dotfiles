@@ -52,7 +52,7 @@ When doing this keep in mind that uninstalling can also get tricky and you'll ne
 
 ## Uninstall
 
-To uninstall you can do `stow -D` from your `.dotifles` directory and that will unlink all the files from that directory.
+To uninstall you can do `stow -D .` from your `.dotifles` directory and that will unlink all the files from that directory.
 
 ## Commands that will make this enjoyable
 
@@ -89,13 +89,26 @@ giving this a try:
 
 ```bash
 docker build . -t dotfiles # Will build a docker image this may take a couple of minutes
-docker run --rm  -it dotfiles # This will put you in the containers command prompt
+docker run --rm -it dotfiles # This will put you in the containers command prompt
 ```
 
 Once in the container you'll have your current branch dotfiles installed, if you are trying to test something in particular to test a config
 the test user has `sudo` and you can install anything you need, we try to keep the Dockerfile pretty light only installing the bare minimum
 and anything else we need that is not readily available in the distro's package manager, try not to add a bunch of dependencies to the `Dockerfile`
 to ensure fast build times.
+
+
+### Shells
+
+At the moment we only add files for `bash` and `zsh` to keep things compatible with macs, if you'd like to
+start your docker container with zsh just specify it as the run command like so:
+
+```bash
+docker run --rm -it dotfiles zsh
+```
+
+The same aliases, env vars and, prompt and paths should be set as bash if you'd like to inspect those files
+they live under `.config/posix-shell`
 
 ## Issues
 
