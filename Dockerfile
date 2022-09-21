@@ -53,6 +53,8 @@ COPY .config /home/test/.dotfiles/.config
 COPY .gitignore /home/test/.dotfiles/.gitignore
 COPY .profile /home/test/.dotfiles/.profile
 COPY .xprofile /home/test/.dotfiles/.xprofile
+COPY .stow-local-ignore /home/test/.dotfiles/.stow-local-ignore
+COPY prepare_build /home/test/.dotfiles/prepare_build
 COPY install /home/test/.dotfiles/install
 
 RUN sudo chown -R test:test /home/test/.dotfiles

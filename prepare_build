@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+###
+# This is meant for CI, users are meant to let stow inform them of 
+# unstowable file and address them manually instead
+###
+
+BASE_FILES=(".bashrc" ".gitignore" ".profile" ".xprofile")
+
+for file in `ls .config/`; do
+  CONFIG_PATH="${HOME}/.config/${file}"
+
+  if [ -d $CONFIG_PATH ]; then
+    echo "Renaming ${file} to ${file}.backup"
+    mv "${CONFIG_PATH}" "${CONFIG_PATH}.backup"
+  fi
+
+  if [ -L $CONFIG_PATH ]; then
+    echo "Unlnking ${file}"
+    unlink "${CONFIG_PATH}"
+  fi
+done
+
+for file in "${BASE_FILES[@]}"; do
+  HOME_PATH="${HOME}/${file}"
+
+  if [ -f $home_path ]; then
+    echo "Renaming ${file} to ${file}.backup"
+    mv "${HOME_PATH}" "${HOME_PATH}.backup"
+  fi
+
+  if [ -L $file ]; then
+    echo "Unlnking ${file}"
+    unlink "${HOME_PATH}"
+  fi
+done
+
+# vim: set ft=bash :

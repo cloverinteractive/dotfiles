@@ -16,6 +16,9 @@ jobs:
           sudo apt-get install -y build-essential curl stow xz-utils
           curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
+      - name: Prepare Install
+        run: ./prepare_build
+
       - name: Install
         run: ./install -s
 
