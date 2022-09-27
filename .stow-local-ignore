@@ -3,5 +3,6 @@ RELEASE
 Dockerfile
 .git
 .github
+.gitignore
 install
 prepare_build

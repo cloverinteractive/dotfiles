@@ -50,7 +50,6 @@ RUN git clone https://github.com/b3nj5m1n/xdg-ninja.git
 
 COPY .bashrc /home/test/.dotfiles/.bashrc
 COPY .config /home/test/.dotfiles/.config
-COPY .gitignore /home/test/.dotfiles/.gitignore
 COPY .profile /home/test/.dotfiles/.profile
 COPY .xprofile /home/test/.dotfiles/.xprofile
 COPY .stow-local-ignore /home/test/.dotfiles/.stow-local-ignore
