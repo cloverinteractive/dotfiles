@@ -34,8 +34,8 @@ RUN echo 'export ZDOTDIR=$HOME/.config/zsh' >> /etc/zsh/zshenv
 # Install latest starship
 RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
-# Install nvim 0.7.2
-RUN curl -L https://github.com/neovim/neovim/releases/download/v0.7.2/nvim-linux64.deb -o nvim.deb
+# Install nvim stable
+RUN curl -L https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb -o nvim.deb
 RUN dpkg -i nvim.deb
 RUN rm -fr nvim.deb
 
