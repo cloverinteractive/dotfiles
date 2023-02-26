@@ -1,6 +1,7 @@
 DIRCOLORS_PATH=`which dircolors`
 EXA_PATH=`which exa`
 NVIM_PATH=`which nvim`
+PODMAN_PATH=`which podman`
 
 # Create color aliases
 if [[ -x $DIRCOLORS_PATH ]]; then
@@ -29,6 +30,10 @@ if [[ -x $NVIM_PATH ]]; then
   alias vim=nvim
 else
   alias vim='vim -u ${XDG_CONFIG_HOME:-$HOME/.config}/vim/vimrc'
+fi
+
+if [[ -x $PODMAN_PATH ]]; then
+  alias docker=podman
 fi
 
 # What services are listening for connections
