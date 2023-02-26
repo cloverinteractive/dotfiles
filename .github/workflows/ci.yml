@@ -20,7 +20,14 @@ jobs:
         run: ./prepare_build
 
       - name: Install
-        run: ./install -s
+        id: installer
+        run: |
+          echo "log=$(./install -s)" 2>> $GITHUB_OUTPUT
+          ./install -s
+
+      - name: Debug
+        if: ${{ failure() }}
+        run: echo $GITHUB_OUTPUT
 
       - name: Source
         run: source ~/.bashrc
