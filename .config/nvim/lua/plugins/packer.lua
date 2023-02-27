@@ -22,16 +22,31 @@ return packer.startup(function()
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
 
+  -- autocomplete
+	use("hrsh7th/cmp-nvim-lsp") -- LSP source for nvim-cmp
+	use("hrsh7th/nvim-cmp") -- Auto completion plugin
+
+  -- managing & installing lsp servers, linters & formatters
+  use("williamboman/mason.nvim")
+  use("williamboman/mason-lspconfig.nvim")
+
 	-- LSP
 	use("neovim/nvim-lspconfig") -- Collection of configuration for LSP
-	use("williamboman/mason.nvim") -- Language Server Auto installation
-	use("hrsh7th/nvim-cmp") -- Auto completion plugin
-	use("hrsh7th/cmp-nvim-lsp") -- LSP source for nvim-cmp
-	use("saadparwaiz1/cmp_luasnip") -- Snippets source for nvim-cmp
+  use({ "glepnir/lspsaga.nvim", branch = "main" }) -- Enhanced LSP UIs
+  use("onsails/lspkind.nvim") -- LSP UIs icons
+
+  -- Snippets
 	use("L3MON4D3/LuaSnip") -- Snippets plugin
+	use("saadparwaiz1/cmp_luasnip") -- Snippets source for nvim-cmp
 
 	-- Syntax highlights
-	use("nvim-treesitter/nvim-treesitter") -- Treesitter
+	use({
+    "nvim-treesitter/nvim-treesitter",
+    run = function()
+      local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+      ts_update()
+    end,
+  }) -- Treesitter
 
 	-- Collection of lua functions
 	use("nvim-lua/plenary.nvim")

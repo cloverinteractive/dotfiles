@@ -1,4 +1,4 @@
-FROM ubuntu:rolling
+FROM docker.io/ubuntu:rolling
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV USER test

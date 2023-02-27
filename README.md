@@ -52,7 +52,7 @@ When doing this keep in mind that uninstalling can also get tricky and you'll ne
 
 ## Uninstall
 
-To uninstall you can do `stow -D` from your `.dotifles` directory and that will unlink all the files from that directory.
+To uninstall you can do `stow -D .` from your `.dotifles` directory and that will unlink all the files from that directory.
 
 ## Commands that will make this enjoyable
 
@@ -82,20 +82,47 @@ To get most of these dotfiles we recommend installing these packages
 ## Developers
 
 We try to make development as simple as possible for [ourselves](https://github.com/cloverinteractive/dotfiles/graphs/contributors), therefore we've added
-in a `Dockerfile` for running our scripts in a docker container.
+in a `Dockerfile` and a `Containerfile` for running our scripts in an OCI container.
 
-If you wish to see how these dotfiles look/feel  without installing them in your system  or you wisht to contribute please consider installing docker and
-giving this a try:
+If you wish to see how these dotfiles look/feel  without installing them in your system  or you wisht to contribute please consider installing 
+[podman](https://podman.io/getting-started/installation) or [docker](https://docs.docker.com/engine/install/) and giving this a try:
 
 ```bash
-docker build . -t dotfiles # Will build a docker image this may take a couple of minutes
-docker run --rm  -it dotfiles # This will put you in the containers command prompt
+# Podman instructions
+
+podman build . -t dotfiles # Will build a OCI container image this may take a couple of minutes
+podman run --rm -it dotfiles # This will put you in the containers command prompt
+
+# Docker instructions
+
+docker build . -t dotfiles # Will build a OCI image this may take a couple of minutes
+docker run --rm -it dotfiles # This will put you in the containers command prompt
 ```
 
-Once in the container you'll have your current branch dotfiles installed, if you are trying to test something in particular to test a config
-the test user has `sudo` and you can install anything you need, we try to keep the Dockerfile pretty light only installing the bare minimum
-and anything else we need that is not readily available in the distro's package manager, try not to add a bunch of dependencies to the `Dockerfile`
-to ensure fast build times.
+Once in the container you'll have your current branch of dotfiles installed, if you are trying to test something in particular that requires you
+to install anything the test user has `sudo` and you can install anything you need. We try to keep both the `Containerfile` and `Dockerfile` pretty
+light, only installing the bare minimum and anything else that's needed and not readily available in the container's distro package manager; the idea
+is not to not add too many dependencies to the `Containerfile` and `Dockerfile` to ensure fast build times.
+
+As you can see podman's CLI is compatible with docker's, we recommend podman over docker for two main reaons:
+
+1. it's daemonless
+1. it's rootles
+
+You can install podman and add an alias like `alias docker=podman` and you won't have to build new muscle memory to get started.
+
+
+### Shells
+
+At the moment we only add files for `bash` and `zsh` to keep things compatible with macs, if you'd like to
+start your docker container with zsh just specify it as the run command like so:
+
+```bash
+docker run --rm -it dotfiles zsh
+```
+
+The same aliases, env vars and, prompt and paths should be set as bash if you'd like to inspect those files
+they live under `.config/posix-shell`
 
 ## Issues
 
