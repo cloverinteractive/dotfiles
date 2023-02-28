@@ -72,7 +72,6 @@ These dotfiles include configuration tweaks for:
 * picom
 * ranger
 * tmux
-* vim
 * X11
 * xmobar
 * xmonad
@@ -99,12 +98,11 @@ docker build . -t dotfiles # Will build a OCI image this may take a couple of mi
 docker run --rm -it dotfiles # This will put you in the containers command prompt
 ```
 
-Once in the container you'll have your current branch of dotfiles installed, if you are trying to test something in particular that requires you
-to install anything the test user has `sudo` and you can install anything you need. We try to keep both the `Containerfile` and `Dockerfile` pretty
-light, only installing the bare minimum and anything else that's needed and not readily available in the container's distro package manager; the idea
-is not to not add too many dependencies to the `Containerfile` and `Dockerfile` to ensure fast build times.
+Once in the container you'll have your current branch of dotfiles installed, if you need to install anything the test user in the container has `sudo.
+We try to keep both the `Containerfile` and `Dockerfile` pretty light, only installing the bare minimum and anything else that's needed and not readily
+available in the container's distro package manager; the idea is to not add too many dependencies in order to ensure fast build times.
 
-As you can see podman's CLI is compatible with docker's, we recommend podman over docker for two main reaons:
+As you can see podman's CLI is compatible with docker's, we recommend podman over docker for two main reasons:
 
 1. it's daemonless
 1. it's rootles
