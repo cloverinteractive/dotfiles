@@ -15,7 +15,6 @@ RUN apt-get install -y \
   jq \
   ack-grep \
   fzf \
-  vim \
   curl \
   git \
   lsof \

@@ -13,8 +13,8 @@ for _, source in pairs({
   "plugins.treesitter", -- treesitter
   "plugins.telescope", -- fuzzy finder
   "plugins.lsp.mason", -- automatic language server installer
-  "plugins.lsp.lsp-config", -- laguage server protocol config
   "plugins.lsp.nvim-cmp", -- nvim completion
+  "plugins.lsp.lsp-config", -- laguage server protocol config
   "plugins.lsp.null-ls", -- formatter and diagnostics
   "plugins.gitsigns", -- git commands
 }) do
