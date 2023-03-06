@@ -6,7 +6,7 @@ PYENV_PATH=`which pyenv`
 QT5CT_PATH=`which qt5ct`
 
 if [[ -x $FNM_PATH ]]; then
-  eval "`fnm env --multi`"
+  eval "$(fnm env)"
 fi
 
 if [[ -f $GHCUP_ENV ]]; then
@@ -30,16 +30,13 @@ fi
 
 export PYTHONIOENCODING=UTF-8
 
-VIM=vim
-
-if [[ -x $NVIM_PATH ]]; then
-  VIM=nvim
-fi
-
 # Set editor
-export EDITOR=$VIM
-export VISUAL=$VIM
-export GIT_EDITOR="$VIM -f"
+if [[ -x $NVIM_PATH ]]; then
+  export EDITOR=$NVIM_PATH
+  export VISUAL=$NVIM_PATH
+  export GIT_EDITOR="$NVIM_PATH -f"
+  export VIMINIT=""
+fi
 
 # Set history
 export HISTCONTROL=erasedups

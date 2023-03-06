@@ -243,7 +243,7 @@ bar {
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (p) shutdown
 mode "$mode_system" {
-  bindsym l exec --no-startup-id ~/.config/i3/scripts/betterlockscreen -l dim, mode "default"
+  bindsym l exec --no-startup-id betterlockscreen -l dim, mode "default" # This can be compiled from: https://github.com/betterlockscreen/betterlockscreen
   bindsym e exec --no-startup-id i3-msg exit, mode "default"
   bindsym s exec --no-startup-id systemctl suspend, mode "default"
   bindsym h exec --no-startup-id systemctl hibernate, mode "default"

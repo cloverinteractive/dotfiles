@@ -4,6 +4,24 @@ These files contain configurations that any POSIX shell can load, things like al
 as organized as possible, for more information as to the order in which each file is loaded take a look ad `profile`, if you wish to contribute and
 don't feel like your contribution fit in any of the existing files feel free to add new files that best describe the settings you're trying to add.
 
+If you're building your own window manager and you wish for xdg paths to be available globally it is recommended that you update your `/etc/profile` file
+with the following vars:
+
+```sh
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_RUNTIME_DIR="/run/user/$UID"
+
+TMP_PATH=./bin:$HOME/.local/bin:$HOME/bin:$TMP_PATH
+
+export PATH=$TMP_PATH:$PATH
+```
+
+This will ensure that when you start your DE/WM it will look up for config file and binaries in the XDG paths (`$HOME/.config/xmonad` and `$HOME/.config/xmobar` in
+the case of Xmonad or `$HOME/.config/i3` for i3 amonst others).
+
 ## Your Shell config isn't enough for me
 
 It is likely you have defined functions or aliases not contained in this path and you are worried to upgrade and lose them, in order to load them

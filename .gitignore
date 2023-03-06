@@ -3,12 +3,16 @@ tags
 
 # packer lua file automatically generated
 .config/nvim/plugin/packer_compiled.lua
+.config/nvim/lua/.luarc.json
 
 # Don't check xmobar source in
 .config/xmobar/xmobar
 
 # Don't check xmonad and xmonad-contrib source in
 .config/xmonad/.stack-work
-.config/xmonad/stack.yaml*
+.config/xmonad/stack.yaml.*
 .config/xmonad/xmonad
 .config/xmonad/xmonad-contrib
+
+# Don't include tmp plugins
+.config/tmux/plugins
