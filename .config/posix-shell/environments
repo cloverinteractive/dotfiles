@@ -6,7 +6,11 @@ PYENV_PATH=`which pyenv`
 QT5CT_PATH=`which qt5ct`
 
 if [[ -x $FNM_PATH ]]; then
-  eval "$(fnm env)"
+  eval "$(fnm env --use-on-cd)"
+fi
+
+if [[ -x $HOME/.pyenv ]]; then
+  eval "$(pyenv init -)"
 fi
 
 if [[ -f $GHCUP_ENV ]]; then

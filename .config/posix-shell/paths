@@ -1,16 +1,19 @@
 # Access rbenv if installed
-if [[ -f $HOME/.rbenv ]]; then
+if [[ -d $HOME/.rbenv ]]; then
   TMP_PATH=$HOME/.rbenv/bin:$TMP_PATH
 fi
 
-# Access fnm if installed
-if [[ -f $HOME/.fnm ]]; then
-  TMP_PATH=$HOME/.fnm:$TMP_PATH
+# Setup PYENV_ROOT if pyenv is installed
+if [[ -d $HOME/.pyenv ]]; then
+  PYENV_ROOT=$HOME/.pyenv
+  TMP_PATH=$PYENV_ROOT/bin:$TMP_PATH
+
+  export PYENV_ROOT
 fi
 
-# Access pyenv if installed
-if [[ -f $HOME/.pyenv ]]; then
-  TMP_PATH=$HOME/.pyenv/bin:$TMP_PATH
+# Access fnm if installed
+if [[ -d $HOME/.fnm ]]; then
+  TMP_PATH=$HOME/.fnm:$TMP_PATH
 fi
 
 # Access Android SDK
@@ -23,12 +26,12 @@ if [[ -f ANDROID_SDK_ROOT ]]; then
 fi
 
 # Access go binaries if installed
-if [[ -f /usr/local/go ]]; then
+if [[ -d /usr/local/go ]]; then
   TMP_PATH=/usr/local/go/bin:$TMP_PATH
 fi
 
 # Access rust binaries if any
-if [[ -f $HOME/.cargo ]]; then
+if [[ -d $HOME/.cargo ]]; then
   TMP_PATH=$HOME/.cargo/env:$TMP_PATH
   TMP_PATH=$HOME/.cargo/bin:$TMP_PATH
 fi
