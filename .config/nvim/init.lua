@@ -16,6 +16,7 @@ for _, source in pairs({
   "plugins.lsp.nvim-cmp", -- nvim completion
   "plugins.lsp.lsp-config", -- laguage server protocol config
   "plugins.lsp.null-ls", -- formatter and diagnostics
+  "plugins.lsp.copilot", -- github copilot
   "plugins.gitsigns", -- git commands
 }) do
   local present, fault = pcall(require, source)

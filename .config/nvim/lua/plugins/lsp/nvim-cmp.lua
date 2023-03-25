@@ -23,6 +23,14 @@ if not (cmp_ok and cmp) then
 end
 
 cmp.setup({
+	completion = {
+		-- Stops cmp suggestions dialog to pop up over copilot
+    -- you can re-enable this and close the dialog wit h <C-e> if it doesn't bother you
+		autocomplete = false,
+	},
+	experimental = {
+		ghost_text = false, -- Stops cmp from using ghost text and overlapping with copilot
+	},
 	snippet = {
 		expand = function(args)
 			local luasnip_ok, luasnip = pcall(require, "luasnip")
