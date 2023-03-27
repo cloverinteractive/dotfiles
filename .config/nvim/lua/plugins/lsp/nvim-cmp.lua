@@ -25,7 +25,7 @@ end
 cmp.setup({
 	completion = {
 		-- Stops cmp suggestions dialog to pop up over copilot
-    -- you can re-enable this and close the dialog wit h <C-e> if it doesn't bother you
+		-- you can re-enable this and close the dialog wit h <C-e> if it doesn't bother you
 		autocomplete = false,
 	},
 	experimental = {

@@ -16,7 +16,7 @@ mason.setup({
 })
 
 if not mlsp_ok then
-  return
+	return
 end
 
 mlsp.setup()

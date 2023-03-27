@@ -1,7 +1,7 @@
 local inlayhints_ok, inlayhints = pcall(require, "lsp-inlayhints")
 
 if not inlayhints_ok then
-  return
+	return
 end
 
 vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
@@ -20,6 +20,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 inlayhints.setup({
-  only_current_line = false,
+	only_current_line = false,
 })
 inlayhints.toggle()

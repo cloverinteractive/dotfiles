@@ -22,33 +22,33 @@ return packer.startup(function()
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
 
-  -- autocomplete
+	-- autocomplete
 	use("hrsh7th/cmp-nvim-lsp") -- LSP source for nvim-cmp
 	use("hrsh7th/nvim-cmp") -- Auto completion plugin
 
-  -- managing & installing lsp servers, linters & formatters
-  use("williamboman/mason.nvim")
-  use("williamboman/mason-lspconfig.nvim")
+	-- managing & installing lsp servers, linters & formatters
+	use("williamboman/mason.nvim")
+	use("williamboman/mason-lspconfig.nvim")
 
 	-- LSP
 	use("neovim/nvim-lspconfig") -- Collection of configuration for LSP
-  use({ "glepnir/lspsaga.nvim", branch = "main" }) -- Enhanced LSP UIs
-  use("onsails/lspkind.nvim") -- LSP UIs icons
-  use("github/copilot.vim") -- Github copilot
-  use("lvimuser/lsp-inlayhints.nvim") -- LSP inlay hints
+	use({ "glepnir/lspsaga.nvim", branch = "main" }) -- Enhanced LSP UIs
+	use("onsails/lspkind.nvim") -- LSP UIs icons
+	use("github/copilot.vim") -- Github copilot
+	use("lvimuser/lsp-inlayhints.nvim") -- LSP inlay hints
 
-  -- Snippets
+	-- Snippets
 	use("L3MON4D3/LuaSnip") -- Snippets plugin
 	use("saadparwaiz1/cmp_luasnip") -- Snippets source for nvim-cmp
 
 	-- Syntax highlights
 	use({
-    "nvim-treesitter/nvim-treesitter",
-    run = function()
-      local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-      ts_update()
-    end,
-  }) -- Treesitter
+		"nvim-treesitter/nvim-treesitter",
+		run = function()
+			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+			ts_update()
+		end,
+	}) -- Treesitter
 
 	-- Collection of lua functions
 	use("nvim-lua/plenary.nvim")

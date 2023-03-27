@@ -14,7 +14,7 @@ set.splitbelow = true
 set.splitright = true
 set.wrap = false
 set.scrolloff = 5
-set.fileencoding = 'utf-8'
+set.fileencoding = "utf-8"
 set.termguicolors = true
 
 set.number = true
