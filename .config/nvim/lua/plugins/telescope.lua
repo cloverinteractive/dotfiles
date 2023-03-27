@@ -1,7 +1,7 @@
 local telescope_ok, telescope = pcall(require, "telescope")
 
 if not telescope_ok then
-	return
+    return
 end
 
 local map = vim.api.nvim_set_keymap

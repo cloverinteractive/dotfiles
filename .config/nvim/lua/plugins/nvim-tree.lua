@@ -1,11 +1,11 @@
 local nvim_tree_ok, nvim_tree = pcall(require, "nvim-tree")
 
 if not nvim_tree_ok then
-	return
+    return
 end
 
 nvim_tree.setup({
-	diagnostics = {
-		enable = true,
-	},
+    diagnostics = {
+        enable = true,
+    },
 })
