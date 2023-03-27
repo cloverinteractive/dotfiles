@@ -35,6 +35,7 @@ return packer.startup(function()
   use({ "glepnir/lspsaga.nvim", branch = "main" }) -- Enhanced LSP UIs
   use("onsails/lspkind.nvim") -- LSP UIs icons
   use("github/copilot.vim") -- Github copilot
+  use("lvimuser/lsp-inlayhints.nvim") -- LSP inlay hints
 
   -- Snippets
 	use("L3MON4D3/LuaSnip") -- Snippets plugin
