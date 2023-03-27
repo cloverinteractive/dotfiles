@@ -11,15 +11,15 @@ return packer.startup(function()
 
     -- File explorer
     use({
-        "kyazdani42/nvim-tree.lua",
-        requires = { "kyazdani42/nvim-web-devicons" },
+        "nvim-tree/nvim-tree.lua",
+        requires = { "nvim-tree/nvim-web-devicons" },
     })
 
     -- Themes
     use("EdenEast/nightfox.nvim")
     use({
         "nvim-lualine/lualine.nvim",
-        requires = { "kyazdani42/nvim-web-devicons", opt = true },
+        requires = { "nvim-tree/nvim-web-devicons", opt = true },
     })
 
     -- autocomplete
@@ -32,7 +32,19 @@ return packer.startup(function()
 
     -- LSP
     use("neovim/nvim-lspconfig") -- Collection of configuration for LSP
-    use({ "glepnir/lspsaga.nvim", branch = "main" }) -- Enhanced LSP UIs
+    use({
+        "glepnir/lspsaga.nvim",
+        opt = true,
+        branch = "main",
+        event = "LspAttach",
+        config = function()
+            require("lspsaga").setup()
+        end,
+        requires = {
+            { "nvim-tree/nvim-web-devicons" },
+            {"nvim-treesitter/nvim-treesitter"},
+        },
+    }) -- Enhanced LSP UIs
     use("onsails/lspkind.nvim") -- LSP UIs icons
     use("github/copilot.vim") -- Github copilot
     use("lvimuser/lsp-inlayhints.nvim") -- LSP inlay hints
