@@ -42,7 +42,7 @@ return packer.startup(function()
         end,
         requires = {
             { "nvim-tree/nvim-web-devicons" },
-            {"nvim-treesitter/nvim-treesitter"},
+            { "nvim-treesitter/nvim-treesitter" },
         },
     }) -- Enhanced LSP UIs
     use("onsails/lspkind.nvim") -- LSP UIs icons

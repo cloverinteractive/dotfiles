@@ -1,3 +1,4 @@
+local has_helpers, helpers = pcall(require, "core.helpers")
 local present, nightfox = pcall(require, "nightfox")
 
 if not present then
@@ -18,7 +19,6 @@ nightfox.setup({
 local dark_theme = "nordfox"
 local default_theme = dark_theme
 local light_theme = "dawnfox"
-local opts = { noremap = true, silent = true }
 local themes = {
     "nightfox",
     "dawnfox",
@@ -34,9 +34,9 @@ local set_theme = function(theme)
     local ok, _ = pcall(vim.cmd, "colorscheme " .. theme)
 
     if ok then
-        vim.notify("Theme set to: " .. theme)
+        vim.notify_once("Theme set to: " .. theme, vim.log.levels.INFO)
     else
-        vim.notify("Theme not found: " .. theme)
+        vim.notify_once("Theme not found: " .. theme, vim.log.levels.ERROR)
     end
 end
 
@@ -76,8 +76,12 @@ local toggle_lightning = function()
     end
 end
 
-vim.keymap.set("n", "<leader>tl", toggle_lightning, opts)
-vim.keymap.set("n", "<leader>tt", toggle_themes, opts)
+if not has_helpers then
+    return
+end
+
+helpers.nmap("<leader>tl", toggle_lightning, "[T]oggle [L]ightning")
+helpers.nmap("<leader>tt", toggle_themes, "[T]oggle [T]hemes")
 
 -- Set default theme
 set_theme(default_theme)

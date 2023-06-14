@@ -1,63 +1,26 @@
+local has_helpers, helpers = pcall(require, "core.helpers")
 local lspconfig_ok, lspconfig = pcall(require, "lspconfig")
 
 if not lspconfig_ok then
     return
 end
 
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap = true, silent = true }
-vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(_, bufnr)
-    -- Enable completion triggered by <c-x><c-o>
-    -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    -- Mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set(
-        "n",
-        "<space>wr",
-        vim.lsp.buf.remove_workspace_folder,
-        bufopts
-    )
-    vim.keymap.set("n", "<space>wl", function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, bufopts)
-    vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
-    vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-    vim.keymap.set("n", "<space>f", function()
-        vim.lsp.buf.format({ async = true })
-    end, bufopts)
+if not has_helpers then
+    return
 end
 
-local lsp_flags = {
-    -- This is the default in Nvim 0.7+
-    debounce_text_changes = 150,
-}
-
-lspconfig.dockerls.setup({
-    on_attach = on_attach,
-    flags = lsp_flags,
+lspconfig.eslint.setup({
+    on_attach = function(_, bufnr)
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            command = "EslintFixAll",
+        })
+    end,
 })
 
+lspconfig.dockerls.setup({})
+
 lspconfig.hls.setup({
-    on_attach = on_attach,
-    flags = lsp_flags,
     cmd = { "haskell-language-server-wrapper", "--lsp" },
     filetypes = { "haskell", "lhaskell" },
     -- Server specific settings...
@@ -68,14 +31,9 @@ lspconfig.hls.setup({
     },
 })
 
-lspconfig.pyright.setup({
-    on_attach = on_attach,
-    flags = lsp_flags,
-})
+lspconfig.pyright.setup({})
 
 lspconfig.rust_analyzer.setup({
-    on_attach = on_attach,
-    flags = lsp_flags,
     -- Server-specific settings...
     settings = {
         ["rust-analyzer"] = {},
@@ -83,8 +41,6 @@ lspconfig.rust_analyzer.setup({
 })
 
 lspconfig.tsserver.setup({
-    on_attach = on_attach,
-    flags = lsp_flags,
     settings = {
         typescript = {
             inlayHints = {
@@ -112,8 +68,6 @@ lspconfig.tsserver.setup({
 })
 
 lspconfig.lua_ls.setup({
-    on_attach = on_attach,
-    flags = lsp_flags,
     settings = {
         Lua = {
             runtime = {
@@ -141,7 +95,65 @@ lspconfig.lua_ls.setup({
     },
 })
 
-lspconfig.prismals.setup({
-    on_attach = on_attach,
-    flags = lsp_flags,
+lspconfig.prismals.setup({})
+
+-- Global Mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+helpers.nmap(
+    "<space>e",
+    vim.diagnostic.open_float,
+    "LSP - Open diagnostics float"
+)
+
+helpers.nmap("[d", vim.diagnostic.goto_prev, "LSP - Go to previous diagnostic")
+helpers.nmap("]d", vim.diagnostic.goto_next, "LSP - Go to next diagnostic")
+
+helpers.nmap(
+    "<space>q",
+    vim.diagnostic.setloclist,
+    "LSP - Add buffer diagnostics to location list"
+)
+
+-- Use LspAttach autocommand to only map the following keys
+-- after the language server attaches to the current buffer
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+    callback = function(ev, bufnr)
+        -- Enable completion triggered by <c-x><c-o>
+        vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+
+        -- Buffer local mappings.
+        -- See `:help vim.lsp.*` for documentation on any of the below functions
+        local opts = { buffer = ev.buf }
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+        vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+        vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
+        vim.keymap.set(
+            "n",
+            "<space>wr",
+            vim.lsp.buf.remove_workspace_folder,
+            opts
+        )
+
+        vim.keymap.set("n", "<space>wl", function()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end, opts)
+
+        vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
+        vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
+        vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+        vim.keymap.set("n", "<space>f", function()
+            vim.lsp.buf.format({
+                async = true,
+                filter = function(client)
+                    return client.name == "null-ls"
+                end,
+                bufnr = bufnr,
+            })
+        end, opts)
+    end,
 })

@@ -37,7 +37,25 @@ treesitter.setup({
         -- Instead of true it can also be a list of languages
         additional_vim_regex_highlighting = false,
     },
+    indent = {
+        enable = true,
+        disable = { "python" },
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            -- mappings for incremental selection (visual mappings)
+            init_selection = "<c-space>",
+            node_incremental = "<c-space>",
+            scope_incremental = "<c-s>",
+            node_decremental = "<M-space>",
+        },
+    },
     install = {
         compilers = { "clang" },
     },
 })
+
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevelstart = 99
