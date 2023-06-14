@@ -63,3 +63,12 @@ A collection of lua functions for string matching that no-one wants to write eac
 ## Telescope
 
 Nvim fuzzy search, match file names, live grep, history and more
+
+## Github Copilot
+
+You can disable copilot if you do not wish to use it by removing it from `init.lua`
+if you wish to use copilot make sure you have a subscription to it and run `Copilot setup`
+and follow the stepsm copilot should be enabled by default.
+
+If you wish to change copilot's config just edit `.config/nvim/lua/plugins/lsp/copilot.lua`
+you can execute `Copilot help` for more information on the different options.

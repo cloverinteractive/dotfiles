@@ -1,6 +1,9 @@
-local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
+local has_helpers, helpers = pcall(require, "core.helpers")
 
-vim.g.mapleader = ' '
+if not has_helpers then
+    return
+end
 
-map('n', '<leader>ee', ':NvimTreeToggle<CR>', opts)
+vim.g.mapleader = " "
+
+helpers.nmap("<leader>ee", ":NvimTreeToggle<CR>", "Toggle NvimTr[e][e]")
