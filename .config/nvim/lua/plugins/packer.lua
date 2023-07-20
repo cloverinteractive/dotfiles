@@ -4,7 +4,7 @@ if not present then
     return
 end
 
-return packer.startup(function()
+return packer.startup(function(use)
     use("wbthomason/packer.nvim") -- package manager
 
     use("norcalli/nvim-colorizer.lua") -- css colors
@@ -24,6 +24,7 @@ return packer.startup(function()
 
     -- autocomplete
     use("hrsh7th/cmp-nvim-lsp") -- LSP source for nvim-cmp
+    use("hrsh7th/cmp-buffer") -- Buffer source for nvim-cmp
     use("hrsh7th/nvim-cmp") -- Auto completion plugin
 
     -- managing & installing lsp servers, linters & formatters
@@ -32,19 +33,17 @@ return packer.startup(function()
 
     -- LSP
     use("neovim/nvim-lspconfig") -- Collection of configuration for LSP
+
+    -- LSP Saga
     use({
-        "glepnir/lspsaga.nvim",
-        opt = true,
-        branch = "main",
-        event = "LspAttach",
+        "nvimdev/lspsaga.nvim",
         config = function()
-            require("lspsaga").setup()
+            require("plugins.lspsaga")
         end,
-        requires = {
-            { "nvim-tree/nvim-web-devicons" },
-            { "nvim-treesitter/nvim-treesitter" },
-        },
-    }) -- Enhanced LSP UIs
+        after = "nvim-lspconfig",
+    })
+
+    -- Enhanced LSP UIs
     use("onsails/lspkind.nvim") -- LSP UIs icons
     use("github/copilot.vim") -- Github copilot
     use("lvimuser/lsp-inlayhints.nvim") -- LSP inlay hints

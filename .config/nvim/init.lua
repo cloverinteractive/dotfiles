@@ -5,20 +5,23 @@ for _, source in pairs({
     "core.settings", -- basic vim settings
     "core.mappings", -- global key mappings
 
+    -- lsp
+    "lsp", -- Core nvim lsp configs
+
     -- plugins
-    "plugins.nvim-colorizer", -- Colorize hexs
     "plugins.packer", -- This needs to be the first plugin
+    "plugins.nvim-colorizer", -- Colorize hexs
     "plugins.nightfox", -- nvim theme
     "plugins.lualine", -- statusline
     "plugins.nvim-tree", -- file explorer
     "plugins.treesitter", -- treesitter
     "plugins.telescope", -- fuzzy finder
-    "plugins.lsp.mason", -- automatic language server installer
-    "plugins.lsp.nvim-cmp", -- nvim completion
-    "plugins.lsp.lsp-config", -- laguage server protocol config
-    "plugins.lsp.null-ls", -- formatter and diagnostics
-    "plugins.lsp.copilot", -- github copilot
-    "plugins.lsp.lsp-inlayhints", -- inlay hints
+    "plugins.lspconfig", -- language server protocol config
+    "plugins.mason", -- automatic language server installer
+    "plugins.nvim-cmp", -- nvim completion
+    "plugins.null-ls", -- formatter and diagnostics
+    "plugins.copilot", -- github copilot
+    "plugins.lsp-inlayhints", -- inlay hints
     "plugins.gitsigns", -- git commands
 }) do
     local present, fault = pcall(require, source)

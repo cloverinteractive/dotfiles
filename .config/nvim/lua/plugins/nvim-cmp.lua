@@ -1,8 +1,9 @@
 local cmp_ok, cmp = pcall(require, "cmp")
-local lspconfig_ok, lspconfig = pcall(require, "lspconfig")
 local cmp_lsp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+local lspconfig_ok, lspconfig = pcall(require, "lspconfig")
+local lspkind_ok, lspkind = pcall(require, "lspkind")
 
-if not (cmp_lsp_ok and lspconfig_ok) then
+if not (cmp_lsp_ok and lspconfig_ok and lspkind_ok) then
     return
 end
 -- Add additional capabilities supported by nvim-cmp
@@ -22,11 +23,61 @@ if not (cmp_ok and cmp) then
     return
 end
 
+local kind_icons = {
+    Text = "",
+    Method = "m",
+    Function = "ƒ",
+    Constructor = "",
+    Field = "",
+    Variable = "",
+    Class = "",
+    Interface = "",
+    Module = "",
+    Property = "",
+    Unit = "",
+    Value = "",
+    Enum = "",
+    Keyword = "",
+    Snippet = "",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "",
+    Event = "",
+    Operator = "",
+    TypeParameter = "",
+}
+
 cmp.setup({
     completion = {
         -- Stops cmp suggestions dialog to pop up over copilot
         -- you can re-enable this and close the dialog wit h <C-e> if it doesn't bother you
-        autocomplete = false,
+        autocomplete = { cmp.TriggerEvent.TextChanged },
+    },
+    formatting = {
+        format = lspkind.cmp_format({
+            before = function(entry, vim_item)
+                vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+                vim_item.menu = ({
+                    copilot = "[Copilot]",
+                    buffer = "[Buffer]",
+                    luasnip = "[Snippet]",
+                    nvim_lsp = "[LSP]",
+                    path = "[path]",
+                })[entry.source.name]
+
+                return vim_item
+            end,
+            with_text = true,
+            menu = {
+                buffer = "[Buffer]",
+                nvim_lsp = "[LSP]",
+                path = "[path]",
+            },
+        }),
     },
     experimental = {
         ghost_text = false, -- Stops cmp from using ghost text and overlapping with copilot
@@ -41,6 +92,16 @@ cmp.setup({
         end,
     },
     mapping = cmp.mapping.preset.insert({
+        ---@diagnostic disable-next-line: unused-local
+        ["<C-g>"] = cmp.mapping(function(fallback)
+            vim.api.nvim_feedkeys(
+                vim.fn["copilot#Accept"](
+                    vim.api.nvim_replace_termcodes("<Tab>", true, true, true)
+                ),
+                "n",
+                true
+            )
+        end),
         ["<C-d>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
@@ -65,5 +126,10 @@ cmp.setup({
     }),
     sources = {
         { name = "nvim_lsp" },
+        { name = "path" },
+        { name = "buffer", keyword_length = 5 },
+        { name = "luasnip" },
+        { name = "nvim_lua" },
+        { name = "copilot" },
     },
 })

@@ -31,6 +31,7 @@ local themes = {
 
 -- Safely set theme with error handling
 local set_theme = function(theme)
+    ---@diagnostic disable-next-line: param-type-mismatch
     local ok, _ = pcall(vim.cmd, "colorscheme " .. theme)
 
     if ok then
