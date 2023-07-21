@@ -1,6 +1,6 @@
-local treesitter_ok, treesitter = pcall(require, "nvim-treesitter.configs")
+local ok, treesitter = pcall(require, "nvim-treesitter.configs")
 
-if not treesitter_ok then
+if not ok then
     return
 end
 
@@ -56,6 +56,4 @@ treesitter.setup({
     },
 })
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldlevelstart = 99
+require("plugins.treesitter.settings")

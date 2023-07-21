@@ -1,13 +1,6 @@
-local telescope_ok, telescope = pcall(require, "telescope")
-local has_helpers, helpers = pcall(require, "core.helpers")
+local ok, helpers = pcall(require, "core.helpers")
 
-if not telescope_ok then
-    return
-end
-
-telescope.setup({})
-
-if not has_helpers then
+if not ok then
     return
 end
 

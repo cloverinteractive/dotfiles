@@ -1,14 +1,21 @@
 local M = {}
 
+local function keymap(mode, keys, command, desc)
+    local options = { noremap = true, silent = true, desc = desc }
+    vim.keymap.set(mode, keys, command, options)
+end
+
 -- Simple keymaps shorthand
 function M.nmap(keys, command, desc)
-    local options = { noremap = true, silent = true, desc = desc }
-    vim.keymap.set("n", keys, command, options)
+    keymap("n", keys, command, desc)
 end
 
 function M.imap(keys, command, desc)
-    local options = { noremap = true, silent = true, desc = desc }
-    vim.keymap.set("i", keys, command, options)
+    keymap("i", keys, command, desc)
+end
+
+function M.tmap(keys, command, desc)
+    keymap("t", keys, command, desc)
 end
 
 -- Simple way to create augroups

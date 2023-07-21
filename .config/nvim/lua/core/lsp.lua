@@ -1,6 +1,6 @@
-local has_helpers, helpers = pcall(require, "core.helpers")
+local ok, helpers = pcall(require, "core.helpers")
 
-if not has_helpers then
+if not ok then
     return
 end
 

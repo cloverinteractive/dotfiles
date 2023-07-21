@@ -4,13 +4,11 @@ for _, source in pairs({
     -- core
     "core.settings", -- basic vim settings
     "core.mappings", -- global key mappings
-
-    -- lsp
-    "lsp", -- Core nvim lsp configs
+    "core.lsp", -- nvim lsp configs
 
     -- plugins
     "plugins.packer", -- This needs to be the first plugin
-    "plugins.nvim-colorizer", -- Colorize hexs
+    "plugins.colorizer", -- Colorize hexs
     "plugins.nightfox", -- nvim theme
     "plugins.lualine", -- statusline
     "plugins.nvim-tree", -- file explorer
@@ -18,7 +16,7 @@ for _, source in pairs({
     "plugins.telescope", -- fuzzy finder
     "plugins.lspconfig", -- language server protocol config
     "plugins.mason", -- automatic language server installer
-    "plugins.nvim-cmp", -- nvim completion
+    "plugins.cmp", -- nvim completion
     "plugins.null-ls", -- formatter and diagnostics
     "plugins.copilot", -- github copilot
     "plugins.lsp-inlayhints", -- inlay hints

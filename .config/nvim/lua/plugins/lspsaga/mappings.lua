@@ -1,25 +1,7 @@
-local saga_ok, lspsaga = pcall(require, "lspsaga")
-local helpers_ok, helpers = pcall(require, "core.helpers")
+local ok, helpers = pcall(require, "core.helpers")
 
-if not saga_ok then
-    return
-end
-
-lspsaga.setup({
-    implement = {
-        enable = true,
-        virtual_text = true,
-    },
-    lightbulb = {
-        enable = false,
-        enable_in_insert = false,
-        sign = false,
-        virtual_text = false,
-    },
-})
-
-if not helpers_ok then
-    return
+if not ok then
+  return
 end
 
 -- Floating Terminal

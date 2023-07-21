@@ -1,6 +1,6 @@
-local inlayhints_ok, inlayhints = pcall(require, "lsp-inlayhints")
+local ok, inlayhints = pcall(require, "lsp-inlayhints")
 
-if not inlayhints_ok then
+if not ok then
     return
 end
 
