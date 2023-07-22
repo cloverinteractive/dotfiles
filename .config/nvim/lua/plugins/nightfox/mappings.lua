@@ -4,7 +4,9 @@ if not ok then
     return
 end
 
-local utils = require("plugins.nightfox.utils").setup({
+local utils = require("plugins.nightfox.utils")
+
+utils.setup(utils, {
     dark_theme = "nordfox",
     default_theme = "nordfox",
     light_theme = "dawnfox",
@@ -19,5 +21,10 @@ local utils = require("plugins.nightfox.utils").setup({
     },
 })
 
-helpers.nmap("<leader>tl", utils.toggle_lightning, "[T]oggle [L]ightning")
-helpers.nmap("<leader>tt", utils.toggle_themes, "[T]oggle [T]hemes")
+helpers.nmap("<leader>tl", function()
+    utils.toggle_lightning(utils)
+end, "[T]oggle [L]ightning")
+
+helpers.nmap("<leader>tt", function()
+    utils.toggle_themes(utils)
+end, "[T]oggle [T]hemes")
