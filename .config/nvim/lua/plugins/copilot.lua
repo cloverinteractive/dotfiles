@@ -11,8 +11,7 @@ vim.g.copilot_assume_mapped = true
 vim.g.copilot_no_tab_map = true
 helpers.imap(
     "<expr> <Plug>(vmrc:copilot-dummy-map)",
-    'copilot#Accept("\\<Tab>")'
+    [[copilot#Accept("\<Tab>")]]
 )
-
 
 vim.cmd([[highlight CopilotSuggestion guifg=#555555 ctermfg=8]])
