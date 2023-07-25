@@ -24,6 +24,7 @@ if not (cmp_ok and cmp) then
 end
 
 local kind_icons = {
+    Copilot = "",
     Text = "",
     Method = "m",
     Function = "ƒ",
@@ -51,6 +52,20 @@ local kind_icons = {
     TypeParameter = "",
 }
 
+local has_words_before = function()
+    if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+        return false
+    end
+
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+
+    return col ~= 0
+        and vim.api
+                .nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]
+                :match("^%s*$")
+            == nil
+end
+
 cmp.setup({
     completion = {
         -- Stops cmp suggestions dialog to pop up over copilot
@@ -62,7 +77,6 @@ cmp.setup({
             before = function(entry, vim_item)
                 vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
                 vim_item.menu = ({
-                    copilot = "[Copilot]",
                     buffer = "[Buffer]",
                     luasnip = "[Snippet]",
                     nvim_lsp = "[LSP]",
@@ -92,16 +106,6 @@ cmp.setup({
         end,
     },
     mapping = cmp.mapping.preset.insert({
-        ---@diagnostic disable-next-line: unused-local
-        ["<C-g>"] = cmp.mapping(function(fallback)
-            vim.api.nvim_feedkeys(
-                vim.fn["copilot#Accept"](
-                    vim.api.nvim_replace_termcodes("<Tab>", true, true, true)
-                ),
-                "n",
-                true
-            )
-        end),
         ["<C-d>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
@@ -109,13 +113,13 @@ cmp.setup({
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
         }),
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
+        ["<Tab>"] = vim.schedule_wrap(function(fallback)
+            if cmp.visible() and has_words_before() then
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
             else
                 fallback()
             end
-        end, { "i", "s" }),
+        end),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
@@ -130,6 +134,6 @@ cmp.setup({
         { name = "buffer", keyword_length = 5 },
         { name = "luasnip" },
         { name = "nvim_lua" },
-        { name = "copilot" },
+        { name = "copilot", group_index = 2 },
     },
 })

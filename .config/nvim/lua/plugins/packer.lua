@@ -45,8 +45,26 @@ return packer.startup(function(use)
 
     -- Enhanced LSP UIs
     use("onsails/lspkind.nvim") -- LSP UIs icons
-    use("github/copilot.vim") -- Github copilot
     use("lvimuser/lsp-inlayhints.nvim") -- LSP inlay hints
+
+    use({
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        config = function()
+            require("copilot").setup({
+                panel = { enabled = false },
+                suggestion = { enabled = false },
+            })
+        end,
+    })
+    use({
+        "zbirenbaum/copilot-cmp",
+        after = { "copilot.lua" },
+        config = function()
+            require("copilot_cmp").setup()
+        end,
+    })
 
     -- Snippets
     use("L3MON4D3/LuaSnip") -- Snippets plugin

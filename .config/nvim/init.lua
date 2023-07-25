@@ -18,7 +18,6 @@ for _, source in pairs({
     "plugins.mason", -- automatic language server installer
     "plugins.cmp", -- nvim completion
     "plugins.null-ls", -- formatter and diagnostics
-    "plugins.copilot", -- github copilot
     "plugins.lsp-inlayhints", -- inlay hints
     "plugins.gitsigns", -- git commands
 }) do
