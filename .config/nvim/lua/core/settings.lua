@@ -7,7 +7,7 @@ set.shiftwidth = 2
 set.tabstop = 2
 
 -- Searching
-set.hlsearch = true
+set.hlsearch = false
 set.incsearch = true
 set.ignorecase = true
 set.smartcase = true
