@@ -107,4 +107,13 @@ return packer.startup(function(use)
             end
         end,
     })
+
+    -- Python virtualenv support
+    use({
+        "linux-cultist/venv-selector.nvim",
+        requires = {
+            { "neovim/nvim-lspconfig" },
+            { "nvim-telescope/telescope.nvim" },
+        },
+    })
 end)

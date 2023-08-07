@@ -20,6 +20,7 @@ for _, source in pairs({
     "plugins.null-ls", -- formatter and diagnostics
     "plugins.lsp-inlayhints", -- inlay hints
     "plugins.gitsigns", -- git commands
+    "plugins.venv-selector", -- virtualenv selector
 }) do
     local present, fault = pcall(require, source)
     if not present then
