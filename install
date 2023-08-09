@@ -18,9 +18,6 @@ GREEN="${SWITCH}0;32m"
 YELLOW="${SWITCH}1;33m"
 NORMAL="${SWITCH}0m"
 
-NVIM_PATH=`which nvim`
-PACKER_PATH=$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
-
 set -e
 echo ''
 
@@ -108,14 +105,6 @@ if [[ ! -e "$HOME/.config" ]]; then
 fi
 
 stow -v .
-
-
-if [[ -x $NVIM_PATH && ! -e $PACKER_PATH ]]; then
-  info "Fetching packer.nvim"
-  git clone --depth 1 https://github.com/wbthomason/packer.nvim $PACKER_PATH
-
-  nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-fi
 
 success "Thanks for installing, please report any issues to https://github.com/cloverinteractive/dotfiles/issues"
 info "Start a new shell to load your new env"

@@ -7,7 +7,8 @@ for _, source in pairs({
     "core.lsp", -- nvim lsp configs
 
     -- plugins
-    "plugins.packer", -- This needs to be the first plugin
+    "plugins.lazy", -- This needs to be the first plugin
+    "plugins.alpha-nvim", -- dashboard
     "plugins.colorizer", -- Colorize hexs
     "plugins.nightfox", -- nvim theme
     "plugins.lualine", -- statusline
