@@ -1,3 +1,6 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 local set = vim.opt
 
 -- Spacing and indentation
@@ -23,6 +26,6 @@ set.termguicolors = true
 -- Line numbers
 set.number = true
 set.relativenumber = true
-set.cursorline = true
 
+set.cursorline = true
 set.hidden = true

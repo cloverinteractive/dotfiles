@@ -1,7 +1,4 @@
-local ok, colorizer = pcall(require, "colorizer")
-
-if not ok then
-    return
-end
-
-colorizer.setup({ "*" })
+return {
+    "norcalli/nvim-colorizer.lua", -- css colors
+    opts = { "*" }
+}
