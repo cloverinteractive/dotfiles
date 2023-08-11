@@ -13,6 +13,11 @@ return {
                 and cmp_nvim_lsp.default_capabilities(capabilities)
             or capabilities
 
+        require("plugins.lspconfig.lang.bash").setup(
+            lspconfig,
+            { capabilities = capabilities }
+        )
+
         require("plugins.lspconfig.lang.docker").setup(
             lspconfig,
             { capabilities = capabilities }

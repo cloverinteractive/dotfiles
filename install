@@ -21,11 +21,7 @@ NORMAL="${SWITCH}0m"
 set -e
 echo ''
 
-declare -A DEPENDENCIES=(
-  ["curl"]="$(which curl)"
-  ["git"]="$(which git)"
-  ["stow"]="$(which stow)"
-)
+DEPENDENCIES=(curl git stow)
 
 # Print red
 error () {
@@ -67,8 +63,10 @@ fetch_dotfiles () {
 }
 
 # Exit if installer dependecy is not found
-for dependency in "${!DEPENDENCIES[@]}"; do
-  if [[ ! -x "${DEPENDENCIES[$dependency]}" ]]; then
+for dependency in "${DEPENDENCIES}"; do
+  path="$(which ${dependency})"
+
+  if [[ ! -x "${path}" ]]; then
     info "$dependency was not found in your system"
     suggestion $dependency
 
