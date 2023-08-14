@@ -4,8 +4,9 @@ return {
         "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-        local lspconfig = require("lspconfig")
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
+        local helpers = require("core.helpers")
+        local lspconfig = require("lspconfig")
 
         -- Add additional capabilities supported by nvim-cmp
         local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -13,48 +14,47 @@ return {
                 and cmp_nvim_lsp.default_capabilities(capabilities)
             or capabilities
 
-        require("plugins.lspconfig.lang.bash").setup(
-            lspconfig,
-            { capabilities = capabilities }
+        lspconfig.bashls.setup({ capabilities = capabilities })
+
+        lspconfig.dockerls.setup({ capabilities = capabilities })
+
+        lspconfig.eslint.setup(
+            helpers.merge(
+                require("plugins.lspconfig.lang.eslint"),
+                { capabilities = capabilities }
+            )
         )
 
-        require("plugins.lspconfig.lang.docker").setup(
-            lspconfig,
-            { capabilities = capabilities }
+        lspconfig.hls.setup(
+            helpers.merge(
+                require("plugins.lspconfig.lang.haskell"),
+                { capabilities = capabilities }
+            )
         )
 
-        require("plugins.lspconfig.lang.eslint").setup(lspconfig, {
-            capabilities = capabilities,
-        })
-
-        require("plugins.lspconfig.lang.haskell").setup(
-            lspconfig,
-            { capabilities = capabilities }
+        lspconfig.lua_ls.setup(
+            helpers.merge(
+                require("plugins.lspconfig.lang.lua"),
+                { capabilities = capabilities }
+            )
         )
 
-        require("plugins.lspconfig.lang.lua").setup(
-            lspconfig,
-            { capabilities = capabilities }
+        lspconfig.prismals.setup({ capabilities = capabilities })
+
+        lspconfig.pyright.setup({ capabilities = capabilities })
+
+        lspconfig.rust_analyzer.setup(
+            helpers.merge(
+                require("plugins.lspconfig.lang.rust"),
+                { capabilities = capabilities }
+            )
         )
 
-        require("plugins.lspconfig.lang.prisma").setup(
-            lspconfig,
-            { capabilities = capabilities }
-        )
-
-        require("plugins.lspconfig.lang.python").setup(
-            lspconfig,
-            { capabilities = capabilities }
-        )
-
-        require("plugins.lspconfig.lang.rust").setup(
-            lspconfig,
-            { capabilities = capabilities }
-        )
-
-        require("plugins.lspconfig.lang.typescript").setup(
-            lspconfig,
-            { capabilities = capabilities }
+        lspconfig.tsserver.setup(
+            helpers.merge(
+                require("plugins.lspconfig.lang.typescript"),
+                { capabilities = capabilities }
+            )
         )
     end,
 }
