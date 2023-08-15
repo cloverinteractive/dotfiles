@@ -2,6 +2,10 @@ return {
     "neovim/nvim-lspconfig", -- Collection of configuration for LSP
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
+        {
+            "lvimuser/lsp-inlayhints.nvim",
+            opts = {},
+        },
     },
     config = function()
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
@@ -14,6 +18,8 @@ return {
                 and cmp_nvim_lsp.default_capabilities(capabilities)
             or capabilities
 
+        local on_attach = require("lsp-inlayhints").on_attach
+
         lspconfig.bashls.setup({ capabilities = capabilities })
 
         lspconfig.dockerls.setup({ capabilities = capabilities })
@@ -21,39 +27,45 @@ return {
         lspconfig.eslint.setup(
             helpers.merge(
                 require("plugins.lspconfig.lang.eslint"),
-                { capabilities = capabilities }
+                { capabilities = capabilities, on_attach = on_attach }
             )
         )
 
         lspconfig.hls.setup(
             helpers.merge(
                 require("plugins.lspconfig.lang.haskell"),
-                { capabilities = capabilities }
+                { capabilities = capabilities, on_attach = on_attach }
             )
         )
 
         lspconfig.lua_ls.setup(
             helpers.merge(
                 require("plugins.lspconfig.lang.lua"),
-                { capabilities = capabilities }
+                { capabilities = capabilities, on_attach = on_attach }
             )
         )
 
-        lspconfig.prismals.setup({ capabilities = capabilities })
+        lspconfig.prismals.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
 
-        lspconfig.pyright.setup({ capabilities = capabilities })
+        lspconfig.pyright.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
 
         lspconfig.rust_analyzer.setup(
             helpers.merge(
                 require("plugins.lspconfig.lang.rust"),
-                { capabilities = capabilities }
+                { capabilities = capabilities, on_attach = on_attach }
             )
         )
 
         lspconfig.tsserver.setup(
             helpers.merge(
                 require("plugins.lspconfig.lang.typescript"),
-                { capabilities = capabilities }
+                { capabilities = capabilities, on_attach = on_attach }
             )
         )
     end,
