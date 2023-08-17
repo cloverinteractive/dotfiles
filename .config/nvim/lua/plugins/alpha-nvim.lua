@@ -9,14 +9,14 @@ return {
 
         dashboard.section.buttons.val = {
             dashboard.button(
-                "f",
-                " " .. " Find file",
-                ":Telescope find_files <CR>"
-            ),
-            dashboard.button(
                 "n",
                 " " .. " New file",
                 ":ene <BAR> startinsert <CR>"
+            ),
+            dashboard.button(
+                "f",
+                "󰈞 " .. " Find file",
+                ":Telescope find_files <CR>"
             ),
             dashboard.button(
                 "r",
@@ -25,10 +25,15 @@ return {
             ),
             dashboard.button(
                 "g",
-                " " .. " Find text",
+                "󰈬 " .. " Find text",
                 ":Telescope live_grep <CR>"
             ),
             dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR>"),
+            dashboard.button(
+                "s",
+                " " .. " Open last session",
+                [[:lua require("persistence").load() <cr>]]
+            ),
             dashboard.button("l", "󰒲 " .. " Lazy", ":Lazy<CR>"),
             dashboard.button("q", " " .. " Quit", ":qa<CR>"),
         }
