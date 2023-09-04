@@ -7,11 +7,11 @@ it or leave it alone if you either prefer nvim or don't have it installed.
 
 ## Requirements
 
-* Nvim 0.7.2 or latest
+- Nvim 0.7.2 or latest
 
 ## Plugins
 
-### Packer
+### Lazy
 
 Plugin management system, this is how you get newer plugins installed.
 
@@ -66,9 +66,9 @@ Nvim fuzzy search, match file names, live grep, history and more
 
 ## Github Copilot
 
-You can disable copilot if you do not wish to use it by removing it from `init.lua`
+You can disable copilot if you do not wish to use it by removing it from `.config/nvim/lua/plugins`
 if you wish to use copilot make sure you have a subscription to it and run `Copilot setup`
 and follow the stepsm copilot should be enabled by default.
 
-If you wish to change copilot's config just edit `.config/nvim/lua/plugins/lsp/copilot.lua`
+If you wish to change copilot's config just edit `.config/nvim/lua/plugins/copilot.lua`
 you can execute `Copilot help` for more information on the different options.

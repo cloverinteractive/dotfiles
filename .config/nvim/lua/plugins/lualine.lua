@@ -1,8 +1,5 @@
-local lualine_ok, lualine = pcall(require, "lualine")
-
-if not lualine_ok then
-    return
-end
-
--- https://github.com/nvim-lualine/lualine.nvim#configuring-lualine-in-initvim
-lualine.setup({})
+return {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons", opt = true },
+    opts = {},
+}

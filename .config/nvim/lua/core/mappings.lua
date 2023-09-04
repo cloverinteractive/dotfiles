@@ -4,6 +4,5 @@ if not has_helpers then
     return
 end
 
-vim.g.mapleader = " "
-
-helpers.nmap("<leader>ee", ":NvimTreeToggle<CR>", "Toggle NvimTr[e][e]")
+-- Terminal
+helpers.tmap("<Esc>", "<C-\\><C-n>", "Exit terminal mode")

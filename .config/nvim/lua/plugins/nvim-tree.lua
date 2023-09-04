@@ -1,11 +1,12 @@
-local nvim_tree_ok, nvim_tree = pcall(require, "nvim-tree")
-
-if not nvim_tree_ok then
-    return
-end
-
-nvim_tree.setup({
-    diagnostics = {
-        enable = true,
+return {
+    "nvim-tree/nvim-tree.lua",
+    event = "LspAttach",
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-tree/nvim-web-devicons",
     },
-})
+    keys = {
+        { "<leader>ee", ":NvimTreeToggle<CR>", desc = "Toggle NvimTr[e][e]" },
+    },
+    opts = { diagnostics = { enable = true } },
+}

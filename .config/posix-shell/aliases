@@ -12,7 +12,7 @@ if [[ -x $DIRCOLORS_PATH ]]; then
 fi
 
 if [[ -x $EXA_PATH ]]; then
-  alias ls="exa --git-ignore --icons -h"
+  alias ls="exa --icons -h"
 else
   alias ls='ls --color=auto'
 fi
