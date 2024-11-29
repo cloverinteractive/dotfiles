@@ -7,13 +7,11 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden --follow --glob 
 
 wal-fill() {
   wal -n -i "$@"
-  feh --bg-fill --zoom max "$(< "${HOME}/.cache/wal/wal")"
+  feh --bg-fill --zoom max "$(<"${HOME}/.cache/wal/wal")"
 }
 
 check-fiel() {
   openssl x509 -inform DER -noout -in "$@" -dates
 }
-
-set -o vi
 
 # vim: set ft=sh:

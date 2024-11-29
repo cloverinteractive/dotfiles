@@ -27,5 +27,11 @@ set.termguicolors = true
 set.number = true
 set.relativenumber = true
 
+-- Disable swapfiles
+set.swapfile = false
+
 set.cursorline = true
 set.hidden = true
+
+-- yank to clipboard
+set.clipboard = "unnamed,unnamedplus"

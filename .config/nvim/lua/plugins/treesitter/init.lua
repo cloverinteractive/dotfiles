@@ -7,6 +7,8 @@ return {
     end,
     config = function()
         require("nvim-treesitter.configs").setup({
+            modules = {},
+            parser_install_dir = nil,
             -- A list of parser names, or "all"
             ensure_installed = {
                 "c",

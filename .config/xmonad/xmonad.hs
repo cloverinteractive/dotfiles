@@ -11,7 +11,6 @@ import           XMonad.Layout.ThreeColumns
 import qualified XMonad.StackSet              as W
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Loggers
-import           XMonad.Util.Ungrab
 
 import           Data.List.Split              (splitOn)
 import qualified Data.Map                     as M
@@ -148,6 +147,8 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
   , ((modm .|. shiftMask, xK_q), io exitSuccess)
   -- restart xmonad
   , ((modm, xK_q), spawn "xmonad --recompile; xmonad --restart")
+  -- spawn flameshot
+  , ((modm .|. shiftMask, xK_s), spawn "flameshot gui")
   ] ++
   --
   -- mod-[1..9], switch to workspace N
@@ -165,11 +166,12 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
   --
   -- spawn programs
   -- launch betterlockscreen
-  [ ((modm, xK_z), spawn "betterlockscreen -l dim")
+  -- [ ((modm, xK_z), spawn "betterlockscreen -l dim")
+  [ ((modm, xK_z), spawn "slock")
   -- launch rofi
   , ( (modm .|. shiftMask, xK_d)
     , spawn
-        "rofi -dpi 200.26 -show run -lines 3 -width 80 -padding 20px -separator-style none -font \"Fira Code 18\" -bw 0")
+        "rofi -dpi 200.26 -show drun -lines 3 -width 80 -padding 20px -separator-style none -font \"Fira Code 18\" -bw 0")
   ]
 
 -------------------------------------------------------------------------------

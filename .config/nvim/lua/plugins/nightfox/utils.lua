@@ -1,16 +1,10 @@
---- @alias Themes { dark_theme: string, default_theme: string, light_theme: string, themes: string[] }
----
----@class Utils
---- @field dark_theme string
---- @field default_theme string
---- @field light_theme string
---- @field themes string[]
---- @field setup fun(self: Utils, options?: Themes): nil
---- @field set_theme fun(theme: string): nil
---- @field toggle_themes fun(self: Utils): nil
---- @field toggle_lightning fun(self: Utils): nil
+---@alias ThemeOptions { dark_theme: string, default_theme: string, light_theme: string, themes: string[] }
 
---- @type Utils
+---@class EditorTheme
+---@field dark_theme string default dark theme
+---@field default_theme string default them
+---@field light_theme string default light theme
+---@field themes string[] full list of themes
 local M = {
     dark_theme = "nordfox",
     default_theme = "nordfox",
@@ -28,8 +22,8 @@ local M = {
 
 --- Sets up the default, dark and light themes, and the list of available themes we want
 --- to toggle between.
----@param self Utils
----@param options? Themes
+---@param self EditorTheme
+---@param options? ThemeOptions
 function M.setup(self, options)
     for k, v in pairs(options or {}) do
         self[k] = v
@@ -53,7 +47,7 @@ function M.set_theme(theme)
 end
 
 --- Toggle between themes
---- @param self Utils
+--- @param self EditorTheme
 function M.toggle_themes(self)
     local current_theme = vim.api.nvim_get_var("colors_name")
     local next_theme = ""
@@ -79,7 +73,7 @@ function M.toggle_themes(self)
 end
 
 --- Toggle between light and dark theme
---- @param self Utils
+--- @param self EditorTheme
 function M.toggle_lightning(self)
     local current_theme = vim.api.nvim_get_var("colors_name")
 

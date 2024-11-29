@@ -2,10 +2,8 @@ return {
     "neovim/nvim-lspconfig", -- Collection of configuration for LSP
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
-        {
-            "lvimuser/lsp-inlayhints.nvim",
-            opts = {},
-        },
+        "mason.nvim",
+        { "williamboman/mason-lspconfig.nvim", config = function() end },
     },
     config = function()
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
@@ -18,54 +16,54 @@ return {
                 and cmp_nvim_lsp.default_capabilities(capabilities)
             or capabilities
 
-        local on_attach = require("lsp-inlayhints").on_attach
+        lspconfig.bashls.setup({
+            capabilities = capabilities,
+        })
 
-        lspconfig.bashls.setup({ capabilities = capabilities })
-
-        lspconfig.dockerls.setup({ capabilities = capabilities })
+        lspconfig.dockerls.setup({
+            capabilities = capabilities,
+        })
 
         lspconfig.eslint.setup(
             helpers.merge(
                 require("plugins.lspconfig.lang.eslint"),
-                { capabilities = capabilities, on_attach = on_attach }
+                { capabilities = capabilities }
             )
         )
 
         lspconfig.hls.setup(
             helpers.merge(
                 require("plugins.lspconfig.lang.haskell"),
-                { capabilities = capabilities, on_attach = on_attach }
+                { capabilities = capabilities }
             )
         )
 
         lspconfig.lua_ls.setup(
             helpers.merge(
                 require("plugins.lspconfig.lang.lua"),
-                { capabilities = capabilities, on_attach = on_attach }
+                { capabilities = capabilities }
+            )
+        )
+
+        lspconfig.nil_ls.setup(
+            helpers.merge(
+                require("plugins.lspconfig.lang.nix"),
+                { capabilities = capabilities }
             )
         )
 
         lspconfig.prismals.setup({
             capabilities = capabilities,
-            on_attach = on_attach,
         })
 
         lspconfig.pyright.setup({
             capabilities = capabilities,
-            on_attach = on_attach,
         })
 
-        lspconfig.rust_analyzer.setup(
-            helpers.merge(
-                require("plugins.lspconfig.lang.rust"),
-                { capabilities = capabilities, on_attach = on_attach }
-            )
-        )
-
-        lspconfig.tsserver.setup(
+        lspconfig.ts_ls.setup(
             helpers.merge(
                 require("plugins.lspconfig.lang.typescript"),
-                { capabilities = capabilities, on_attach = on_attach }
+                { capabilities = capabilities }
             )
         )
     end,
