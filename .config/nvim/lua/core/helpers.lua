@@ -1,48 +1,49 @@
---- @alias Command string | function
+---@alias RHS
+---| string
+---| function
 
----@class Helpers
----@field nmap fun(keys: string, command: Command, desc?: string): nil
----@field imap fun(keys: string, command: Command, desc?: string): nil
----@field tmap fun(keys: string, command: Command, desc?: string): nil
----@field augroups fun(defintions: table<string, table<string, string>>): nil
----@field merge fun(a?: table, b?: table): table
 local M = {}
 
+---@module "vim"
+---@alias MapOpts string | vim.keymap.set.Opts options or description
+
 --- Simple keymap helper
----@param mode string
+---@param mode string | string[]
 ---@param keys "n" | "i" | "t"
----@param command Command
----@param desc? string
-local function keymap(mode, keys, command, desc)
-    local options = { noremap = true, silent = true, desc = desc }
+---@param command RHS
+---@param opts? MapOpts
+local function keymap(mode, keys, command, opts)
+    local options = (type(opts) == "table" and opts)
+        or { noremap = true, silent = true, desc = opts }
+
     vim.keymap.set(mode, keys, command, options)
 end
 
 --- Simple `n` keymap shorthand basically a shorter version of:
 ---    `vim.keymap.set('n', keys, command, { noremap = true, silent = true, desc = desc })`
 ---@param keys string
----@param command Command
----@param desc? string
-function M.nmap(keys, command, desc)
-    keymap("n", keys, command, desc)
+---@param command RHS
+---@param opts? MapOpts
+function M.nmap(keys, command, opts)
+    keymap("n", keys, command, opts)
 end
 
 --- Simple `i` keymap shorthand basically a shorter version of:
 ---    `vim.keymap.set('i', keys, command, { noremap = true, silent = true, desc = desc })`
 ---@param keys string
----@param command Command
----@param desc? string
-function M.imap(keys, command, desc)
-    keymap("i", keys, command, desc)
+---@param command RHS
+---@param opts? MapOpts
+function M.imap(keys, command, opts)
+    keymap("i", keys, command, opts)
 end
 
 --- Simple `t` keymap shorthand basically a shorter version of:
 ---    `vim.keymap.set('t', keys, command, { noremap = true, silent = true, desc = desc })`
 ---@param keys string
----@param command Command
----@param desc? string
-function M.tmap(keys, command, desc)
-    keymap("t", keys, command, desc)
+---@param command RHS
+---@param opts? MapOpts
+function M.tmap(keys, command, opts)
+    keymap("t", keys, command, opts)
 end
 
 --- Simple way to create augroups
@@ -53,8 +54,10 @@ function M.augroups(defintions)
         vim.api.nvim_command("autocmd!")
 
         for _, def in ipairs(definition) do
-            local command =
-                table.concat(vim.tbl_flatten({ "autocmd", def }), " ")
+            local command = table.concat(
+                vim.iter({ "autocmd", def }):flatten():totable(),
+                " "
+            )
             vim.api.nvim_command(command)
         end
 

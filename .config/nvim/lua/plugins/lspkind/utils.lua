@@ -4,15 +4,14 @@ if not ok then
     return
 end
 
---- @alias SymbolMap { [key: string]: string }
+--- @alias key string
+--- @alias SymbolsMap { [key]: string }
 --
 --- @class Utils
---- @field add_lspkind_icons fun(): nil | unknown
 local M = {}
 
---- @type SymbolMap
+--- @type SymbolsMap
 local symbols = {
-    Copilot = "",
     Text = "󰉿",
     Method = "󰆧",
     Function = "󰊕",
@@ -48,7 +47,6 @@ function M.add_lspkind_icons()
         before = function(entry, vim_item)
             vim_item.kind = string.format("%s", symbols[vim_item.kind])
             vim_item.menu = ({
-                copilot = "[Copilot]",
                 buffer = "[Buffer]",
                 luasnip = "[Snippet]",
                 nvim_lsp = "[LSP]",

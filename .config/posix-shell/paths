@@ -16,12 +16,18 @@ if [[ -d $HOME/.fnm ]]; then
   TMP_PATH=$HOME/.fnm:$TMP_PATH
 fi
 
+# Check for openjdk 11
+if [[ -d /usr/lib/jvm/java-11-openjdk-amd64 ]]; then
+  export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+fi
+
 # Access Android SDK
 export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+export ANDROID_HOME=$ANDROID_SDK_ROOT
+export ANDROID_AVD_HOME=$HOME/.config/.android/avd
 
-if [[ -f ANDROID_SDK_ROOT ]]; then
+if [[ -d $ANDROID_SDK_ROOT ]]; then
   TMP_PATH=$ANDROID_SDK_ROOT/emulator:$TMP_PATH
-  TMP_PATH=$ANDROID_SDK_ROOT/tools:$TMP_PATH
   TMP_PATH=$ANDROID_SDK_ROOT/platform-tools:$TMP_PATH
 fi
 

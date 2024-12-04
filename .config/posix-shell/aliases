@@ -1,7 +1,7 @@
-DIRCOLORS_PATH=`which dircolors`
-EXA_PATH=`which exa`
-NVIM_PATH=`which nvim`
-PODMAN_PATH=`which podman`
+DIRCOLORS_PATH=$(which dircolors)
+EZA_PATH=$(which eza)
+NVIM_PATH=$(which nvim)
+PODMAN_PATH=$(which podman)
 
 # Create color aliases
 if [[ -x $DIRCOLORS_PATH ]]; then
@@ -11,8 +11,8 @@ if [[ -x $DIRCOLORS_PATH ]]; then
   alias egrep='egrep --color=auto'
 fi
 
-if [[ -x $EXA_PATH ]]; then
-  alias ls="exa --icons -h"
+if [[ -x $EZA_PATH ]]; then
+  alias ls="eza --icons -h"
 else
   alias ls='ls --color=auto'
 fi

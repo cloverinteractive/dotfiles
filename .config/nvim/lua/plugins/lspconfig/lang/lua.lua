@@ -16,7 +16,11 @@ return {
             -- Enable ls hints
             hint = {
                 enable = true,
-                setType = true,
+                setType = false,
+                paramType = true,
+                paramName = "Disable",
+                semicolon = "Disable",
+                arrayIndex = "Disable",
             },
             -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {

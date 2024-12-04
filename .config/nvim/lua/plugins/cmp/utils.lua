@@ -1,11 +1,10 @@
---- @class Utils
---- @field has_words_before fun(): boolean
+---@class CMPUtils
 local M = {}
 
 --- Checks if there are words before cursor
 --- @return boolean
 function M.has_words_before()
-    if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+    if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt" then
         return false
     end
 

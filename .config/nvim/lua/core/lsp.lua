@@ -4,6 +4,8 @@ if not ok then
     return
 end
 
+--- @module "vim"
+--- @type vim.diagnostic.Opts.Signs
 local signs = {
     { name = "DiagnosticSignError", text = "" },
     { name = "DiagnosticSignWarn", text = "" },
@@ -18,9 +20,12 @@ for _, sign in ipairs(signs) do
     )
 end
 
+--- @module "vim"
+--- @type vim.diagnostic.Opts
 local config = {
-    -- disable virtual text
-    virtual_text = false,
+    virtual_text = {
+        source = "if_many",
+    },
     -- show signs
     signs = {
         active = signs,
@@ -31,7 +36,7 @@ local config = {
     float = {
         focusable = false,
         style = "minimal",
-        source = "always",
+        source = true,
         header = "",
         prefix = "",
     },
@@ -40,6 +45,9 @@ local config = {
 vim.diagnostic.config(config)
 
 vim.diagnostic.get(0, { severity = { min = vim.diagnostic.severity.WARN } })
+
+-- Turn inlay hints on by default
+vim.lsp.inlay_hint.enable(true)
 
 -- Global Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -68,36 +76,75 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         -- Buffer local mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
-        local opts = { buffer = ev.buf }
 
-        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-        vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-        vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
-        vim.keymap.set(
-            "n",
-            "<space>wr",
-            vim.lsp.buf.remove_workspace_folder,
-            opts
+        helpers.nmap(
+            "gD",
+            vim.lsp.buf.declaration,
+            { buffer = ev.buf, desc = "Jump to code declaration" }
         )
 
-        vim.keymap.set("n", "<space>wl", function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, opts)
+        helpers.nmap(
+            "gd",
+            vim.lsp.buf.definition,
+            { buffer = ev.buf, desc = "Jump to code definition" }
+        )
 
-        vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
-        vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
-        vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-        vim.keymap.set("n", "<space>f", function()
-            vim.lsp.buf.format({
-                async = true,
-                filter = function(client)
-                    return client.name == "null-ls"
-                end,
-            })
-        end, opts)
+        helpers.nmap("K", vim.lsp.buf.hover, {
+            buffer = ev.buf,
+            desc = "Display hover information in floating window",
+        })
+
+        helpers.nmap("gi", vim.lsp.buf.implementation, {
+            buffer = ev.buf,
+            desc = "List implementations in quickfix window",
+        })
+
+        helpers.nmap("<C-k>", vim.lsp.buf.signature_help, {
+            buffer = ev.buf,
+            desc = "Display signature information in floating window",
+        })
+
+        helpers.nmap("<space>wa", vim.lsp.buf.add_workspace_folder, {
+            buffer = ev.buf,
+            desc = "Add the folder at path to the workspace folders",
+        })
+
+        helpers.nmap("<space>wr", vim.lsp.buf.remove_workspace_folder, {
+            buffer = ev.buf,
+            desc = "Remove the folder at path from the workspace folders",
+        })
+
+        helpers.nmap("<space>wl", function()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end, { buffer = ev.buf, desc = "List workspace folders" })
+
+        helpers.nmap(
+            "<space>D",
+            vim.lsp.buf.type_definition,
+            { buffer = ev.buf, desc = "Jumps to the definition of the type" }
+        )
+
+        helpers.nmap(
+            "<space>rn",
+            vim.lsp.buf.rename,
+            { buffer = ev.buf, desc = "Renames all refereces to the symbol" }
+        )
+
+        helpers.nmap("<space>ca", vim.lsp.buf.code_action, {
+            buffer = ev.buf,
+            desc = "Selects code action available at current cursor position",
+        })
+
+        helpers.nmap("gr", vim.lsp.buf.references, {
+            buffer = ev.buf,
+            desc = "List all the references in the quickfix window",
+        })
+
+        helpers.nmap("<leader>i", function()
+            vim.lsp.inlay_hint.enable(
+                not vim.lsp.inlay_hint.is_enabled({ 0 }),
+                { 0 }
+            )
+        end, "Toggle inlay hints")
     end,
 })

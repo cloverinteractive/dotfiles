@@ -8,20 +8,20 @@
     st = status
     br = branch
     ci = commit
-    m = checkout master
+    m = checkout main
     sign = commit --amend -S -sC HEAD
     amend = commit --amend -C HEAD
     l = log --graph --date=short --pretty='format:%C(green)%ad %C(yellow)%h%Creset %C(cyan)%aN%Creset %s%C(magenta bold)%d%Creset'
     ll = log --decorate=short --name-status -M
-    p = format-patch master
+    p = format-patch main
     trash-clean = !git ls-files --others --exclude-standard -z | xargs -0 trash-put
-    branch-delete = !sh -c 'git cherry master $1 | grep -v "^-" > /dev/null && $( git br -d "$1" || exit 0 )  || git br -D "$1"' -
+    branch-delete = !sh -c 'git cherry main $1 | grep -v "^-" > /dev/null && $( git br -d "$1" || exit 0 )  || git br -D "$1"' -
     brd = !git branch-delete
     cleanup = !git clean -n | sed -n -e 's/Would remove \\(.*\\)/\\1/p' | tr '\n' '\\0' | xargs -0 trash-put
     bb = bisect bad
     bg = bisect good
     bs = bisect skip
-    clean-remote = !git branch -r --merged master | grep -v master | sed -e 's/\\// :/g' | xargs -n2 git push
+    clean-remote = !git branch -r --merged main | grep -v main | sed -e 's/\\// :/g' | xargs -n2 git push
 [push]
     default = tracking
 [mergetool]
@@ -31,4 +31,6 @@
 [merge]
     tool = fugitive
 [diff]
-	tool = vimdiff
+	tool = nvimdiff
+[difftool]
+	prompt = false
