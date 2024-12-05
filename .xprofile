@@ -3,7 +3,7 @@
 xrandr --output eDP-1-1 --primary --mode 3840x2160 --dpi 200.26 --brightness 0.75
 
 # Start compositor
-picom --experimental-backends --blur-method dual_kawase --blur-strength 7 -b &
+picom --blur-method dual_kawase --blur-strength 7 -b &
 
 # Set keyboard layout
 setxkbmap -layout us,us -variant ,intl -option grp:alt_shift_toggle
