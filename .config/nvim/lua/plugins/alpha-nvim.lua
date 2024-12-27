@@ -47,8 +47,8 @@ return {
         local height = 25 -- two pixels per vertical space
 
         dashboard.section.terminal.command = "cat | "
-            .. os.getenv("HOME")
-            .. "/.config/art/thisisfine.sh"
+            .. os.getenv("XDG_CONFIG_HOME")
+            .. "/art/thisisfine.sh"
         dashboard.section.terminal.width = width
         dashboard.section.terminal.height = height
         dashboard.section.terminal.opts.redraw = true

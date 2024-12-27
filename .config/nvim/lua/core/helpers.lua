@@ -1,82 +1,75 @@
----@alias RHS
----| string
----| function
+---@alias KeyCommand string | function
+---@alias KeyOpts { desc?: string, silent?: boolean, noremap?: boolean }
 
 local M = {}
 
----@module "vim"
----@alias MapOpts string | vim.keymap.set.Opts options or description
-
---- Simple keymap helper
+--- Create a keymap with sensible defaults
 ---@param mode string | string[]
----@param keys "n" | "i" | "t"
----@param command RHS
----@param opts? MapOpts
+---@param keys string
+---@param command KeyCommand
+---@param opts? string | KeyOpts
 local function keymap(mode, keys, command, opts)
-    local options = (type(opts) == "table" and opts)
-        or { noremap = true, silent = true, desc = opts }
+    local options = type(opts) == "table" and opts or { desc = opts }
+    options.noremap = options.noremap ~= false
+    options.silent = options.silent ~= false
 
     vim.keymap.set(mode, keys, command, options)
 end
 
---- Simple `n` keymap shorthand basically a shorter version of:
----    `vim.keymap.set('n', keys, command, { noremap = true, silent = true, desc = desc })`
+--- Map keys in normal mode
 ---@param keys string
----@param command RHS
----@param opts? MapOpts
+---@param command KeyCommand
+---@param opts? string | KeyOpts
 function M.nmap(keys, command, opts)
     keymap("n", keys, command, opts)
 end
 
---- Simple `i` keymap shorthand basically a shorter version of:
----    `vim.keymap.set('i', keys, command, { noremap = true, silent = true, desc = desc })`
+--- Map keys in insert mode
 ---@param keys string
----@param command RHS
----@param opts? MapOpts
+---@param command KeyCommand
+---@param opts? string | KeyOpts
 function M.imap(keys, command, opts)
     keymap("i", keys, command, opts)
 end
 
---- Simple `t` keymap shorthand basically a shorter version of:
----    `vim.keymap.set('t', keys, command, { noremap = true, silent = true, desc = desc })`
+--- Map keys in terminal mode
 ---@param keys string
----@param command RHS
----@param opts? MapOpts
+---@param command KeyCommand
+---@param opts? string | KeyOpts
 function M.tmap(keys, command, opts)
     keymap("t", keys, command, opts)
 end
 
---- Simple way to create augroups
----@param defintions table<string, table<string, string>>
-function M.augroups(defintions)
-    for group_name, definition in pairs(defintions) do
-        vim.api.nvim_command("augroup " .. group_name)
-        vim.api.nvim_command("autocmd!")
+--- Map keys in visual mode
+---@param keys string
+---@param command KeyCommand
+---@param opts? string | KeyOpts
+function M.vmap(keys, command, opts)
+    keymap("v", keys, command, opts)
+end
+
+--- Create autocommand groups
+---@param definitions table<string, string[][]>
+function M.augroups(definitions)
+    for group_name, definition in pairs(definitions) do
+        local group = vim.api.nvim_create_augroup(group_name, { clear = true })
 
         for _, def in ipairs(definition) do
-            local command = table.concat(
-                vim.iter({ "autocmd", def }):flatten():totable(),
-                " "
-            )
-            vim.api.nvim_command(command)
+            vim.api.nvim_create_autocmd(def[1], {
+                group = group,
+                pattern = def[2],
+                command = def[3],
+            })
         end
-
-        vim.api.nvim_command("augroup END")
     end
 end
 
---- Shallowly merge two tables
----@param a? table
----@param b? table
-function M.merge(a, b)
-    local first_table = a or {}
-    local second_table = b or {}
-
-    for k, v in pairs(second_table) do
-        first_table[k] = v
-    end
-
-    return first_table
+--- Merge two tables
+---@param target? table
+---@param source? table
+---@return table
+function M.merge(target, source)
+    return vim.tbl_extend("force", target or {}, source or {})
 end
 
 return M

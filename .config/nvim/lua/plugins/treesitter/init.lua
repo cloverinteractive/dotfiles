@@ -11,10 +11,14 @@ return {
             parser_install_dir = nil,
             -- A list of parser names, or "all"
             ensure_installed = {
+                "bash",
                 "c",
                 "haskell",
                 "lua",
+                "markdown",
+                "markdown_inline",
                 "python",
+                "regex",
                 "rust",
                 "sql",
                 "typescript",
@@ -45,16 +49,17 @@ return {
                 enable = true,
                 disable = { "python" },
             },
-            incremental_selection = {
-                enable = true,
-                keymaps = {
-                    -- mappings for incremental selection (visual mappings)
-                    init_selection = "<c-space>",
-                    node_incremental = "<c-space>",
-                    scope_incremental = "<c-s>",
-                    node_decremental = "<M-space>",
-                },
-            },
+            -- TODO: rethink these shortcust to not conflict with orgmode
+            -- incremental_selection = {
+            --     enable = true,
+            --     keymaps = {
+            --         -- mappings for incremental selection (visual mappings)
+            --         init_selection = "<c-space>",
+            --         node_incremental = "<c-space>",
+            --         scope_incremental = "<c-s>",
+            --         node_decremental = "<M-space>",
+            --     },
+            -- },
             install = {
                 compilers = { "clang" },
             },

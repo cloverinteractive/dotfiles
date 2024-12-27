@@ -35,3 +35,10 @@ set.hidden = true
 
 -- yank to clipboard
 set.clipboard = "unnamed,unnamedplus"
+
+-- orgmode conceal
+set.conceallevel = 2
+set.concealcursor = "nc"
+
+-- views can only be fully collapsed with the global statusline
+vim.opt.laststatus = 3
