@@ -25,8 +25,16 @@ return {
             "<cmd>Lspsaga diagnostic_jump_prev<cr>",
             desc = "Lspsaga Prev Diagnostic",
         },
-        { "K", "<cmd>Lspsaga hover_doc<cr>", desc = "Lspsaga Hover Doc" },
-        { "<space>lf", "<cmd>Lspsaga finder<cr>", desc = "Lspsaga Lsp Finder" },
+        {
+            "K",
+            "<cmd>Lspsaga hover_doc<cr>",
+            desc = "Lspsaga Hover Doc",
+        },
+        {
+            "<space>lf",
+            "<cmd>Lspsaga finder<cr>",
+            desc = "Lspsaga Lsp Finder",
+        },
         { "<space>lr", "<cmd>Lspsaga rename<cr>", desc = "Lspsaga Rename" },
         { "<space>lo", "<cmd>Lspsaga outline<cr>", desc = "Lspsaga Outline" },
     },

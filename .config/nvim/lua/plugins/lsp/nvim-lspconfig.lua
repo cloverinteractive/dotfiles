@@ -14,6 +14,7 @@ return {
             "bashls",
             "dockerls",
             "prismals",
+            "purescriptls",
             "pyright",
         }
 

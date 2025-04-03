@@ -1,3 +1,10 @@
+-- Setup mise if shims exist
+local MISE_PATH = vim.env.XDG_DATA_HOME .. "/mise/shims"
+
+if vim.uv.fs_stat(MISE_PATH) then
+    vim.env.PATH = MISE_PATH .. ":" .. vim.env.PATH
+end
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 

@@ -1,5 +1,6 @@
 return {
     "nvim-treesitter/nvim-treesitter",
+    version = "v0.9.3",
     build = function()
         local ts_update =
             require("nvim-treesitter.install").update({ with_sync = true })
@@ -17,6 +18,7 @@ return {
                 "lua",
                 "markdown",
                 "markdown_inline",
+                "org",
                 "python",
                 "regex",
                 "rust",

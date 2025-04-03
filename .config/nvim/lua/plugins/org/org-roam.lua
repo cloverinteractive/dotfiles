@@ -3,6 +3,9 @@ return {
     tag = "0.1.1",
     dependencies = {
         {
+            "nvim-treesitter/nvim-treesitter",
+        },
+        {
             "nvim-orgmode/orgmode",
             tag = "0.3.7",
         },

@@ -24,7 +24,7 @@ return {
                 end
 
                 local sign = ""
-                local lsp_clients = vim.lsp.get_active_clients()
+                local lsp_clients = vim.lsp.get_clients()
                 local messages_map = {}
 
                 for _, climsg in ipairs(client_messages) do

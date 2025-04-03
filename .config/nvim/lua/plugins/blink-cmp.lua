@@ -91,29 +91,16 @@ return {
             },
 
             -- Display a preview of the selected item on the current line
-            ghost_text = { enabled = true },
+            ghost_text = { enabled = false },
         },
 
         -- Add LuaSnip to completion suggestions
-        snippets = {
-            expand = function(snippet)
-                require("luasnip").lsp_expand(snippet)
-            end,
-            active = function(filter)
-                if filter and filter.direction then
-                    return require("luasnip").jumpable(filter.direction)
-                end
-                return require("luasnip").in_snippet()
-            end,
-            jump = function(direction)
-                require("luasnip").jump(direction)
-            end,
-        },
+        snippets = { preset = "luasnip" },
 
         -- default list of enabled providers defined so that you can extend it
         -- elsewhere in your config, without redefining it, via `opts_extend`
         sources = {
-            default = { "lsp", "path", "luasnip", "buffer" },
+            default = { "lsp", "path", "snippets", "buffer" },
             -- optionally disable cmdline completions
             -- cmdline = {},
         },
@@ -126,7 +113,6 @@ return {
                 "Avante",
                 "AvanteInput",
                 "DressingInput",
-                -- "NvimTree",
                 "Telescope",
                 "TelescopePrompt",
                 "markdown",
