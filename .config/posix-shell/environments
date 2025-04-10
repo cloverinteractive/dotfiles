@@ -9,7 +9,7 @@ if [[ -x $FNM_PATH ]]; then
   eval "$(fnm env --use-on-cd)"
 fi
 
-if [[ -x $HOME/.pyenv ]]; then
+if [[ -x $PYENV_PATH ]]; then
   eval "$(pyenv init -)"
 fi
 
