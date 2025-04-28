@@ -1,6 +1,8 @@
 FNM_PATH=$(which fnm)
 GHCUP_ENV=$HOME/.ghcup/env
-NIX_PROFILE=$HOME/.nix-profile/etc/profile.d/nix.sh
+NIX_PROFILE_USER=$HOME/.nix-profile/etc/profile.d/nix.sh
+NIX_PROFILE_SYSTEM=/nix/var/nix/profiles/default/etc/profile.d/nix.sh
+NIX_DAEMON_SYSTEM=/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 NVIM_PATH=$(which nvim)
 PYENV_PATH=$(which pyenv)
 QT5CT_PATH=$(which qt5ct)
@@ -23,8 +25,11 @@ if [[ -x $PYENV_PATH ]]; then
   eval "$(pyenv virtualenv-init -)"
 fi
 
-if [[ -f $NIX_PROFILE ]]; then
-  source $NIX_PROFILE
+if [[ -f $NIX_PROFILE_USER ]]; then
+  source $NIX_PROFILE_USER
+elif [[ -f $NIX_PROFILE_SYSTEM ]]; then
+  source $NIX_DAEMON_SYSTEM
+  source $NIX_PROFILE_SYSTEM
 fi
 
 if [[ -x QT5CT_PATH ]]; then

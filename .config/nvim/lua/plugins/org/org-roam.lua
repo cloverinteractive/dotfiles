@@ -7,7 +7,6 @@ return {
         },
         {
             "nvim-orgmode/orgmode",
-            tag = "0.3.7",
         },
     },
     config = function()
