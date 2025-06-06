@@ -16,6 +16,7 @@ return {
             "prismals",
             "purescriptls",
             "pyright",
+            "tailwindcss",
         }
 
         -- Servers with custom config
