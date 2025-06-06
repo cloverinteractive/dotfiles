@@ -7,10 +7,10 @@ end
 --- @module "vim"
 --- @type vim.diagnostic.Opts.Signs
 local signs = {
-    { name = "DiagnosticSignError", text = "" },
-    { name = "DiagnosticSignWarn", text = "" },
-    { name = "DiagnosticSignHint", text = "" },
-    { name = "DiagnosticSignInfo", text = "" },
+    { name = "DiagnosticSignError", text = " " },
+    { name = "DiagnosticSignWarn", text = " " },
+    { name = "DiagnosticSignHint", text = "" },
+    { name = "DiagnosticSignInfo", text = " " },
 }
 
 for _, sign in ipairs(signs) do
@@ -23,10 +23,12 @@ end
 --- @module "vim"
 --- @type vim.diagnostic.Opts
 local config = {
-    virtual_text = {
-        source = "if_many",
-    },
+    -- virtual_text = {
+    --     hl_mode = "combine",
+    --     source = "if_many",
+    -- },
     -- show signs
+    virtual_text = false,
     signs = {
         active = signs,
     },
@@ -65,6 +67,10 @@ helpers.nmap(
     vim.diagnostic.setloclist,
     "LSP - Add buffer diagnostics to location list"
 )
+
+helpers.nmap("<leader>td", function()
+    vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end, "LSP - Toggle Diagnostics")
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer

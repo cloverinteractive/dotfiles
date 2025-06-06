@@ -25,82 +25,88 @@ DEPENDENCIES=(curl git stow)
 
 # Print red
 error () {
-  printf "\r${RED}$1${NORMAL}\n"
-  exit
+    printf "\r${RED}$1${NORMAL}\n"
+    exit
 }
 
 # Print green
 success () {
-  printf "\r${GREEN}$1${NORMAL}\n"
+    printf "\r${GREEN}$1${NORMAL}\n"
 }
 
 # Print yellow
 info () {
-  printf "\r${YELLOW}$1${NORMAL}\n"
+    printf "\r${YELLOW}$1${NORMAL}\n"
 }
 
 # Install suggestion
 suggestion () {
-  if [[ $PLATFORM == "linux" ]]; then
-    CMD_NAME="sudo apt-get"
-  else
-    CMD_NAME="brew"
-  fi
+    if [[ $PLATFORM == "linux" ]]; then
+        CMD_NAME="sudo apt-get"
+    else
+        CMD_NAME="brew"
+    fi
 
-  info "$CMD_NAME install $1"
+    info "$CMD_NAME install $1"
 }
 
 # Fetch dotfiles from github
 fetch_dotfiles () {
-  info "Fetching dotfiles..."
-  local BRANCH_NAME
+    info "Fetching dotfiles..."
+    local BRANCH_NAME
 
-  # Figure out the branch we're working on
-  ! [[ "$1" ]] && BRANCH_NAME="master" || BRANCH_NAME="$1"
+    # Figure out the branch we're working on
+    ! [[ "$1" ]] && BRANCH_NAME="master" || BRANCH_NAME="$1"
 
-  git clone -b $BRANCH_NAME https://github.com/cloverinteractive/dotfiles.git ~/.dotfiles
-  cd ~/.dotfiles
+    git clone -b $BRANCH_NAME https://github.com/cloverinteractive/dotfiles.git ~/.dotfiles
+    cd ~/.dotfiles
 }
 
 # Exit if installer dependecy is not found
 for dependency in "${DEPENDENCIES}"; do
-  path="$(which ${dependency})"
+    path="$(which ${dependency})"
 
-  if [[ ! -x "${path}" ]]; then
-    info "$dependency was not found in your system"
-    suggestion $dependency
+    if [[ ! -x "${path}" ]]; then
+        info "$dependency was not found in your system"
+        suggestion $dependency
 
-    exit 1
-  fi
+        exit 1
+    fi
 done
 
 # If no arguments where sent clone master
 if [ "$#" == "0" ]; then
-  fetch_dotfiles
+    fetch_dotfiles
 fi
 
 # Check arguments
 while [ "$#" -gt 0 ]; do
-  case "$1" in
-    -b | --branch)
-      fetch_dotfiles "$2"
-      shift 2
-      ;;
-    -s | --skip-clone)
-      shift 1
-      ;;
-    * )
-      error "Unknown option: $1"
-      exit 1
-      ;;
-  esac
+    case "$1" in
+        -b | --branch)
+            fetch_dotfiles "$2"
+            shift 2
+            ;;
+        -s | --skip-clone)
+            shift 1
+            ;;
+        * )
+            error "Unknown option: $1"
+            exit 1
+            ;;
+    esac
 done
 
 info "Linking dotfiles"
 
 if [[ ! -e "$HOME/.config" ]]; then
-  mkdir $HOME/.config
+    mkdir $HOME/.config
 fi
+
+info "copying OS specifiq files based on kernel"
+
+for file in `/bin/ls -R .config/**/*.${PLATFORM}`;  do
+    cp $file ${file%.*}
+done
 
 stow -v .
 

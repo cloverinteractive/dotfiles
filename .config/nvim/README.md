@@ -7,7 +7,7 @@ it or leave it alone if you either prefer nvim or don't have it installed.
 
 ## Requirements
 
-- Nvim 0.7.2 or latest
+- Nvim 0.10 or latest
 
 ## Plugins
 
@@ -18,10 +18,6 @@ Plugin management system, this is how you get newer plugins installed.
 ### Colorizer
 
 Colorizes rbga and hex codes in your code automatically
-
-### Nvim-tree
-
-Lua backed file explorer if you need one, toggling is automatically mapped to `<Leader> + ee`
 
 ### Nightfox
 
@@ -43,10 +39,6 @@ to install it.
 
 LSP auto-completion Plugin
 
-### Cmp_luasnip
-
-Snippet support for `nvim-cmp`
-
 ### LuaSnip
 
 Snippets for lua, these make configuring nvim a breeze
@@ -60,15 +52,6 @@ automatic expression fold.
 
 A collection of lua functions for string matching that no-one wants to write each time
 
-## Telescope
+### Telescope
 
 Nvim fuzzy search, match file names, live grep, history and more
-
-## Github Copilot
-
-You can disable copilot if you do not wish to use it by removing it from `.config/nvim/lua/plugins`
-if you wish to use copilot make sure you have a subscription to it and run `Copilot setup`
-and follow the stepsm copilot should be enabled by default.
-
-If you wish to change copilot's config just edit `.config/nvim/lua/plugins/copilot.lua`
-you can execute `Copilot help` for more information on the different options.

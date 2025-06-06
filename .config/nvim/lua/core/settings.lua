@@ -1,3 +1,10 @@
+-- Setup mise if shims exist
+local MISE_PATH = vim.env.XDG_DATA_HOME .. "/mise/shims"
+
+if vim.uv.fs_stat(MISE_PATH) then
+    vim.env.PATH = MISE_PATH .. ":" .. vim.env.PATH
+end
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -35,3 +42,10 @@ set.hidden = true
 
 -- yank to clipboard
 set.clipboard = "unnamed,unnamedplus"
+
+-- orgmode conceal
+set.conceallevel = 2
+set.concealcursor = "nc"
+
+-- views can only be fully collapsed with the global statusline
+vim.opt.laststatus = 3
