@@ -5,12 +5,21 @@ return {
     opts = {
         provider = "copilot",
         -- auto_suggestions_provider = "copilot",
-        -- behaviour = {
-        --     enable_cursor_planning_mode = true,
-        -- },
+        behaviour = {
+            enable_cursor_planning_mode = true,
+            real_time_inline_suggestions = true, -- Enables inline suggestions for text editing
+            suggestion_preview = {
+                interactive = true, -- Use Telescope for interactive suggestion previews
+                style = {
+                    border = "rounded", -- Rounded border for previews
+                    highlight = "CursorLine", -- Highlight active line in preview
+                },
+            },
+            fallback_providers = { "copilot", "ollama" }, -- Fallback mechanism if primary provider fails
+        },
         providers = {
             copilot = {
-                model = "claude-3.7-sonnet",
+                model = "gpt-4o-2024-11-20",
             },
             ollama = {
                 endpoint = "http://localhost:11434",
@@ -29,14 +38,7 @@ return {
         "nvim-telescope/telescope.nvim",
         "ibhagwan/fzf-lua",
         "nvim-tree/nvim-web-devicons",
-        {
-            "zbirenbaum/copilot.lua",
-            cmd = "Copilot",
-            event = "InsertEnter",
-            config = function()
-                require("copilot").setup({})
-            end,
-        },
+        "zbirenbaum/copilot.lua",
         {
             -- support for image pasting
             "HakonHarnes/img-clip.nvim",
