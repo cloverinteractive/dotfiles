@@ -1,7 +1,7 @@
 FROM ubuntu:rolling
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV USER test
+ENV DEBIAN_FRONTEND=noninteractive
+ENV USER=test
 
 RUN useradd test
 RUN usermod -aG sudo test
@@ -24,6 +24,12 @@ RUN apt-get install -y \
   sudo \
   zsh
 
+# Install xmonad dependencies
+RUN sudo apt-get install -y \
+  git \
+  haskell-stack \
+  libx11-dev libxft-dev libxinerama-dev libxrandr-dev libxss-dev
+
 # Add don't require password for test in sudoers 
 RUN echo "test ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
@@ -34,7 +40,7 @@ RUN echo 'export ZDOTDIR=$HOME/.config/zsh' >> /etc/zsh/zshenv
 RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
 # Install nvim stable
-RUN curl -L https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb -o nvim.deb
+RUN curl -L https://github.com/neovim/neovim-releases/releases/download/v0.11.3/nvim-linux-x86_64.deb -o nvim.deb
 RUN dpkg -i nvim.deb
 RUN rm -fr nvim.deb
 

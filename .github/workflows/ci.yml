@@ -1,0 +1,37 @@
+name: CI
+
+on: [push]
+
+jobs:
+  xmonad:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt install -y libx11-dev libxft-dev libxinerama-dev libxrandr-dev libxss-dev haskell-stack
+
+      - name: Fetch xmonad and xmonad-contrib
+        run: | 
+          cd .config/xmonad
+          git clone --branch v0.18.0 https://github.com/xmonad/xmonad
+          git clone --branch v0.18.1 https://github.com/xmonad/xmonad-contrib
+
+      - name: Build xmonad
+        run: |
+          cd .config/xmonad
+          stack install --allow-newer
+
+      - name: Build xmonad.hs
+        run: |
+          cd .config/xmonad
+          stack install split
+          stack ghc --  \
+            --make xmonad.hs \
+            -i               \
+            -ilib            \
+            -fforce-recomp   \
+            -main-is main    \
+            -v0              \
+            -o "$1"

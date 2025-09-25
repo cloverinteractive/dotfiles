@@ -9,15 +9,7 @@ return {
     config = function()
         local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-        -- Simple servers with default config
-        local simple_servers = {
-            "bashls",
-            "dockerls",
-            "prismals",
-            "purescriptls",
-            "pyright",
-            "tailwindcss",
-        }
+        vim.lsp.config("*", { capabilities = capabilities })
 
         -- Servers with custom config
         local custom_servers = {
@@ -27,27 +19,27 @@ return {
             ts_ls = "typescript",
         }
 
-        local lspconfig = require("lspconfig")
-        local helpers = require("core.helpers")
-
-        -- Setup servers with default config
-        for _, server in ipairs(simple_servers) do
-            lspconfig[server].setup({ capabilities = capabilities })
-        end
-
         -- Setup servers with custom config
         for server, config_name in pairs(custom_servers) do
             local ok, custom_config =
                 pcall(require, "plugins.lsp.lang." .. config_name)
 
             if ok then
-                lspconfig[server].setup(
-                    helpers.merge(
-                        custom_config,
-                        { capabilities = capabilities }
-                    )
-                )
+                vim.lsp.config(server, custom_config)
             end
         end
+
+        vim.lsp.enable({
+            "bashls",
+            "dockerls",
+            "hls",
+            "lua_ls",
+            "nil_ls",
+            "prismals",
+            "purescriptls",
+            "pyright",
+            "tailwindcss",
+            "ts_ls",
+        })
     end,
 }
