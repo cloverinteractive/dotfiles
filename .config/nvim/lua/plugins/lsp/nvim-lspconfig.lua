@@ -9,7 +9,7 @@ return {
     config = function()
         local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-        vim.lsp.config("*", { capabilities = capabilities })
+        vim.lsp.config("*", { capabilities })
 
         -- Servers with custom config
         local custom_servers = {
