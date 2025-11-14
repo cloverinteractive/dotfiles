@@ -38,7 +38,13 @@ return {
         "nvim-telescope/telescope.nvim",
         "ibhagwan/fzf-lua",
         "nvim-tree/nvim-web-devicons",
-        "zbirenbaum/copilot.lua",
+        {
+            "zbirenbaum/copilot.lua",
+            requires = { "copilotlsp-nvim/copilot-lsp" },
+            config = function()
+                require("copilot").setup({})
+            end,
+        },
         {
             -- support for image pasting
             "HakonHarnes/img-clip.nvim",
