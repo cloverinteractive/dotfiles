@@ -9,7 +9,9 @@ return {
     config = function()
         local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-        vim.lsp.config("*", { capabilities })
+        vim.lsp.config("*", {
+            capabilities = capabilities,
+        })
 
         -- Servers with custom config
         local custom_servers = {
@@ -40,6 +42,7 @@ return {
             "pyright",
             "tailwindcss",
             "ts_ls",
+            "vacuum",
         })
     end,
 }
