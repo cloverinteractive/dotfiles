@@ -10,7 +10,6 @@ return {
             "black", -- Python
             "cmakelang", -- CMake
             "elm-format", -- Elm
-            "prettier", -- JavaScript, TypeScript, CSS, HTML, JSON, YAML, and more
             "prettierd", -- JavaScript, TypeScript, CSS, HTML, JSON, YAML, and more
             "purescript-tidy", -- PureScript
             "stylua", -- Lua
