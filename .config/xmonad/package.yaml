@@ -1,0 +1,14 @@
+name: xmonad-config
+version: 0.1.0.0
+
+executables:
+  xmonad-config:
+    main: xmonad.hs
+    source-dirs: .
+    dependencies:
+      - base
+      - containers
+      - split
+      - X11
+      - xmonad
+      - xmonad-contrib

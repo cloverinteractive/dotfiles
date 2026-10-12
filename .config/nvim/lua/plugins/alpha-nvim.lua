@@ -1,7 +1,10 @@
 return {
     "goolord/alpha-nvim",
     event = "VimEnter",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = {
+        "nvim-tree/nvim-web-devicons",
+        "nvim-telescope/telescope.nvim",
+    },
     opts = function()
         require("alpha")
         require("alpha.term")

@@ -6,10 +6,10 @@ I would recommend fetching from git as it will ensure every one of the new featu
 Start by fetching xomnad and xmonad-contrib into your xmonad config director, and add a `stack.yml` like this:
 
 ```yaml
-resolver:
-  url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/9.yaml
+snapshot: lts-24.63
 
 packages:
+- .
 - xmonad
 - xmonad-contrib
 ```
@@ -27,3 +27,7 @@ Exec=/path/to/your/xmonad-binary
 Starting xmonad should look similar to this:
 
 ![xmonad](desktop.png)
+
+## hsl
+
+You may want to open nvim as such `env LANG=C.UTF-8 nvim` if you're not setting LANG globally as hls will require this.
