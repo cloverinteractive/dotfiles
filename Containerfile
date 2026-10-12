@@ -62,7 +62,4 @@ COPY install /home/test/.dotfiles/install
 RUN sudo chown -R test:test /home/test/.dotfiles
 RUN cd /home/test/.dotfiles && ./install -s
 
-# Remove this nonsense coming from /etc/bash.bashrc
-RUN rm ~/.sudo_as_admin_successful
-
 CMD ["bash"]

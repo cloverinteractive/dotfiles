@@ -22,7 +22,8 @@ RUN apt-get install -y \
   stow \
   xz-utils \
   sudo \
-  zsh
+  zsh \
+  neovim
 
 # Install xmonad dependencies
 RUN sudo apt-get install -y \
@@ -40,9 +41,9 @@ RUN echo 'export ZDOTDIR=$HOME/.config/zsh' >> /etc/zsh/zshenv
 RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
 # Install nvim stable
-RUN curl -L https://github.com/neovim/neovim-releases/releases/download/v0.11.3/nvim-linux-x86_64.deb -o nvim.deb
-RUN dpkg -i nvim.deb
-RUN rm -fr nvim.deb
+# RUN curl -L https://github.com/neovim/neovim-releases/releases/download/v0.11.3/nvim-linux-x86_64.deb -o nvim.deb
+# RUN dpkg -i nvim.deb
+# RUN rm -fr nvim.deb
 
 USER test
 
@@ -62,7 +63,5 @@ COPY install /home/test/.dotfiles/install
 RUN sudo chown -R test:test /home/test/.dotfiles
 RUN cd /home/test/.dotfiles && ./install -s
 
-# Remove this nonsense coming from /etc/bash.bashrc
-RUN rm ~/.sudo_as_admin_successful
 
 CMD ["bash"]
