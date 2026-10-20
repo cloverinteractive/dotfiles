@@ -30,6 +30,21 @@ RUN sudo apt-get install -y \
   haskell-stack \
   libx11-dev libxft-dev libxinerama-dev libxrandr-dev libxss-dev
 
+# Copy MISE binaries
+COPY --from=ghcr.io/jdx/mise:2026.10.4 /usr/local/bin/mise /usr/local/bin/mise
+
+RUN apt-get update \
+  && apt-get -y --no-install-recommends install ca-certificates git \
+  && rm -rf /var/lib/apt/lists/*
+
+ENV MISE_DATA_DIR="/mise"
+ENV MISE_CONFIG_DIR="/mise"
+ENV MISE_CACHE_DIR="/mise/cache"
+ENV PATH="/mise/shims:$PATH"
+
+# Install novim
+RUN mise use neovim@latest
+
 # Add don't require password for test in sudoers 
 RUN echo "test ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
@@ -39,14 +54,13 @@ RUN echo 'export ZDOTDIR=$HOME/.config/zsh' >> /etc/zsh/zshenv
 # Install latest starship
 RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
-# Install nvim stable
-RUN curl -L https://github.com/neovim/neovim-releases/releases/download/v0.11.3/nvim-linux-x86_64.deb -o nvim.deb
-RUN dpkg -i nvim.deb
-RUN rm -fr nvim.deb
-
 USER test
 
 WORKDIR /home/test
+
+# Install rustup in local dir
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+  | sh -s -- -y --profile minimal --default-toolchain stable
 
 RUN mkdir /home/test/.dotfiles
 
