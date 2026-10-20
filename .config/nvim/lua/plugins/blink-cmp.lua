@@ -1,6 +1,7 @@
 return {
     "saghen/blink.cmp",
     dependencies = {
+        "saghen/blink.lib",
         { "L3MON4D3/LuaSnip", version = "v2.*" },
     },
     event = "LspAttach",
