@@ -7,7 +7,7 @@ it or leave it alone if you either prefer nvim or don't have it installed.
 
 ## Requirements
 
-- Nvim 0.10 or latest
+- Nvim 0.12.3 or latest
 
 ## Plugins
 
@@ -34,10 +34,6 @@ LSP configuration plugin, if you want to know how to setup your language server 
 Language server installation plugin, it will sort out fetching and installing the server of your choice
 just run `:Mason` for a list of supported servers both installed and available and `:MasonInstall server`
 to install it.
-
-### Nvim-cmp and cmp-nvim-lsp
-
-LSP auto-completion Plugin
 
 ### LuaSnip
 
