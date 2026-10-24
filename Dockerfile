@@ -42,7 +42,7 @@ ENV MISE_CONFIG_DIR="/mise"
 ENV MISE_CACHE_DIR="/mise/cache"
 ENV PATH="/mise/shims:$PATH"
 
-# Install novim
+# Install neovim
 RUN mise use neovim@latest
 
 # Add don't require password for test in sudoers 
